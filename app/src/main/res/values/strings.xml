@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CST2335-FinalProject</string>
+    <string name="bear_new_image_button">Generate New Image</string>
+    <string name="bear_new_image_text">Name the image</string>
 </resources>
