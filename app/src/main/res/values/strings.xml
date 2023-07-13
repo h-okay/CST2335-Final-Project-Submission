@@ -5,4 +5,8 @@
     <string name="bear_image_text">Name of the image</string>
     <string name="bear_image_date">Date of the image</string>
     <string name="bear_image_description">Bear Image Entry</string>
+    <string name="bear_details_name">Name of the Image</string>
+    <string name="bear_details_date">Date added</string>
+    <string name="bear_details_sizes">Size</string>
+    <string name="bear_details_description">Size</string>
 </resources>
