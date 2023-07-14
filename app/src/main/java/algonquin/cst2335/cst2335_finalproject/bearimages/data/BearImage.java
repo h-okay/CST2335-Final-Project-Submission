@@ -20,20 +20,44 @@ public class BearImage {
     @ColumnInfo(name = "name")
     protected String name;
 
+    @ColumnInfo(name = "height")
+    protected int height;
+
+    @ColumnInfo(name = "weight")
+    protected int weight;
+
     @ColumnInfo(name = "created")
     protected Date created_date;
 
     public BearImage() {
     }
 
-    public BearImage(Blob i, String n, Date date) {
+    public BearImage(Blob i, String n, int h, int w, Date date) {
         this.image = i;
         this.name = n;
+        this.height = h;
+        this.weight = w;
         this.created_date = date;
     }
 
     public Blob getImage() {
         return image;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     public void setImage(Blob image) {
