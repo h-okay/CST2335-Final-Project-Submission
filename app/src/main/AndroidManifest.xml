@@ -29,17 +29,16 @@
         <activity
             android:name=".bearimages.ui.BearApplication"
             android:exported="true" />
-        <!--
-                <activity
-                    android:name=""
-                    android:exported="true" />
-                <activity
-                    android:name=""
-                    android:exported="true" />
-                <activity
-                    android:name=""
-                    android:exported="true" />
-        -->
+        <activity
+            android:name=".CurrencyConverter.Splash"
+            android:exported="true" />
+        <!--     <activity
+                 android:name=""
+                 android:exported="true" />
+             <activity
+                 android:name=""
+                 android:exported="true" />
+     -->
     </application>
 
 </manifest>
