@@ -1,11 +1,10 @@
 package algonquin.cst2335.cst2335_finalproject.bearimages.data;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.sql.Blob;
-import java.sql.Date;
 
 @Entity
 public class BearImage {
@@ -15,32 +14,28 @@ public class BearImage {
     public int id;
 
     @ColumnInfo(name = "img")
-    protected Blob image;
-
-    @ColumnInfo(name = "name")
-    protected String name;
+    protected byte[] image;
 
     @ColumnInfo(name = "height")
     protected int height;
 
-    @ColumnInfo(name = "weight")
-    protected int weight;
+    @ColumnInfo(name = "width")
+    protected int width;
 
     @ColumnInfo(name = "created")
-    protected Date created_date;
+    protected String createdDate;
 
     public BearImage() {
     }
 
-    public BearImage(Blob i, String n, int h, int w, Date date) {
+    public BearImage(byte[] i, int h, int w, String date) {
         this.image = i;
-        this.name = n;
         this.height = h;
-        this.weight = w;
-        this.created_date = date;
+        this.width = w;
+        this.createdDate = date;
     }
 
-    public Blob getImage() {
+    public byte[] getImage() {
         return image;
     }
 
@@ -52,31 +47,30 @@ public class BearImage {
         this.height = height;
     }
 
-    public int getWeight() {
-        return weight;
+    public int getWidth() {
+        return width;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public void setWidth(int weight) {
+        this.width = weight;
     }
 
-    public void setImage(Blob image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
-    public String getName() {
-        return name;
+
+    public String getCreatedDate() {
+        return createdDate;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCreated_date(String created_date) {
+        this.createdDate = created_date;
     }
 
-    public Date getCreated_date() {
-        return created_date;
-    }
-
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
+    @NonNull
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }
