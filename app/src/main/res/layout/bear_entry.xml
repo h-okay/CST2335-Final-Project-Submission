@@ -14,15 +14,15 @@
         android:text="@string/bear_image_date"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/bearImageView"
-        app:layout_constraintTop_toBottomOf="@+id/bearImageNameText" />
+        app:layout_constraintTop_toBottomOf="@+id/bearImageSizesText" />
 
     <TextView
-        android:id="@+id/bearImageNameText"
+        android:id="@+id/bearImageSizesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="@string/bear_image_text"
+        android:text="@string/bear_details_sizes"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/bearImageView"
         app:layout_constraintTop_toTopOf="parent" />

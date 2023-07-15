@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">CST2335-FinalProject</string>
-    <string name="bear_new_image_button">Generate New Image</string>
-    <string name="bear_new_image_text">Name the Image</string>
+    <string name="bear_new_image_button">Generate</string>
+    <string name="bear_new_image_height">Height</string>
+    <string name="bear_new_image_width">Width</string>
     <string name="bear_image_text">Name of the image</string>
     <string name="bear_image_date">Date of the image</string>
     <string name="bear_image_description">Bear Image Entry</string>
-    <string name="bear_details_name">Name of the Image</string>
     <string name="bear_details_date">Date added</string>
     <string name="bear_details_sizes">Size</string>
     <string name="bear_details_description">Size</string>
