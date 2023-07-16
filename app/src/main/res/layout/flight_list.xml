@@ -13,43 +13,31 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Flight details: Destination, Terminal, Gate, Delay -->
-
+        <!-- Flight details:  -->
 
         <TextView
-            android:id="@+id/airportcode"
-            android:layout_width="match_parent"
+            android:id="@+id/flightNumber"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="airport code goes here" />
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="flight number goes here" />
+
+        <TextView
+            android:id="@+id/departureTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="departure data here" />
 
         <TextView
             android:id="@+id/destination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:text="desination goes here" />
-
-        <TextView
-            android:id="@+id/terminal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:text="terminal data here" />
-
-        <TextView
-            android:id="@+id/gate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:textSize="13sp"
             android:text="gate info here" />
 
-        <TextView
-            android:id="@+id/delay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:text="delay time here" />
+
 
     </LinearLayout>
 
