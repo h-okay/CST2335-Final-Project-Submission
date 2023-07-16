@@ -1,6 +1,8 @@
 package algonquin.cst2335.cst2335_finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,17 +11,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
 
+public class FlightMainActivity extends AppCompatActivity {
+
+
+    private RecyclerView recyclerView;
+    private FlightAdapter flightAdapter;
     private Button enterButton;
     private EditText typeAirportCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.flight_main);
 
         typeAirportCode = findViewById(R.id.typeAirportCode);
+
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         // Retrieve and set the saved EditText value
         typeAirportCode.setText(getSavedEditTextValue("airportCode", ""));
 
@@ -27,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                performFlightSearch();
                 String airportCode = typeAirportCode.getText().toString();
                 // Save the EditText value
                 saveEditTextValue("airportCode", airportCode);
@@ -51,4 +63,21 @@ public class MainActivity extends AppCompatActivity {
         // Retrieve the saved EditText value using the key
         return sharedPreferences.getString(airportCode, defaultValue);
     }
+
+    private void performFlightSearch() {
+        String airportCode = typeAirportCode.getText().toString();
+        // Perform the flight search using the airport code
+        List<Flight> flightList = getFlightResults(airportCode);
+
+        flightAdapter = new FlightAdapter(flightList);
+        recyclerView.setAdapter(flightAdapter);
+    }
+
+    // Method to retrieve flight results based on search query
+    private List<Flight> getFlightResults(String airportCode) {
+        // Implement your logic here to fetch flight results based on the airport code
+        // Return a list of Flight objects
+    }
 }
+
+

@@ -24,13 +24,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/round_button"
-        android:text="@string/enter"
+        android:text="search"
         android:textColor="@color/black" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="639dp"
+        android:layout_height="match_parent"
         android:scrollbars="vertical"
         android:textSize="13sp"/>
 
