@@ -1,8 +1,13 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.CST2335FinalProject" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.CST2335FinalProject" parent="Theme.Material3.DayNight.NoActionBar"> // no action bar on the top
+
+        <item name="colorPrimary">@color/my_primary</item>
+        <item name="colorSecondary">@color/my_secondary</item>
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/my_statusbar</item>
+        <item name="android:textColor">@color/my_text</item>
+
     </style>
 
     <style name="Theme.CST2335FinalProject" parent="Base.Theme.CST2335FinalProject" />
