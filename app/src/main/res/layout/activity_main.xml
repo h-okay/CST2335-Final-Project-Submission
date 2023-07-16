@@ -12,21 +12,20 @@
         android:id="@+id/typeAirportCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autofillHints="aiport code"
         android:hint="@string/enter_airport_code"
-        android:textSize="20sp"
-        android:textColor="@color/black"
         android:inputType="text"
-        android:autofillHints="aiport code"/>
+        android:textColor="@color/black"
+        android:textSize="20sp" />
 
     <!-- RecyclerView to display flight list -->
     <Button
         android:id="@+id/enterButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/round_button"
         android:text="@string/enter"
-        android:textColor="@color/black"
-        android:background="@color/my_secondary"
-        />
+        android:textColor="@color/black" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
