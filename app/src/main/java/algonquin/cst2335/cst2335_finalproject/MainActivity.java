@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
+    // sharedPreferences
     private void saveEditTextValue(String airportCode, String value) {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
