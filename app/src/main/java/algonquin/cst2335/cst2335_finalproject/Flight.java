@@ -2,22 +2,29 @@ package algonquin.cst2335.cst2335_finalproject;
 
 public class Flight {
 
+    private String departureAirport;
+
     private String flightNumber;
-    private String departureTime;
+    private String flightName;
     private String destination;
 
-    public Flight(String flightNumber, String departureTime, String destination) {
+    public Flight(String departureAirport, String flightNumber, String flightName, String destination) {
+        this.departureAirport = departureAirport;
         this.flightNumber = flightNumber;
-        this.departureTime = departureTime;
+        this.flightName = flightName;
         this.destination = destination;
+    }
+
+    public String getDepartureAirport() {
+        return departureAirport;
     }
 
     public String getFlightNumber() {
         return flightNumber;
     }
 
-    public String getDepartureTime() {
-        return departureTime;
+    public String getFlightName() {
+        return flightName;
     }
 
     public String getDestination() {

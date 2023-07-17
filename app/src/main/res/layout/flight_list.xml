@@ -10,41 +10,88 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="115dp"
+        android:layout_height="match_parent"
+        android:background="@color/ticket"
         android:orientation="vertical"
         android:padding="16dp">
 
         <!-- Flight details:  -->
 
+        <TextView
+            android:id="@+id/departure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/departure"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/departureAirport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="name of the airport"
+            app:layout_constraintStart_toEndOf="@+id/departure"
+            app:layout_constraintTop_toTopOf="@+id/departure" />
+
+        <TextView
+            android:id="@+id/flightLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/flight_name"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/departureAirport" />
+
+        <TextView
+            android:id="@+id/flightName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="flight name goes here"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/flightLabel"
+            app:layout_constraintTop_toTopOf="@+id/flightLabel" />
+
+        <TextView
+            android:id="@+id/flightNumberLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/flight_number"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/flightLabel"
+            app:layout_constraintTop_toBottomOf="@+id/flightName" />
 
         <TextView
             android:id="@+id/flightNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="flight number goes here"
+            android:layout_marginStart="10dp"
+            android:text="Flight Number here"
             android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/flightNumberLabel"
+            app:layout_constraintTop_toTopOf="@+id/flightNumberLabel" />
 
         <TextView
-            android:id="@+id/departureTime"
+            android:id="@+id/destinationLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="departure data here"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="@+id/destination"
-            app:layout_constraintTop_toBottomOf="@+id/destination" />
+            android:text="@string/destination"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/flightNumberLabel"
+            app:layout_constraintTop_toBottomOf="@+id/flightNumber" />
 
         <TextView
             android:id="@+id/destination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="gate info here"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="@+id/flightNumber"
-            app:layout_constraintTop_toBottomOf="@+id/flightNumber" />
+            android:layout_marginStart="10dp"
+            android:text="destination info here"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/destinationLabel"
+            app:layout_constraintTop_toTopOf="@+id/destinationLabel" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
