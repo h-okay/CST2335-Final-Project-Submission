@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -49,8 +50,6 @@ public class FlightMainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-
         // Retrieve and set the saved EditText value
         typeAirportCode.setText(getSavedEditTextValue("airportCode", ""));
 
@@ -61,8 +60,9 @@ public class FlightMainActivity extends AppCompatActivity {
                 String airportCode = typeAirportCode.getText().toString();
                 // Save the EditText value
                 saveEditTextValue("airportCode", airportCode);
-               // Toast.makeText(getApplicationContext(), "Airport code saved!", Toast.LENGTH_SHORT).show();
+
                 getFlightResults(airportCode);
+                Toast.makeText(getApplicationContext(), "Airport code entered!", Toast.LENGTH_SHORT).show();
             }
         });
 
