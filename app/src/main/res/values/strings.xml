@@ -9,4 +9,18 @@
     <string name="bear_details_date">Date added</string>
     <string name="bear_details_sizes">Size</string>
     <string name="bear_details_description">Size</string>
+
+    <string-array name="currency_codes">
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>USD</item>
+        <item>EUR</item>
+    </string-array>
+
+    <string-array name="currency_names">
+        <item>Australian Dollar</item>
+        <item>Canadian Dollar</item>
+        <item>US Dollar</item>
+        <item>Europe Euro</item>
+    </string-array>
 </resources>
