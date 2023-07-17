@@ -46,12 +46,12 @@ public class FlightMainActivity extends AppCompatActivity {
 
         typeAirportCode = findViewById(R.id.typeAirportCode);
 
-
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Retrieve and set the saved EditText value
-        typeAirportCode.setText(getSavedEditTextValue("airportCode", ""));
+        String savedAirportCode = getSavedEditTextValue("airportCode", "");
+        typeAirportCode.setText(savedAirportCode);
 
         enterButton = findViewById(R.id.enterButton);
         enterButton.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +67,11 @@ public class FlightMainActivity extends AppCompatActivity {
         });
 
         initializeRecyclerView();
+
+        // Check if there is a saved airport code and fetch flight results
+        if (!savedAirportCode.isEmpty()) {
+            getFlightResults(savedAirportCode);
+        }
     }
 
     private void initializeRecyclerView() {
