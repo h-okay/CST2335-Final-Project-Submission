@@ -31,7 +31,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FlightMainActivity extends AppCompatActivity {
+public class FlightMainActivity extends AppCompatActivity
+{
 
     private List<Flight> flightList;
     private RecyclerView recyclerView;
