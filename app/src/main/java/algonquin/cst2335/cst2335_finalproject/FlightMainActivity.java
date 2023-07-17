@@ -117,12 +117,12 @@ public class FlightMainActivity extends AppCompatActivity {
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject flightObject = array.getJSONObject(i);
 
-                                String destination = flightObject.getJSONObject("airline").getString("name") +
-                                        flightObject.getJSONObject("flight").getString("icao");
-                                String terminal = flightObject.getString("flight_status");
-                                String gate = flightObject.getString("airline");
+                                String departureAirport = flightObject.getJSONObject("departure").getString("airport");
+                                String destination = flightObject.getJSONObject("arrival").getString("timezone");
+                                String flightNumber = flightObject.getJSONObject("flight").getString("icao");
+                                String flightName = flightObject.getJSONObject("airline").getString("name");
 
-                                Flight flight = new Flight(destination, terminal, gate);
+                                Flight flight = new Flight(departureAirport, flightNumber, flightName, destination);
                                 newFlightList.add(flight);
                             }
                             // Call updateFlightResults() to update the flight data in the adapter
@@ -149,7 +149,7 @@ public class FlightMainActivity extends AppCompatActivity {
         };
 
         request.setRetryPolicy(new DefaultRetryPolicy(
-                5000,  // Timeout duration in milliseconds
+                10000,  // Timeout duration in milliseconds
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 

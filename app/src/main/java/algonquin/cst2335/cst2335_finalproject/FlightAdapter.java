@@ -37,21 +37,27 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
     }
 
     public static class FlightViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView departureAirportTextView;
         private TextView flightNumberTextView;
-        private TextView departureTimeTextView;
+        private TextView flightNameTextView;
         private TextView destinationTextView;
 
         public FlightViewHolder(@NonNull View itemView) {
             super(itemView);
             flightNumberTextView = itemView.findViewById(R.id.flightNumber);
-            departureTimeTextView = itemView.findViewById(R.id.departureTime);
+            flightNameTextView = itemView.findViewById(R.id.flightName);
             destinationTextView = itemView.findViewById(R.id.destination);
+            departureAirportTextView = itemView.findViewById(R.id.departureAirport);
+
         }
 
         public void bind(Flight flight) {
+            departureAirportTextView.setText(flight.getDepartureAirport());
             flightNumberTextView.setText(flight.getFlightNumber());
-            departureTimeTextView.setText(flight.getDepartureTime());
             destinationTextView.setText(flight.getDestination());
+            flightNameTextView.setText(flight.getFlightName());
+
         }
     }
 }
