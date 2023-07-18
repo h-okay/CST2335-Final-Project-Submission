@@ -3,8 +3,9 @@ package algonquin.cst2335.cst2335_finalproject.bearimages.ui;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 import androidx.viewbinding.ViewBinding;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -36,11 +46,14 @@ import algonquin.cst2335.cst2335_finalproject.bearimages.data.BearImageViewModel
 import algonquin.cst2335.cst2335_finalproject.databinding.ActivityBearImageListBinding;
 import algonquin.cst2335.cst2335_finalproject.databinding.BearEntryBinding;
 
+
 //TODO: Need to refresh the view on load so that database items are shown
 //TODO: Details event listener
 //TODO: Delete functionality
+//TODO:Each activity must use Volley to retrieve data from an http server. You cannot use Executor or AsyncTask.
 @SuppressLint("DefaultLocale")
 public class BearApplication extends AppCompatActivity {
+
 
     private static final String url = "https://placebear.com/%d/%d";
     private static final String currentDate = java.time.LocalDate.now().toString();
@@ -54,6 +67,7 @@ public class BearApplication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityBearImageListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        RequestQueue queue = Volley.newRequestQueue(this);
 
         BearImageDatabase bearImageDatabase = Room.databaseBuilder(
                 getApplicationContext(), BearImageDatabase.class, "bear-image-database").build();
@@ -78,7 +92,7 @@ public class BearApplication extends AppCompatActivity {
                 height = Integer.parseInt(binding.HeightNewTextArea.getText().toString());
                 width = Integer.parseInt(binding.WidthNewTextArea.getText().toString());
             } catch (NumberFormatException e) {
-                Toast.makeText(this, "Height and Width are required and must be numbers", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Height and Width are required", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -89,23 +103,17 @@ public class BearApplication extends AppCompatActivity {
 
             String parameterizedUrl = String.format(url, height, width);
             try {
-                AsyncTask.execute(() -> {
-                    try {
-                        URL requestUrl = new URL(parameterizedUrl);
-                        Bitmap bitmap = BitmapFactory.decodeStream(requestUrl.openConnection().getInputStream());
-                        Log.d("BearApplication", bitmap.toString());
-                        byte[] imageData = getBitmapAsByteArray(bitmap);
-                        BearImage newBearImage = new BearImage(imageData, height, width, currentDate);
-                        bearDao.insertImage(newBearImage);
-                        runOnUiThread(() -> {
-                            images.add(newBearImage);
-                            adapter.notifyItemInserted(images.size() - 1);
-                            binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-                        });
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+                getNewImage(queue, parameterizedUrl);
+//                        Bitmap bitmap = BitmapFactory.decodeStream(requestUrl.openConnection().getInputStream());
+//                        Log.d("BearApplication", bitmap.toString());
+//                        byte[] imageData = getBitmapAsByteArray(bitmap);
+//                        BearImage newBearImage = new BearImage(imageData, height, width, currentDate);
+//                        bearDao.insertImage(newBearImage);
+//                        runOnUiThread(() -> {
+//                            images.add(newBearImage);
+//                            adapter.notifyItemInserted(images.size() - 1);
+//                            binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//                        });
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -143,13 +151,35 @@ public class BearApplication extends AppCompatActivity {
         });
     }
 
+    private void getNewImage(RequestQueue queue, String url) {
+//        ImageRequest imageRequest = new ImageRequest(url,
+//                 );
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                response -> {
+                    Log.d("BearApplication", response.toString());
+                },
+                error -> {
+                    Toast.makeText(this, "There was an error. Please try again.", Toast.LENGTH_SHORT).show();
+                });
+        queue.add(jsonObjectRequest);
+    }
+
+
     private static byte[] getBitmapAsByteArray(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
         return outputStream.toByteArray();
     }
 
-    class MyRowHolder extends RecyclerView.ViewHolder {
+//    private class BitmapListener implements Response.Listener<Bitmap> {
+//
+//    }
+
+
+    private class MyRowHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView sizes;
         TextView date;
