@@ -3,19 +3,33 @@ package algonquin.cst2335.cst2335_finalproject;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightViewHolder> {
     private List<Flight> flightList;
+    private AdapterView.OnItemClickListener listener; // for fragment
 
     public FlightAdapter(List<Flight> flightList) {
         this.flightList = flightList;
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(Flight flight);
+    }
+
+    public FlightAdapter(List<Flight> flightList, OnItemClickListener listener) {
+        this.flightList = flightList;
+        this.listener = listener;
+    }
+
 
     @NonNull
     @Override
@@ -36,12 +50,13 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
         return flightList.size();
     }
 
-    public static class FlightViewHolder extends RecyclerView.ViewHolder {
+    public class FlightViewHolder extends RecyclerView.ViewHolder {
 
         private TextView departureAirportTextView;
         private TextView flightNumberTextView;
         private TextView flightNameTextView;
         private TextView destinationTextView;
+
 
         public FlightViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -49,6 +64,19 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
             flightNameTextView = itemView.findViewById(R.id.flightName);
             destinationTextView = itemView.findViewById(R.id.destination);
             departureAirportTextView = itemView.findViewById(R.id.departureAirport);
+
+            // Set click listener
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getBindingAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Flight clickedFlight = flightList.get(position);
+                        listener.onItemClick(clickedFlight);
+                    }
+                }
+            });
+
 
         }
 

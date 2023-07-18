@@ -1,6 +1,9 @@
 package algonquin.cst2335.cst2335_finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,10 +34,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FlightMainActivity extends AppCompatActivity
+public class FlightMainActivity extends AppCompatActivity implements FlightAdapter.OnItemClickListener
 {
 
-    private List<Flight> flightList;
+    FLightListViewModel flightModel;
+    private ArrayList<Flight> flightList;
     private RecyclerView recyclerView;
     private FlightAdapter flightAdapter;
     private Button enterButton;
@@ -55,6 +59,12 @@ public class FlightMainActivity extends AppCompatActivity
         typeAirportCode.setText(savedAirportCode);
 
         enterButton = findViewById(R.id.enterButton);
+
+        // for fragment set up
+        flightList = new ArrayList<>();
+        flightModel = new ViewModelProvider(this).get(FLightListViewModel.class);
+        flightList = flightModel.lists.getValue();
+
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,13 +77,39 @@ public class FlightMainActivity extends AppCompatActivity
             }
         });
 
+//        flightModel.selectedList.observe(this, (newListValue) -> {
+//
+//            if(newListValue != null) {
+//                FlightDetailFragment flightFragment = new FlightDetailFragment(newListValue);  //newValue is the newly set ChatMessage
+//                FragmentManager fMgr = getSupportFragmentManager();
+//                FragmentTransaction tx = fMgr.beginTransaction();
+//                tx.replace(R.id.fragmentLocation, flightFragment);
+//                tx.addToBackStack(null);
+//                tx.commit();
+//            }
+//        });
+
+
         initializeRecyclerView();
 
         // Check if there is a saved airport code and fetch flight results
         if (!savedAirportCode.isEmpty()) {
             getFlightResults(savedAirportCode);
         }
+
     }
+
+    @Override
+    public void onItemClick(Flight flight) {
+        FlightDetailFragment flightFragment = new FlightDetailFragment(flight);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentLocation, flightFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+
 
     private void initializeRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

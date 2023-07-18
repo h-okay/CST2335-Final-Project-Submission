@@ -2,11 +2,11 @@ package algonquin.cst2335.cst2335_finalproject;
 
 public class Flight {
 
-    private String departureAirport;
+    protected String departureAirport;
 
-    private String flightNumber;
-    private String flightName;
-    private String destination;
+    protected String flightNumber;
+    protected String flightName;
+    protected String destination;
 
     public Flight(String departureAirport, String flightNumber, String flightName, String destination) {
         this.departureAirport = departureAirport;
