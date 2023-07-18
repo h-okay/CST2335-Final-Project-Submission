@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/aviation"
+        android:icon="@drawable/aviation"
+        android:title="Aviation Stack Flight Tracker" />
+    <item
+        android:id="@+id/trivia"
+        android:icon="@drawable/trivia"
+        android:title="Trivia Question Database" />
+    <item
+        android:id="@+id/bear"
+        android:icon="@drawable/bear"
+        android:title="Bear Image Generator" />
+    <item
+        android:id="@+id/currency"
+        android:icon="@drawable/currency"
+        android:title="Currency Converter" />
+</menu>
