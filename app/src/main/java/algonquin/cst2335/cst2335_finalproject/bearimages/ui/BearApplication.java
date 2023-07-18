@@ -6,9 +6,9 @@ import android.graphics.BitmapFactory;
 
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,21 +16,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 import androidx.viewbinding.ViewBinding;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 
@@ -42,6 +40,7 @@ import algonquin.cst2335.cst2335_finalproject.R;
 import algonquin.cst2335.cst2335_finalproject.bearimages.data.BearImage;
 import algonquin.cst2335.cst2335_finalproject.bearimages.data.BearImageDao;
 import algonquin.cst2335.cst2335_finalproject.bearimages.data.BearImageDatabase;
+import algonquin.cst2335.cst2335_finalproject.bearimages.data.BearImageDetailsFragment;
 import algonquin.cst2335.cst2335_finalproject.bearimages.data.BearImageViewModel;
 import algonquin.cst2335.cst2335_finalproject.databinding.ActivityBearImageListBinding;
 import algonquin.cst2335.cst2335_finalproject.databinding.BearEntryBinding;
@@ -67,7 +66,6 @@ public class BearApplication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityBearImageListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        RequestQueue queue = Volley.newRequestQueue(this);
 
         BearImageDatabase bearImageDatabase = Room.databaseBuilder(
                 getApplicationContext(), BearImageDatabase.class, "bear-image-database").build();
@@ -85,98 +83,106 @@ public class BearApplication extends AppCompatActivity {
             });
         }
 
+        // Adding new images
         binding.addNewButton.setOnClickListener(click -> {
             int height;
             int width;
-            try {
+            RequestQueue queue;
+
+            if (checkIfInputValid()) {
                 height = Integer.parseInt(binding.HeightNewTextArea.getText().toString());
                 width = Integer.parseInt(binding.WidthNewTextArea.getText().toString());
-            } catch (NumberFormatException e) {
-                Toast.makeText(this, "Height and Width are required", Toast.LENGTH_SHORT).show();
-                return;
-            }
+                String parameterizedUrl = String.format(url, height, width);
+                queue = Volley.newRequestQueue(this.getApplicationContext());
+                ImageRequest imageRequest = new ImageRequest(parameterizedUrl, new Response.Listener<Bitmap>() {
 
-            if (height > 500 || width > 500) {
-                Toast.makeText(this, "Height and Width must be smaller than 500", Toast.LENGTH_SHORT).show();
-                return;
-            }
+                    private byte[] getBitmapAsByteArray(Bitmap bitmap) {
+                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+                        return outputStream.toByteArray();
+                    }
 
-            String parameterizedUrl = String.format(url, height, width);
-            try {
-                getNewImage(queue, parameterizedUrl);
-//                        Bitmap bitmap = BitmapFactory.decodeStream(requestUrl.openConnection().getInputStream());
-//                        Log.d("BearApplication", bitmap.toString());
-//                        byte[] imageData = getBitmapAsByteArray(bitmap);
-//                        BearImage newBearImage = new BearImage(imageData, height, width, currentDate);
-//                        bearDao.insertImage(newBearImage);
-//                        runOnUiThread(() -> {
-//                            images.add(newBearImage);
-//                            adapter.notifyItemInserted(images.size() - 1);
-//                            binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//                        });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        byte[] imageData = getBitmapAsByteArray(response);
+                        BearImage newBearImage = new BearImage(imageData, height, width, currentDate);
+                        Executor thread = Executors.newSingleThreadExecutor();
+                        thread.execute(() -> {
+                            bearDao.insertImage(newBearImage);
+                            runOnUiThread(() -> {
+                                images.add(newBearImage);
+                                adapter.notifyItemInserted(images.size() - 1);
+                                binding.recyclerView.setLayoutManager(new LinearLayoutManager(BearApplication.this));
+                            });
+                        });
+                    }
+                }, 0, 0, null, null, error -> Toast.makeText(
+                                BearApplication.this,
+                                "There was an error, please try again.",
+                                Toast.LENGTH_SHORT)
+                        .show());
+                queue.add(imageRequest);
+                binding.recyclerView.setAdapter(adapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+                    @NonNull
+                    @Override
+                    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        ViewBinding binding = BearEntryBinding.inflate(getLayoutInflater());
+                        return new MyRowHolder(binding.getRoot());
+                    }
 
-        binding.recyclerView.setAdapter(adapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                ViewBinding binding = BearEntryBinding.inflate(getLayoutInflater());
-                return new MyRowHolder(binding.getRoot());
-            }
+                    @Override
+                    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+                        if (holder instanceof MyRowHolder) {
+                            MyRowHolder myRowHolder = (MyRowHolder) holder;
 
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-                if (holder instanceof MyRowHolder) {
-                    MyRowHolder myRowHolder = (MyRowHolder) holder;
+                            BearImage bearImage = images.get(position);
+                            byte[] imageData = bearImage.getImage();
+                            Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+                            String sizes = bearImage.getWidth() + "x" + bearImage.getHeight();
+                            String date = bearImage.getCreatedDate();
 
-                    BearImage bearImage = images.get(position);
-                    byte[] imageData = bearImage.getImage();
-                    Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
-                    String sizes = bearImage.getWidth() + "x" + bearImage.getHeight();
-                    String date = bearImage.getCreatedDate();
+                            myRowHolder.image.setImageBitmap(imageBitmap);
+                            myRowHolder.sizes.setText(sizes);
+                            myRowHolder.date.setText(date);
+                        }
+                    }
 
-                    myRowHolder.image.setImageBitmap(imageBitmap);
-                    myRowHolder.sizes.setText(sizes);
-                    myRowHolder.date.setText(date);
-                }
-            }
-
-            @Override
-            public int getItemCount() {
-                return images.size();
-            }
-        });
-    }
-
-    private void getNewImage(RequestQueue queue, String url) {
-//        ImageRequest imageRequest = new ImageRequest(url,
-//                 );
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                response -> {
-                    Log.d("BearApplication", response.toString());
-                },
-                error -> {
-                    Toast.makeText(this, "There was an error. Please try again.", Toast.LENGTH_SHORT).show();
+                    @Override
+                    public int getItemCount() {
+                        return images.size();
+                    }
                 });
-        queue.add(jsonObjectRequest);
+            }
+
+        });
+
+        bearModel.selectedImage.observe(this, (newImageValue) -> {
+            BearImageDetailsFragment imageFragment = new BearImageDetailsFragment(newImageValue);
+            FragmentManager fManager = getSupportFragmentManager();
+            FragmentTransaction tx = fManager.beginTransaction();
+            tx.replace(R.id.fragmentLocation, imageFragment);
+            tx.addToBackStack("");
+            tx.commit();
+        });
     }
 
+    private boolean checkIfInputValid() {
+        boolean valid = false;
 
-    private static byte[] getBitmapAsByteArray(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
-        return outputStream.toByteArray();
+        String heightText = binding.HeightNewTextArea.getText().toString().trim();
+        String widthText = binding.WidthNewTextArea.getText().toString().trim();
+
+        if (!heightText.isEmpty() && !widthText.isEmpty()) {
+            int height = Integer.parseInt(heightText);
+            int width = Integer.parseInt(widthText);
+
+            if (height <= 500 && width <= 500) {
+                valid = true;
+            }
+        }
+
+        return valid;
     }
-
-//    private class BitmapListener implements Response.Listener<Bitmap> {
-//
-//    }
 
 
     private class MyRowHolder extends RecyclerView.ViewHolder {
