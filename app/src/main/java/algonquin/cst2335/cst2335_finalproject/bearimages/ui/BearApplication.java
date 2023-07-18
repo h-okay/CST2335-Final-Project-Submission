@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -29,6 +30,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
 
@@ -47,9 +49,6 @@ import algonquin.cst2335.cst2335_finalproject.databinding.BearEntryBinding;
 
 
 //TODO: Need to refresh the view on load so that database items are shown
-//TODO: Details event listener
-//TODO: Delete functionality
-//TODO:Each activity must use Volley to retrieve data from an http server. You cannot use Executor or AsyncTask.
 @SuppressLint("DefaultLocale")
 public class BearApplication extends AppCompatActivity {
 
@@ -83,7 +82,7 @@ public class BearApplication extends AppCompatActivity {
             });
         }
 
-        // Adding new images
+
         binding.addNewButton.setOnClickListener(click -> {
             int height;
             int width;
@@ -156,7 +155,9 @@ public class BearApplication extends AppCompatActivity {
 
         });
 
-        bearModel.selectedImage.observe(this, (newImageValue) -> {
+        bearModel.selectedImage.observe(this, (newImageValue) ->
+
+        {
             BearImageDetailsFragment imageFragment = new BearImageDetailsFragment(newImageValue);
             FragmentManager fManager = getSupportFragmentManager();
             FragmentTransaction tx = fManager.beginTransaction();
@@ -193,11 +194,57 @@ public class BearApplication extends AppCompatActivity {
         public MyRowHolder(@NonNull View itemView) {
             super(itemView);
 
+
             itemView.setOnClickListener(clk -> {
                 int position = getAbsoluteAdapterPosition();
                 BearImage selected = images.get(position);
                 bearModel.selectedImage.postValue(selected);
             });
+
+            itemView.setOnLongClickListener(clk -> {
+                BearImageDatabase bearImageDatabase = Room.databaseBuilder(
+                        getApplicationContext(), BearImageDatabase.class, "bear-image-database").build();
+                BearImageDao bearDao = bearImageDatabase.bearImageDao();
+
+                int position = getAbsoluteAdapterPosition();
+                BearImage selected = images.get(position);
+                bearModel.selectedImage.postValue(selected);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(BearApplication.this);
+                builder.setMessage("Do you want to delete this image?")
+                        .setTitle("Delete")
+                        .setNegativeButton("No", (dialog, which) -> {
+                        })
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            BearImage mustDelete = images.get(position);
+                            images.remove(mustDelete);
+                            adapter.notifyItemRemoved(position);
+
+                            Executor thread = Executors.newSingleThreadExecutor();
+                            thread.execute(() -> bearDao.deleteImage(mustDelete));
+
+                            Snackbar.make(
+                                            sizes,
+                                            "You deleted the image # " + position,
+                                            Snackbar.LENGTH_LONG
+                                    ).setAction("Undo", click -> {
+                                        images.add(position, mustDelete);
+                                        adapter.notifyItemInserted(position);
+                                        thread.execute(() -> bearDao.insertImage(mustDelete));
+                                    })
+                                    .addCallback(new Snackbar.Callback() {
+                                        @Override
+                                        public void onShown(Snackbar sb) {
+                                            super.onShown(sb);
+                                            getSupportFragmentManager().popBackStack();
+                                        }
+                                    }).show();
+                        })
+                        .create()
+                        .show();
+                return true;
+            });
+
             image = itemView.findViewById(R.id.bearImageView);
             sizes = itemView.findViewById(R.id.bearImageSizesText);
             date = itemView.findViewById(R.id.bearImageDate);
