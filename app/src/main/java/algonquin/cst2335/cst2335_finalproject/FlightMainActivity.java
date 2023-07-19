@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -33,7 +34,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 
 public class FlightMainActivity extends AppCompatActivity implements FlightAdapter.OnItemClickListener
@@ -46,10 +48,35 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
     private Button enterButton;
     private EditText typeAirportCode;
 
+    FlightDatabase db;
+    Flight flight;
+    FlightDAO myDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.flight_main);
+
+        db = Room.databaseBuilder(getApplicationContext(), FlightDatabase.class, "flight-item").build();
+        myDAO = db.cmDAO(); // the only function in FlightDatabase
+        //long insertedId = flightDAO.insertFlight(flight);
+
+        flightList = new ArrayList<>();
+        flightModel = new ViewModelProvider(this).get(FLightListViewModel.class);
+        flightList = flightModel.lists.getValue();
+        if(flightList == null)
+        {
+            flightModel.lists.postValue(flightList = new ArrayList<>());
+            Executor thread = Executors.newSingleThreadExecutor();
+            thread.execute(() ->
+            {
+                List<Flight> allFlight = myDAO.getFlights();
+                flightList.addAll( allFlight ); //Once you get the data from database
+
+         //       runOnUiThread( () ->  binding.recycleView.setAdapter( myAdapter )); //You can then load the RecyclerView
+            });
+        }
+
 
         typeAirportCode = findViewById(R.id.typeAirportCode);
 
@@ -79,10 +106,10 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
             }
         });
 
-        flightModel.selectedList.observe(this, (newListValue) -> {
+        flightModel.selectedList.observe(this, (flight) -> {
 
-            if(newListValue != null) {
-                FlightDetailFragment flightFragment = new FlightDetailFragment(newListValue);  //newValue is the newly set ChatMessage
+            if(flight != null) {
+                FlightDetailFragment flightFragment = new FlightDetailFragment(flight, myDAO);  //newValue is the newly set ChatMessage
                 FragmentManager fMgr = getSupportFragmentManager();
                 FragmentTransaction tx = fMgr.beginTransaction();
                 tx.replace(R.id.fragmentLocation, flightFragment);
@@ -104,7 +131,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 
     @Override
     public void onItemClick(Flight flight) {
-        FlightDetailFragment flightFragment = new FlightDetailFragment(flight);
+        FlightDetailFragment flightFragment = new FlightDetailFragment(flight, myDAO);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentLocation, flightFragment);
@@ -166,6 +193,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 
                             for (int i = 0; i < array.length() && i < 50; i++) {
                                 JSONObject flightObject = array.getJSONObject(i);
+
 
 
                                 String departureAirport = flightObject.getJSONObject("departure").getString("airport");

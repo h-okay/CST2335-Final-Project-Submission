@@ -12,11 +12,11 @@ import java.util.List;
 public interface FlightDAO {
 
     @Insert
-    public long insertMessage(Flight listToInsert);
+    public long insertFlight(Flight flight);
 
     @Query("Select * from Flight")
-    public List<Flight> getlist();
+    public List<Flight> getFlights();
 
     @Delete
-    void deleteMessage(Flight listToInsert);
+    void deleteFlight(Flight flight);
 }

@@ -25,7 +25,7 @@ public class Flight {
     protected String destination;
 
 
-    public Flight(String departureAirport, String flightNumber, String delay, String gate, String terminal, String destination) {
+    public Flight(String departureAirport, String flightNumber, String delay, String terminal,String gate, String destination) {
         this.departureAirport = departureAirport;
         this.flightNumber = flightNumber;
         this.delay = delay;
@@ -33,6 +33,7 @@ public class Flight {
         this.terminal = terminal;
         this.destination = destination;
     }
+
 
     public String getDepartureAirport() {
         return departureAirport;
