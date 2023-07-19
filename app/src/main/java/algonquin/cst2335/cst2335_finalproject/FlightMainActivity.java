@@ -46,6 +46,8 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
     private RecyclerView recyclerView;
     private FlightAdapter flightAdapter;
     private Button enterButton;
+    private Button viewListButton;
+
     private EditText typeAirportCode;
 
     FlightDatabase db;
@@ -88,6 +90,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         typeAirportCode.setText(savedAirportCode);
 
         enterButton = findViewById(R.id.enterButton);
+        viewListButton = findViewById(R.id.savedFlightButton);
 
         // for fragment set up
         flightList = new ArrayList<>();
@@ -118,6 +121,15 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
             }
         });
 
+        viewListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Retrieve the saved flights from the database using the FlightDAO
+                List<Flight> savedFlights = myDAO.getFlights();
+                // Update the RecyclerView with the saved flights
+                updateFlightResults(savedFlights);
+            }
+        });
 
         initializeRecyclerView();
 
