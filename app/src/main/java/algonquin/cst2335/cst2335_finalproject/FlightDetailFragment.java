@@ -28,10 +28,8 @@ public class FlightDetailFragment extends Fragment {
 
         binding.destinationData.setText(selected.destination);
         binding.terminalData.setText(selected.flightNumber);
-        binding.gate.setText(selected.flightName);
-        binding.delay.setText(selected.departureAirport);
-       // binding.timeText.setText(selected.timeSent);
-      //  binding.database.setText("Id = " + selected.id);
+        binding.gate.setText(selected.gate);
+        binding.delay.setText(selected.delay);
 
         return view;
     }

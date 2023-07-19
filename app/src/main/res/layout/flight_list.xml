@@ -11,11 +11,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/ticket"
+        android:background="@drawable/flight_img"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:visibility="visible">
 
         <!-- Flight details:  -->
+
 
         <TextView
             android:id="@+id/departure"
@@ -31,28 +33,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="name of the airport"
+            android:text="Name of the airport"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/departure"
             app:layout_constraintTop_toTopOf="@+id/departure" />
-
-        <TextView
-            android:id="@+id/flightLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/flight_name"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/departureAirport" />
-
-        <TextView
-            android:id="@+id/flightName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:text="flight name goes here"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/flightLabel"
-            app:layout_constraintTop_toTopOf="@+id/flightLabel" />
 
         <TextView
             android:id="@+id/flightNumberLabel"
@@ -60,15 +44,15 @@
             android:layout_height="wrap_content"
             android:text="@string/flight_number"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/flightLabel"
-            app:layout_constraintTop_toBottomOf="@+id/flightName" />
+            app:layout_constraintStart_toStartOf="@+id/departure"
+            app:layout_constraintTop_toBottomOf="@+id/departureAirport" />
 
         <TextView
             android:id="@+id/flightNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="Flight Number here"
+            android:text="Flight Number"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/flightNumberLabel"
             app:layout_constraintTop_toTopOf="@+id/flightNumberLabel" />
@@ -87,11 +71,67 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="destination info here"
+            android:text="destination info"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/destinationLabel"
             app:layout_constraintTop_toTopOf="@+id/destinationLabel" />
 
+        <TextView
+            android:id="@+id/TerminalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Terminal:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/destinationLabel"
+            app:layout_constraintTop_toBottomOf="@+id/destination" />
+
+        <TextView
+            android:id="@+id/terminal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="TextView"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/TerminalLabel"
+            app:layout_constraintTop_toTopOf="@+id/TerminalLabel" />
+
+        <TextView
+            android:id="@+id/gateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gate:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/TerminalLabel"
+            app:layout_constraintTop_toBottomOf="@+id/terminal" />
+
+        <TextView
+            android:id="@+id/delayLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delay time:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/gateLabel"
+            app:layout_constraintTop_toBottomOf="@+id/gate" />
+
+        <TextView
+            android:id="@+id/gate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="TextView"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/gateLabel"
+            app:layout_constraintTop_toBottomOf="@+id/terminal" />
+
+        <TextView
+            android:id="@+id/delay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="TextView"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/delayLabel"
+            app:layout_constraintTop_toBottomOf="@+id/gate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
