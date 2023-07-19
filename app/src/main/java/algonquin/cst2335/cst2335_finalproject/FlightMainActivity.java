@@ -95,9 +95,10 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         initializeRecyclerView();
 
         // Check if there is a saved airport code and fetch flight results
-        if (!savedAirportCode.isEmpty()) {
-            getFlightResults(savedAirportCode);
-        }
+
+//        if (!savedAirportCode.isEmpty()) {
+//            getFlightResults(savedAirportCode);
+//        }
 
     }
 
@@ -149,7 +150,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 
     private void getFlightResults(String airportCode) {
         RequestQueue rq = Volley.newRequestQueue(getApplicationContext());
-        String url = "http://api.aviationstack.com/v1/flights?access_key=94b19e781ec5a43e94e79292d60c0cd9&dep_iata=" + airportCode;
+        String url = "http://api.aviationstack.com/v1/flights?access_key=596648bebab52a21e4f477a242cc2087&dep_iata=" + airportCode + "&limit=50";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -163,7 +164,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
                             String gate;
                             String delay;
 
-                            for (int i = 0; i < array.length(); i++) {
+                            for (int i = 0; i < array.length() && i < 50; i++) {
                                 JSONObject flightObject = array.getJSONObject(i);
 
 
@@ -175,13 +176,13 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
                                         ? "No delay"
                                         : flightObject.getJSONObject("departure").getString("delay");
 
-                                if(flightObject.getJSONObject("departure").getString("terminal")!="null") {
+                                if(!flightObject.getJSONObject("departure").getString("terminal").equals("null")) {
                                     terminal = flightObject.getJSONObject("departure").getString("terminal");
                                 }else{
                                     terminal = "Not available now";
                                 }
 
-                                if(flightObject.getJSONObject("departure").getString("gate")!="null") {
+                                if(!flightObject.getJSONObject("departure").getString("gate").equals("null")) {
                                     gate = flightObject.getJSONObject("departure").getString("gate");
                                 }else{
                                     gate = "Not available now";

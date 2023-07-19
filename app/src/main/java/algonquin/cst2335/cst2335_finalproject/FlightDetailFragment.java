@@ -27,7 +27,7 @@ public class FlightDetailFragment extends Fragment {
         View view = binding.getRoot();
 
         binding.destinationData.setText(selected.destination);
-        binding.terminalData.setText(selected.flightNumber);
+        binding.terminalData.setText(selected.terminal);
         binding.gate.setText(selected.gate);
         binding.delay.setText(selected.delay);
 
