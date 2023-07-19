@@ -16,9 +16,7 @@ public class FlightDetailFragment extends Fragment {
     Flight selected;
 
     public FlightDetailFragment(Flight flight) { selected = flight; }
-    public FlightDetailFragment(){
-
-    }
+    public FlightDetailFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
