@@ -1,12 +1,27 @@
 package algonquin.cst2335.cst2335_finalproject;
 
-public class Flight {
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+
+@Entity
+public class Flight {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name="id")
+    public long id;
+
+    @ColumnInfo(name="departureAirport")
     protected String departureAirport;
+    @ColumnInfo(name="flightNumber")
     protected String flightNumber;
+    @ColumnInfo(name="delay")
     protected String delay;
+    @ColumnInfo(name="gate")
     protected String gate;
+    @ColumnInfo(name="terminal")
     protected String terminal;
+    @ColumnInfo(name="destination")
     protected String destination;
 
 
