@@ -39,16 +39,21 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
     public static class FlightViewHolder extends RecyclerView.ViewHolder {
 
         private TextView departureAirportTextView;
+        private TextView terminalTextView;
         private TextView flightNumberTextView;
-        private TextView flightNameTextView;
         private TextView destinationTextView;
+        private TextView gateTextView;
+        private TextView delayTextView;
+
 
         public FlightViewHolder(@NonNull View itemView) {
             super(itemView);
             flightNumberTextView = itemView.findViewById(R.id.flightNumber);
-            flightNameTextView = itemView.findViewById(R.id.flightName);
+            terminalTextView = itemView.findViewById(R.id.terminal);
             destinationTextView = itemView.findViewById(R.id.destination);
             departureAirportTextView = itemView.findViewById(R.id.departureAirport);
+            gateTextView = itemView.findViewById(R.id.gate);
+            delayTextView = itemView.findViewById(R.id.delay);
 
         }
 
@@ -56,8 +61,9 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
             departureAirportTextView.setText(flight.getDepartureAirport());
             flightNumberTextView.setText(flight.getFlightNumber());
             destinationTextView.setText(flight.getDestination());
-            flightNameTextView.setText(flight.getFlightName());
-
+            terminalTextView.setText(flight.getTerminal());
+            gateTextView.setText(flight.getGate());
+            delayTextView.setText(flight.getDelay());
         }
     }
 }

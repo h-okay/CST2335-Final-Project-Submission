@@ -110,24 +110,64 @@ public class FlightMainActivity extends AppCompatActivity {
 
     private void getFlightResults(String airportCode) {
         RequestQueue rq = Volley.newRequestQueue(getApplicationContext());
-        String url = "http://api.aviationstack.com/v1/flights?access_key=1b04ec0ac2be09527cbe03d4f9e1b6f7&dep_iata=" + airportCode;
+        String url = "http://api.aviationstack.com/v1/flights?access_key=94b19e781ec5a43e94e79292d60c0cd9&dep_iata=" + airportCode;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         List<Flight> newFlightList = new ArrayList<>();
+
                         try {
                             JSONArray array = response.getJSONArray("data");
+                            String terminal;
+                            String gate;
+                            String delay;
+
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject flightObject = array.getJSONObject(i);
+
 
                                 String departureAirport = flightObject.getJSONObject("departure").getString("airport");
                                 String destination = flightObject.getJSONObject("arrival").getString("timezone");
                                 String flightNumber = flightObject.getJSONObject("flight").getString("icao");
-                                String flightName = flightObject.getJSONObject("airline").getString("name");
 
-                                Flight flight = new Flight(departureAirport, flightNumber, flightName, destination);
+                                // Check if the "delay" field exists and is not null
+//                                if (flightObject.getJSONObject("departure").getInt("delay") > 0) {
+//                                    delay = flightObject.getJSONObject("departure").getInt("delay");
+//
+//                                } else {
+//                                    delay = 0;
+//                                }
+                             //   Integer delayInt = flightObject.getJSONObject("departure").getInt("delay");
+
+
+//                                if(flightObject.getJSONObject("departure").getString("delay") == null) {
+//                                    delay = "No delay";
+//                                } else {
+//                                    delay = flightObject.getJSONObject("departure").getString("delay");
+//                                }
+
+                                delay = flightObject.getJSONObject("departure").isNull("delay")
+                                        ? "No delay"
+                                        : flightObject.getJSONObject("departure").getString("delay");
+
+
+
+                                if(flightObject.getJSONObject("departure").getString("terminal")!="null") {
+                                    terminal = flightObject.getJSONObject("departure").getString("terminal");
+                                }else{
+                                    terminal = "Not available now";
+                                }
+
+
+                                if(flightObject.getJSONObject("departure").getString("gate")!="null") {
+                                    gate = flightObject.getJSONObject("departure").getString("gate");
+                                }else{
+                                    gate = "Not available now";
+                                }
+
+                                Flight flight = new Flight(departureAirport, flightNumber, delay, gate, terminal, destination);
                                 newFlightList.add(flight);
                             }
                             // Call updateFlightResults() to update the flight data in the adapter
@@ -154,7 +194,7 @@ public class FlightMainActivity extends AppCompatActivity {
         };
 
         request.setRetryPolicy(new DefaultRetryPolicy(
-                10000,  // Timeout duration in milliseconds
+                15000,  // Timeout duration in milliseconds
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
