@@ -124,10 +124,13 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         viewListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Retrieve the saved flights from the database using the FlightDAO
-                List<Flight> savedFlights = myDAO.getFlights();
-                // Update the RecyclerView with the saved flights
-                updateFlightResults(savedFlights);
+                Executor thread = Executors.newSingleThreadExecutor();
+                thread.execute(() -> {
+                    // Retrieve the saved flights from the database using the FlightDAO
+                    List<Flight> savedFlights = myDAO.getFlights();
+                    // Update the RecyclerView with the saved flights
+                    runOnUiThread(() -> updateFlightResults(savedFlights));
+                });
             }
         });
 
@@ -150,8 +153,6 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
-
-
 
     private void initializeRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
