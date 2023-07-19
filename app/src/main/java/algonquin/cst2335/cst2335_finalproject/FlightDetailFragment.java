@@ -26,12 +26,14 @@ public class FlightDetailFragment extends Fragment {
         binding = FlightDetailInfoBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        binding.destinationData.setText(selected.destination);
-        binding.terminalData.setText(selected.terminal);
-        binding.gate.setText(selected.gate);
-        binding.delay.setText(selected.delay);
+        requireActivity().runOnUiThread( (  )  -> {
+            binding.destinationData.setText("Destination: " + selected.destination);
+            binding.terminalData.setText("Terminal: "+ selected.terminal);
+            binding.gate.setText("Gate: "+ selected.gate);
+            binding.delay.setText("Delay time: " + selected.delay);
 
-        return view;
-    }
+        });
 
-}
+    return view;
+
+}}
