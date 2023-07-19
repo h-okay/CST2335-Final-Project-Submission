@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import algonquin.cst2335.cst2335_finalproject.FlightAdapter.OnItemClickListener;
+
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +17,7 @@ import java.util.List;
 
 public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightViewHolder> {
     private List<Flight> flightList;
-    private AdapterView.OnItemClickListener listener; // for fragment
+    private OnItemClickListener listener; // for fragment
 
     public FlightAdapter(List<Flight> flightList) {
         this.flightList = flightList;
