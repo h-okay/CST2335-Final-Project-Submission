@@ -177,7 +177,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 
     private void getFlightResults(String airportCode) {
         RequestQueue rq = Volley.newRequestQueue(getApplicationContext());
-        String url = "http://api.aviationstack.com/v1/flights?access_key=596648bebab52a21e4f477a242cc2087&dep_iata=" + airportCode + "&limit=50";
+        String url = "http://api.aviationstack.com/v1/flights?access_key=596648bebab52a21e4f477a242cc2087&dep_iata=" + airportCode + "&limit=100";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -191,9 +191,8 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
                             String gate;
                             String delay;
 
-                            for (int i = 0; i < array.length() && i < 50; i++) {
+                            for (int i = 0; i < array.length() && i < 100; i++) {
                                 JSONObject flightObject = array.getJSONObject(i);
-
 
 
                                 String departureAirport = flightObject.getJSONObject("departure").getString("airport");

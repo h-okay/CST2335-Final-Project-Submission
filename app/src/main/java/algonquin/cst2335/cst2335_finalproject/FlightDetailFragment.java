@@ -37,8 +37,8 @@ public class FlightDetailFragment extends Fragment {
 
         requireActivity().runOnUiThread(() -> {
 
-            binding.destinationData.setText("Departure: " + selected.departureAirport);
-            binding.destinationData.setText("Flight Number: " + selected.flightNumber);
+            binding.departureText.setText("Departure: " + selected.departureAirport);
+            binding.flightNumberText.setText("Flight Number: " + selected.flightNumber);
             binding.destinationData.setText("Destination: " + selected.destination);
             binding.terminalData.setText("Terminal: " + selected.terminal);
             binding.gate.setText("Gate: " + selected.gate);

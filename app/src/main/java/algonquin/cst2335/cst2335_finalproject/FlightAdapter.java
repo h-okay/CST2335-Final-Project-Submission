@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
 
 public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightViewHolder> {
     private List<Flight> flightList;
@@ -88,12 +89,15 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
         }
 
         public void bind(Flight flight) {
-            departureAirportTextView.setText(flight.getDepartureAirport());
-            flightNumberTextView.setText(flight.getFlightNumber());
-            destinationTextView.setText(flight.getDestination());
-            terminalTextView.setText(flight.getTerminal());
-            gateTextView.setText(flight.getGate());
-            delayTextView.setText(flight.getDelay());
+
+                departureAirportTextView.setText(flight.getDepartureAirport());
+                flightNumberTextView.setText(flight.getFlightNumber());
+                destinationTextView.setText(flight.getDestination());
+                terminalTextView.setText(flight.getTerminal());
+                gateTextView.setText(flight.getGate());
+                delayTextView.setText(flight.getDelay());
+
+
         }
     }
 }
