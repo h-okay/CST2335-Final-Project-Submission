@@ -182,12 +182,12 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
     private void showAlertDialog(Flight flight, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Flight Details")
-                .setMessage("Flight Number: " + flight.getFlightNumber() + "\n" +
-                        "Departure Airport: " + flight.getDepartureAirport() + "\n" +
-                        "Delay: " + flight.getDelay() + "\n" +
-                        "Gate: " + flight.getGate() + "\n" +
-                        "Terminal: " + flight.getTerminal() + "\n" +
-                        "Destination: " + flight.getDestination())
+                .setMessage( flight.getFlightNumber() + "\n" +
+                        flight.getDepartureAirport() + "\n" +
+                        flight.getDelay() + "\n" +
+                        flight.getGate() + "\n" +
+                        flight.getTerminal() + "\n" +
+                        flight.getDestination())
                 .setNegativeButton("Cancel", (dialog, which) -> {})
                 .setPositiveButton("Delete", (dialog, which) -> {
                     Executor thread = Executors.newSingleThreadExecutor();

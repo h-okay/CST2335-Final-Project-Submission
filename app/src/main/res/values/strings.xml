@@ -3,11 +3,11 @@
     <string name="app_name">Aviation Stack Flight Tracker</string>
     <string name="enter_airport_code">Enter Airport Code</string>
     <string name="enter">Enter</string>
-    <string name="destination">Destination:</string>
-    <string name="terminal">Terminal:</string>
-    <string name="gate">Gate:</string>
-    <string name="delay">Delay:</string>
-    <string name="departure">Departure:</string>
-    <string name="flight_name">Flight Name:</string>
-    <string name="flight_number">Flight Number:</string>
+    <string name="destination">Destination:%s</string>
+    <string name="terminal">Terminal:%s</string>
+    <string name="gate">Gate:%s</string>
+    <string name="delay">Delay:%s</string>
+    <string name="departure">Departure:%s</string>
+    <string name="flight_name">Flight Name:%s</string>
+    <string name="flight_number">Flight Number:%s</string>
 </resources>
