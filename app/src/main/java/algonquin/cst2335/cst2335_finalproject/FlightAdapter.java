@@ -91,12 +91,13 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
 
         public void bind(Flight flight) {
 
-                departureAirportTextView.setText(flight.getDepartureAirport());
-                flightNumberTextView.setText(flight.getFlightNumber());
-                destinationTextView.setText(flight.getDestination());
-                terminalTextView.setText(flight.getTerminal());
-                gateTextView.setText(flight.getGate());
-                delayTextView.setText(flight.getDelay());
+
+                departureAirportTextView.setText("Departure:" +flight.getDepartureAirport());
+                flightNumberTextView.setText("Flight Number:" + flight.getFlightNumber());
+                destinationTextView.setText("Destination:" + flight.getDestination());
+                terminalTextView.setText("Terminal:" + flight.getTerminal());
+                gateTextView.setText("Gate:" + flight.getGate());
+                delayTextView.setText("Delay:" + flight.getDelay());
 
 
         }

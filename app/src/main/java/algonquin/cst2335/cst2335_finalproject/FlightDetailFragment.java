@@ -42,12 +42,20 @@ public class FlightDetailFragment extends Fragment {
 
         requireActivity().runOnUiThread(() -> {
 
-            binding.departureText.setText(getString(R.string.departure, selected.departureAirport));
-            binding.flightNumberText.setText(getString(R.string.flight_number, selected.flightNumber));
-            binding.destinationData.setText(getString(R.string.destination, selected.destination));
-            binding.terminalData.setText(getString(R.string.terminal, selected.terminal));
-            binding.gate.setText(getString(R.string.gate, selected.gate));
-            binding.delay.setText(getString(R.string.delay, selected.delay));
+//            binding.departureText.setText(getString(R.string.departure, selected.departureAirport));
+//            binding.flightNumberText.setText(getString(R.string.flight_number, selected.flightNumber));
+//            binding.destinationData.setText(getString(R.string.destination, selected.destination));
+//            binding.terminalData.setText(getString(R.string.terminal, selected.terminal));
+//            binding.gate.setText(getString(R.string.gate, selected.gate));
+//            binding.delay.setText(getString(R.string.delay, selected.delay));
+            binding.departureText.setText(selected.departureAirport);
+            binding.flightNumberText.setText(selected.flightNumber);
+            binding.destinationData.setText(selected.destination);
+            binding.terminalData.setText(selected.terminal);
+            binding.gate.setText(selected.gate);
+            binding.delay.setText(selected.delay);
+
+
 
 
         });
