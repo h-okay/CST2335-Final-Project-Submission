@@ -18,117 +18,57 @@
         <!-- Flight details:  -->
 
         <TextView
-            android:id="@+id/departure"
+            android:id="@+id/departureAirport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/departure"
+            android:text="Name of the airport"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/departureAirport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Name of the airport"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/departure"
-            app:layout_constraintTop_toTopOf="@+id/departure" />
-
-        <TextView
-            android:id="@+id/flightNumberLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/flight_number"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/departure"
-            app:layout_constraintTop_toBottomOf="@+id/departureAirport" />
-
-        <TextView
             android:id="@+id/flightNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:text="Flight Number"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/flightNumberLabel"
-            app:layout_constraintTop_toTopOf="@+id/flightNumberLabel" />
-
-        <TextView
-            android:id="@+id/destinationLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/destination"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/flightNumberLabel"
-            app:layout_constraintTop_toBottomOf="@+id/flightNumber" />
+            app:layout_constraintStart_toStartOf="@+id/departureAirport"
+            app:layout_constraintTop_toBottomOf="@+id/departureAirport" />
 
         <TextView
             android:id="@+id/destination"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:text="destination info"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/destinationLabel"
-            app:layout_constraintTop_toTopOf="@+id/destinationLabel" />
-
-        <TextView
-            android:id="@+id/TerminalLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Terminal:"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/destinationLabel"
-            app:layout_constraintTop_toBottomOf="@+id/destination" />
+            app:layout_constraintStart_toStartOf="@+id/flightNumber"
+            app:layout_constraintTop_toBottomOf="@+id/flightNumber" />
 
         <TextView
             android:id="@+id/terminal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="TextView"
+            android:text="@string/terminal"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/TerminalLabel"
-            app:layout_constraintTop_toTopOf="@+id/TerminalLabel" />
-
-        <TextView
-            android:id="@+id/gateLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gate:"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/TerminalLabel"
-            app:layout_constraintTop_toBottomOf="@+id/terminal" />
-
-        <TextView
-            android:id="@+id/delayLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delay time:"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/gateLabel"
-            app:layout_constraintTop_toBottomOf="@+id/gate" />
+            app:layout_constraintStart_toStartOf="@+id/destination"
+            app:layout_constraintTop_toBottomOf="@+id/destination" />
 
         <TextView
             android:id="@+id/gate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="TextView"
+            android:text="@string/gate"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/gateLabel"
+            app:layout_constraintStart_toStartOf="@+id/terminal"
             app:layout_constraintTop_toBottomOf="@+id/terminal" />
 
         <TextView
             android:id="@+id/delay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="TextView"
+            android:text="@string/delay"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/delayLabel"
+            app:layout_constraintStart_toStartOf="@+id/gate"
             app:layout_constraintTop_toBottomOf="@+id/gate" />
 
         <ImageView
