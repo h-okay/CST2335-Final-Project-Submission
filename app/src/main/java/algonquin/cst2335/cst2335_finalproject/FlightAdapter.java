@@ -27,11 +27,14 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
     public interface OnItemClickListener {
         void onItemClick(Flight flight);
     }
-
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
     public FlightAdapter(List<Flight> flightList, OnItemClickListener listener) {
         this.flightList = flightList;
         this.listener = listener;
     }
+
 
 
     @NonNull
