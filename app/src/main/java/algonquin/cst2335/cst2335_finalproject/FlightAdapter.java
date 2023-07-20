@@ -35,8 +35,6 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
         this.listener = listener;
     }
 
-
-
     @NonNull
     @Override
     public FlightViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
