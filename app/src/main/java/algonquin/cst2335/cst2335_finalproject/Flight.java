@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 
 @Entity
 public class Flight {
@@ -55,5 +57,18 @@ public class Flight {
 
     public String getDestination() {
         return destination;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Flight)) return false;
+        Flight flight = (Flight) o;
+        return flightNumber.equals(flight.flightNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(flightNumber);
     }
 }

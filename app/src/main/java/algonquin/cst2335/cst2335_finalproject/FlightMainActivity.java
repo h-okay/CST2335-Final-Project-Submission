@@ -1,5 +1,6 @@
 package algonquin.cst2335.cst2335_finalproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -135,6 +136,8 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         });
 
         initializeRecyclerView();
+        // Set the click listener to the adapter
+        flightAdapter.setOnItemClickListener(this);
 
         // Check if there is a saved airport code and fetch flight results
 
@@ -144,8 +147,53 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 
     }
 
+
+
     @Override
+//    public void onItemClick(Flight flight) {
+//
+//
+//        FlightDetailFragment flightFragment = new FlightDetailFragment(flight, myDAO);
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.fragmentLocation, flightFragment);
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
+//
+//    };
+
     public void onItemClick(Flight flight) {
+        Executor thread = Executors.newSingleThreadExecutor();
+        thread.execute(() -> {
+            // Check if the clicked flight is in the saved list (from the database)
+            List<Flight> savedFlights = myDAO.getFlights();
+            if (savedFlights.contains(flight)) {
+                // Show the AlertDialog for the clicked item in the saved list
+                runOnUiThread(() -> showAlertDialog(flight));
+            } else {
+                // Show the FlightDetailFragment for the clicked item not in the saved list
+                runOnUiThread(() -> showFlightDetailFragment(flight));
+            }
+        });
+    }
+
+    private void showAlertDialog(Flight flight) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Flight Details")
+                .setMessage("Flight Number: " + flight.getFlightNumber() + "\n" +
+                        "Departure Airport: " + flight.getDepartureAirport() + "\n" +
+                        "Delay: " + flight.getDelay() + "\n" +
+                        "Gate: " + flight.getGate() + "\n" +
+                        "Terminal: " + flight.getTerminal() + "\n" +
+                        "Destination: " + flight.getDestination())
+                .setPositiveButton("OK", null)
+                .create()
+                .show();
+    }
+
+
+    private void showFlightDetailFragment(Flight flight) {
         FlightDetailFragment flightFragment = new FlightDetailFragment(flight, myDAO);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -153,6 +201,10 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+
+
+
 
     private void initializeRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
