@@ -38,7 +38,7 @@ public class FlightDetailFragment extends Fragment {
 
         binding.saveButton.setOnClickListener(v -> saveFlightDetailsToDatabase());
 
-        binding.deleteButton.setOnClickListener(v -> deleteFlightFromDatabase());
+     //   binding.deleteButton.setOnClickListener(v -> deleteFlightFromDatabase());
 
         requireActivity().runOnUiThread(() -> {
 
