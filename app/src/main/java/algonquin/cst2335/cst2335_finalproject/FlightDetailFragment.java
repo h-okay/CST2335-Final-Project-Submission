@@ -1,16 +1,19 @@
 package algonquin.cst2335.cst2335_finalproject;
 
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.logging.Handler;
 
 import algonquin.cst2335.cst2335_finalproject.databinding.FlightDetailInfoBinding;
 
@@ -34,6 +37,8 @@ public class FlightDetailFragment extends Fragment {
         View view = binding.getRoot();
 
         binding.saveButton.setOnClickListener(v -> saveFlightDetailsToDatabase());
+
+        binding.deleteButton.setOnClickListener(v -> deleteFlightFromDatabase());
 
         requireActivity().runOnUiThread(() -> {
 
@@ -66,8 +71,27 @@ public class FlightDetailFragment extends Fragment {
             public void run() {
 
                 flight.id = flightDAO.insertFlight(flight);
-                // Show a toast message indicating the flight details are saved
-               // Toast.makeText(requireContext(), "Flight details saved to the database", Toast.LENGTH_SHORT).show();
             }
         });
-}}
+
+        requireActivity().onBackPressed();
+        // Show a toast message indicating the flight details are saved
+      //   Toast.makeText(requireContext(), "Flight details saved to the database", Toast.LENGTH_SHORT).show();
+
+
+}
+
+
+    private void deleteFlightFromDatabase() {
+        // Implement the method to delete the flight from the database using the flightDAO
+        // Note: Make sure to perform this operation on a background thread
+        Executor thread = Executors.newSingleThreadExecutor();
+        thread.execute(() -> {
+            flightDAO.deleteFlight(selected);
+        });
+        requireActivity().onBackPressed();
+
+    } // Navigate back to the main screen or perform any other desired action
+
+
+}
