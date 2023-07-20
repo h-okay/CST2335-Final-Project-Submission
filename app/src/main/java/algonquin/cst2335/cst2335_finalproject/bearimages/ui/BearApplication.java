@@ -1,6 +1,9 @@
 package algonquin.cst2335.cst2335_finalproject.bearimages.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -38,6 +41,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import algonquin.cst2335.cst2335_finalproject.MainActivity;
 import algonquin.cst2335.cst2335_finalproject.R;
 import algonquin.cst2335.cst2335_finalproject.bearimages.data.BearImage;
 import algonquin.cst2335.cst2335_finalproject.bearimages.data.BearImageDao;
@@ -52,19 +56,27 @@ import algonquin.cst2335.cst2335_finalproject.databinding.BearEntryBinding;
 @SuppressLint("DefaultLocale")
 public class BearApplication extends AppCompatActivity {
 
-
     private static final String url = "https://placebear.com/%d/%d";
     private static final String currentDate = java.time.LocalDate.now().toString();
-    ActivityBearImageListBinding binding;
-    BearImageViewModel bearModel;
+    private ActivityBearImageListBinding binding;
+    private BearImageViewModel bearModel;
     private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
-    ArrayList<BearImage> images;
+    private ArrayList<BearImage> images;
+    private SharedPreferences prefs;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityBearImageListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        prefs = getSharedPreferences("BearAppData", Context.MODE_PRIVATE);
+        int savedHeight = prefs.getInt("bearHeight", 0);
+        int savedWidth = prefs.getInt("bearWidth", 0);
+
+        binding.HeightNewTextArea.setText(String.valueOf(savedHeight));
+        binding.WidthNewTextArea.setText(String.valueOf(savedWidth));
 
         BearImageDatabase bearImageDatabase = Room.databaseBuilder(
                 getApplicationContext(), BearImageDatabase.class, "bear-image-database").build();
@@ -82,7 +94,6 @@ public class BearApplication extends AppCompatActivity {
             });
         }
 
-
         binding.addNewButton.setOnClickListener(click -> {
             int height;
             int width;
@@ -91,6 +102,12 @@ public class BearApplication extends AppCompatActivity {
             if (checkIfInputValid()) {
                 height = Integer.parseInt(binding.HeightNewTextArea.getText().toString());
                 width = Integer.parseInt(binding.WidthNewTextArea.getText().toString());
+
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt("bearHeight", height);
+                editor.putInt("bearWidth", width);
+                editor.apply();
+
                 String parameterizedUrl = String.format(url, height, width);
                 queue = Volley.newRequestQueue(this.getApplicationContext());
                 ImageRequest imageRequest = new ImageRequest(parameterizedUrl, new Response.Listener<Bitmap>() {
@@ -125,7 +142,7 @@ public class BearApplication extends AppCompatActivity {
                     @NonNull
                     @Override
                     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        ViewBinding binding = BearEntryBinding.inflate(getLayoutInflater());
+                        BearEntryBinding binding = BearEntryBinding.inflate(getLayoutInflater());
                         return new MyRowHolder(binding.getRoot());
                     }
 
@@ -152,12 +169,9 @@ public class BearApplication extends AppCompatActivity {
                     }
                 });
             }
-
         });
 
-        bearModel.selectedImage.observe(this, (newImageValue) ->
-
-        {
+        bearModel.selectedImage.observe(this, newImageValue -> {
             BearImageDetailsFragment imageFragment = new BearImageDetailsFragment(newImageValue);
             FragmentManager fManager = getSupportFragmentManager();
             FragmentTransaction tx = fManager.beginTransaction();
@@ -166,6 +180,7 @@ public class BearApplication extends AppCompatActivity {
             tx.commit();
         });
     }
+
 
     private boolean checkIfInputValid() {
         boolean valid = false;
