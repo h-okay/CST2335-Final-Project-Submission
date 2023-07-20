@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -163,13 +164,14 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 //    };
 
     public void onItemClick(Flight flight) {
+        int position = flightList.indexOf(flight);
         Executor thread = Executors.newSingleThreadExecutor();
         thread.execute(() -> {
             // Check if the clicked flight is in the saved list (from the database)
             List<Flight> savedFlights = myDAO.getFlights();
             if (savedFlights.contains(flight)) {
                 // Show the AlertDialog for the clicked item in the saved list
-                runOnUiThread(() -> showAlertDialog(flight));
+                runOnUiThread(() -> showAlertDialog(flight, position));
             } else {
                 // Show the FlightDetailFragment for the clicked item not in the saved list
                 runOnUiThread(() -> showFlightDetailFragment(flight));
@@ -177,8 +179,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         });
     }
 
-    private void showAlertDialog(Flight flight) {
-
+    private void showAlertDialog(Flight flight, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Flight Details")
                 .setMessage("Flight Number: " + flight.getFlightNumber() + "\n" +
@@ -187,7 +188,34 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
                         "Gate: " + flight.getGate() + "\n" +
                         "Terminal: " + flight.getTerminal() + "\n" +
                         "Destination: " + flight.getDestination())
-                .setPositiveButton("OK", null)
+                .setNegativeButton("Cancel", (dialog, which) -> {})
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    Executor thread = Executors.newSingleThreadExecutor();
+                    thread.execute(() -> {
+                        // Delete the selected flight from the database
+                        myDAO.deleteFlight(flight);
+                        runOnUiThread(() -> {
+                            // Remove the flight from the list and notify the adapter
+                            flightList.remove(position);
+                            flightAdapter.notifyItemRemoved(position);
+
+                            Snackbar.make(recyclerView, "You deleted flight #" + (position + 1), Snackbar.LENGTH_LONG)
+                                    .setAction("Undo", click -> {
+                                        Executor undoThread = Executors.newSingleThreadExecutor();
+                                        undoThread.execute(() -> {
+                                            // Insert the deleted flight back to the database
+                                            myDAO.insertFlight(flight);
+                                            runOnUiThread(() -> {
+                                                // Add the flight back to the list and notify the adapter
+                                                flightList.add(position, flight);
+                                                flightAdapter.notifyItemInserted(position);
+                                            });
+                                        });
+                                    })
+                                    .show();
+                        });
+                    });
+                })
                 .create()
                 .show();
     }
