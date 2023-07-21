@@ -10,6 +10,19 @@
     <string name="bear_details_sizes">Size</string>
     <string name="bear_details_description">Size</string>
 
+
+    <string name="buttonName1">Convert</string>
+    <string name="buttonName2">HELP</string>
+
+    <string name="helpMessage">"Instructions on how to use the interface:\n\n"
+                    "1. Enter the amount in the \"Amount\" field.\n"
+                    "2. Select the source currency from the \"From\" dropdown.\n"
+                    "3. Select the target currency from the \"To\" dropdown.\n"
+                    "4. Click the \"Convert\" button to perform the conversion.\n"
+                    "5. The converted amount will be displayed in the list below.\n"
+                    "6. Long press on an item in the list to delete it.\n\n"
+                    "Note: Currency conversion rates are obtained from a third-party API and may not always be up to date."</string>
+
     <string-array name="currency_codes">
         <item>AUD</item>
         <item>CAD</item>

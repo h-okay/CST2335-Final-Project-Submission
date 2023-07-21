@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/source_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="45dp"
+        android:text="Source Currency Goes Here"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/original_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="Original value Goes Here"
+        app:layout_constraintStart_toEndOf="@+id/source_detail"
+        app:layout_constraintTop_toTopOf="@+id/source_detail" />
+
+    <TextView
+        android:id="@+id/target_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Target Currency Goes Here"
+        app:layout_constraintStart_toStartOf="@+id/source_detail"
+        app:layout_constraintTop_toBottomOf="@+id/original_value" />
+
+    <TextView
+        android:id="@+id/converted_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="Converted value Goes Here"
+        app:layout_constraintStart_toEndOf="@+id/target_detail"
+        app:layout_constraintTop_toTopOf="@+id/target_detail" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
