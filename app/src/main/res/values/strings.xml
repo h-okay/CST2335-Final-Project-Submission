@@ -2,7 +2,6 @@
 <!--    <string name="app_name">CST2335-FinalProject</string>-->
     <string name="app_name">Aviation Stack Flight Tracker</string>
     <string name="enter_airport_code">Enter Airport Code</string>
-    <string name="enter">Enter</string>
     <string name="destination">Destination:%s</string>
     <string name="terminal">Terminal:%s</string>
     <string name="gate">Gate:%s</string>
@@ -10,4 +9,5 @@
     <string name="departure">Departure:%s</string>
     <string name="flight_name">Flight Name:%s</string>
     <string name="flight_number">Flight Number:%s</string>
+    <string name="enter">enter</string>
 </resources>
