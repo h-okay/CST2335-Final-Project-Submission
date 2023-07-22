@@ -12,7 +12,9 @@ public class UserScore {
     private int score;
 
     // Empty constructor used by Room
-    public UserScore() {}
+    public UserScore() {
+
+    }
 
     // Parameterized constructor for your own use
     public UserScore(String userName, int score) {
@@ -22,23 +24,28 @@ public class UserScore {
 
     // Getters
     public int getId() {
+
         return id;
     }
 
     public String getUserName() {
+
         return userName;
     }
 
-    public int getScore() {
+    public int getScore()
+    {
         return score;
     }
 
     // Setters
     public void setId(int id) {
+
         this.id = id;
     }
 
     public void setUserName(String userName) {
+
         this.userName = userName;
     }
 
