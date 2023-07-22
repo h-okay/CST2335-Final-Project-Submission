@@ -14,7 +14,7 @@
         android:theme="@style/Theme.CST2335FinalProject"
         tools:targetApi="31">
         <activity
-            android:name=".FlightMainActivity"
+            android:name=".flight.FlightMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

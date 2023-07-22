@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="my_primary">#4768CC</color>
-    <color name="my_secondary">#5AA5E6</color>
-    <color name="my_statusbar">#3F51B5</color>
-    <color name="my_text">#3F51B5</color>
-    <color name="ticket">#C8CFF4</color>
+    <color name="flight_primary">#4768CC</color>
+    <color name="flight_secondary">#5AA5E6</color>
+    <color name="flight_statusbar">#3F51B5</color>
+    <color name="flight_text">#3F51B5</color>
+    <color name="flight_ticket">#C8CFF4</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

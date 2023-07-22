@@ -1,5 +1,6 @@
-package algonquin.cst2335.cst2335_finalproject;
+package algonquin.cst2335.cst2335_finalproject.flight;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -13,6 +14,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,10 +42,14 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import algonquin.cst2335.cst2335_finalproject.R;
+import algonquin.cst2335.cst2335_finalproject.databinding.FlightMainBinding;
+
 
 public class FlightMainActivity extends AppCompatActivity implements FlightAdapter.OnItemClickListener
 {
 
+    FlightMainBinding binding;
     FLightListViewModel flightModel;
     private ArrayList<Flight> flightList;
     private RecyclerView recyclerView;
@@ -56,10 +63,25 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
     Flight flight;
     FlightDAO myDAO;
 
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.flight_menu, menu);
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.flight_main);
+        binding = FlightMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.toolbar);  // for action toolbar
+
+     //   setContentView(R.layout.flight_main);
 
         db = Room.databaseBuilder(getApplicationContext(), FlightDatabase.class, "flight-item").build();
         myDAO = db.cmDAO(); // the only function in FlightDatabase
@@ -98,6 +120,9 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         flightList = new ArrayList<>();
         flightModel = new ViewModelProvider(this).get(FLightListViewModel.class);
         flightList = flightModel.lists.getValue();
+
+
+
 
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +173,31 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch( item.getItemId() )
+        {
+            case R.id.about:
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Instructions")
+                        .setMessage(
+                                "1. Enter the airport code in the text field and click 'Search'.\n" +
+                                "2. The app will fetch flight lists for the entered airport code.\n" +
+                                "3. click one of the list to view its details with a save button.\n" +
+                                "4. If you click on a saved flight, you will have the option to delete it.\n" +
+                                "5. To view the list of saved flights, click 'View Saved Flights'.")
+                        .setPositiveButton("OK", (dialog, which) -> {})
+                        .create()
+                        .show();
+
+                break;
+        }
+
+        return true;
+    }
     @Override
 //    public void onItemClick(Flight flight) {
 //
