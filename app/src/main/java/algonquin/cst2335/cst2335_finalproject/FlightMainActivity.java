@@ -148,8 +148,6 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 
     }
 
-
-
     @Override
 //    public void onItemClick(Flight flight) {
 //
