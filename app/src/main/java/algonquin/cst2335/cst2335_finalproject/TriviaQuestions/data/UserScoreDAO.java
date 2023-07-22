@@ -1,5 +1,6 @@
 package algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -12,5 +13,5 @@ public interface UserScoreDAO {
     void insert(UserScore userScore);
 
     @Query("SELECT * FROM UserScore ORDER BY score DESC LIMIT 10")
-    List<UserScore> getTopScores();
+    LiveData<List<UserScore>> getTopScores();
 }

@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.TriviaMain">
+
+    <TextView
+        android:id="@+id/welcomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="Welcome to the Trivia App!"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/usernameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welcomeTextView"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Enter your username"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/startTriviaButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/usernameEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Start Trivia" />
+
+    <Button
+        android:id="@+id/highScoresButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startTriviaButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="High Scores" />
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/highScoresButton"/>
+
+
+
+</RelativeLayout>
