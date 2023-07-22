@@ -17,7 +17,7 @@
 
         <!-- DO NOT CHANGE MAIN ENTRY POINT -->
         <activity
-            android:name=".FlightMainActivity"
+            android:name=".flight.FlightMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

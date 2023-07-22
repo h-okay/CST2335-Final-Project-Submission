@@ -1,20 +1,17 @@
-package algonquin.cst2335.cst2335_finalproject;
+package algonquin.cst2335.cst2335_finalproject.flight;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import algonquin.cst2335.cst2335_finalproject.FlightAdapter.OnItemClickListener;
+
+import algonquin.cst2335.cst2335_finalproject.R;
 
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 
 public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightViewHolder> {
     private List<Flight> flightList;
