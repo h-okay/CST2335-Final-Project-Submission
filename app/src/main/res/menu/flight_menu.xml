@@ -5,9 +5,9 @@
     <item
         android:id="@+id/item_1"
         android:icon="@drawable/flight"
-        android:title="Delete this item"
+        android:title=""
         app:showAsAction="always" />
     <item
         android:id="@+id/about"
-        android:title="About" />
+        android:title="@string/help" />
 </menu>

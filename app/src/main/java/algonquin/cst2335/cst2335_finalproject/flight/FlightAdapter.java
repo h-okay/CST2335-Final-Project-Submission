@@ -96,6 +96,14 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
                 gateTextView.setText("Gate:" + flight.getGate());
                 delayTextView.setText("Delay:" + flight.getDelay());
 
+//            departureAirportTextView.setText(getString(R.string.departure, flight.getDepartureAirport()));
+//            flightNumberTextView.setText(getString(R.string.flight_number_label, flight.getFlightNumber()));
+//            destinationTextView.setText(getString(R.string.destination_label, flight.getDestination()));
+//            terminalTextView.setText(getString(R.string.terminal_label, flight.getTerminal()));
+//            gateTextView.setText(getString(R.string.gate_label, flight.getGate()));
+//            delayTextView.setText(getString(R.string.delay_label, flight.getDelay()));
+
+
 
         }
     }
