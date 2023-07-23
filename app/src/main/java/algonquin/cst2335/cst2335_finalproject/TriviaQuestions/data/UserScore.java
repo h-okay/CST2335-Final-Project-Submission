@@ -33,8 +33,7 @@ public class UserScore {
         return userName;
     }
 
-    public int getScore()
-    {
+    public int getScore() {
         return score;
     }
 
@@ -51,5 +50,10 @@ public class UserScore {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return this.getUserName() + ": " + this.getScore();
     }
 }

@@ -9,4 +9,10 @@
     <string name="bear_details_date">Date added</string>
     <string name="bear_details_sizes">Size</string>
     <string name="bear_details_description">Size</string>
+    <string name="trivia_welcome_text">Welcome to the Trivia App!</string>
+    <string name="trivia_username">Enter your Username</string>
+    <string name="trivia_start">Start Trivia</string>
+    <string name="trivia_high_score">High Scores</string>
+    <string name="trivia_answer_submit">Submit Answer</string>
+
 </resources>
