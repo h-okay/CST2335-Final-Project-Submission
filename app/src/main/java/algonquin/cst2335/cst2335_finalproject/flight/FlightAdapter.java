@@ -103,8 +103,6 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
 //            gateTextView.setText(getString(R.string.gate_label, flight.getGate()));
 //            delayTextView.setText(getString(R.string.delay_label, flight.getDelay()));
 
-
-
         }
     }
 }

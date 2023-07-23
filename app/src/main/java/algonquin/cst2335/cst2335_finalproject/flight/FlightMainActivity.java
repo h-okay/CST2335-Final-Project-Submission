@@ -60,11 +60,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
     private EditText typeAirportCode;
 
     FlightDatabase db;
-    Flight flight;
     FlightDAO myDAO;
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,7 +81,6 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 
         db = Room.databaseBuilder(getApplicationContext(), FlightDatabase.class, "flight-item").build();
         myDAO = db.cmDAO(); // the only function in FlightDatabase
-        //long insertedId = flightDAO.insertFlight(flight);
 
         flightList = new ArrayList<>();
         flightModel = new ViewModelProvider(this).get(FLightListViewModel.class);
@@ -99,7 +94,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
                 List<Flight> allFlight = myDAO.getFlights();
                 flightList.addAll( allFlight ); //Once you get the data from database
 
-         //       runOnUiThread( () ->  binding.recycleView.setAdapter( myAdapter )); //You can then load the RecyclerView
+         //       runOnUiThread( () ->  binding.recycleView.setAdapter( myAdapter ));
             });
         }
 
@@ -120,9 +115,6 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         flightList = new ArrayList<>();
         flightModel = new ViewModelProvider(this).get(FLightListViewModel.class);
         flightList = flightModel.lists.getValue();
-
-
-
 
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,8 +157,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         // Set the click listener to the adapter
         flightAdapter.setOnItemClickListener(this);
 
-        // Check if there is a saved airport code and fetch flight results
-
+// Check if there is a saved airport code and fetch flight results
 //        if (!savedAirportCode.isEmpty()) {
 //            getFlightResults(savedAirportCode);
 //        }
@@ -199,18 +190,6 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         return true;
     }
     @Override
-//    public void onItemClick(Flight flight) {
-//
-//
-//        FlightDetailFragment flightFragment = new FlightDetailFragment(flight, myDAO);
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.fragmentLocation, flightFragment);
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
-//
-//    };
-
     public void onItemClick(Flight flight) {
         int position = flightList.indexOf(flight);
         Executor thread = Executors.newSingleThreadExecutor();
@@ -314,11 +293,9 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 
     // Method to retrieve flight results based on search query
 
-
-
     private void getFlightResults(String airportCode) {
         RequestQueue rq = Volley.newRequestQueue(getApplicationContext());
-        String url = "http://api.aviationstack.com/v1/flights?access_key=596648bebab52a21e4f477a242cc2087&dep_iata=" + airportCode + "&limit=100";
+        String url = "http://api.aviationstack.com/v1/flights?access_key=64c8ab1b70d567836fa9b2c80be480e2&dep_iata=" + airportCode + "&limit=100";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
