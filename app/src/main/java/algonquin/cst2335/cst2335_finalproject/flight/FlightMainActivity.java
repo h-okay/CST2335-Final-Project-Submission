@@ -13,6 +13,7 @@ import androidx.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,8 +40,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 import algonquin.cst2335.cst2335_finalproject.R;
 import algonquin.cst2335.cst2335_finalproject.databinding.FlightMainBinding;
@@ -88,14 +87,12 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         if(flightList == null)
         {
             flightModel.lists.postValue(flightList = new ArrayList<>());
-            Executor thread = Executors.newSingleThreadExecutor();
-            thread.execute(() ->
-            {
+            Thread backgroundThread = new Thread(() -> {
                 List<Flight> allFlight = myDAO.getFlights();
-                flightList.addAll( allFlight ); //Once you get the data from database
-
-         //       runOnUiThread( () ->  binding.recycleView.setAdapter( myAdapter ));
+                flightList.addAll(allFlight);
+                runOnUiThread(() ->  binding.recyclerView.setAdapter(flightAdapter));
             });
+            backgroundThread.start();
         }
 
 
@@ -140,16 +137,17 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
             }
         });
 
+
         viewListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Executor thread = Executors.newSingleThreadExecutor();
-                thread.execute(() -> {
+                // Using Thread
+                new Thread(() -> {
                     // Retrieve the saved flights from the database using the FlightDAO
                     List<Flight> savedFlights = myDAO.getFlights();
                     // Update the RecyclerView with the saved flights
-                    runOnUiThread(() -> updateFlightResults(savedFlights));
-                });
+                    v.post(() -> updateFlightResults(savedFlights));
+                }).start();
             }
         });
 
@@ -192,8 +190,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
     @Override
     public void onItemClick(Flight flight) {
         int position = flightList.indexOf(flight);
-        Executor thread = Executors.newSingleThreadExecutor();
-        thread.execute(() -> {
+        new Thread(() -> {
             // Check if the clicked flight is in the saved list (from the database)
             List<Flight> savedFlights = myDAO.getFlights();
             if (savedFlights.contains(flight)) {
@@ -203,7 +200,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
                 // Show the FlightDetailFragment for the clicked item not in the saved list
                 runOnUiThread(() -> showFlightDetailFragment(flight));
             }
-        });
+        }).start();
     }
 
     private void showAlertDialog(Flight flight, int position) {
@@ -217,8 +214,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
                         "Destination:" + flight.getDestination())
                 .setNegativeButton("Cancel", (dialog, which) -> {})
                 .setPositiveButton("Delete", (dialog, which) -> {
-                    Executor thread = Executors.newSingleThreadExecutor();
-                    thread.execute(() -> {
+                    new Thread(() -> {
                         // Delete the selected flight from the database
                         myDAO.deleteFlight(flight);
                         runOnUiThread(() -> {
@@ -228,8 +224,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 
                             Snackbar.make(recyclerView, "You deleted flight #" + (position + 1), Snackbar.LENGTH_LONG)
                                     .setAction("Undo", click -> {
-                                        Executor undoThread = Executors.newSingleThreadExecutor();
-                                        undoThread.execute(() -> {
+                                        new Thread(() -> {
                                             // Insert the deleted flight back to the database
                                             myDAO.insertFlight(flight);
                                             runOnUiThread(() -> {
@@ -237,11 +232,11 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
                                                 flightList.add(position, flight);
                                                 flightAdapter.notifyItemInserted(position);
                                             });
-                                        });
+                                        }).start();
                                     })
                                     .show();
                         });
-                    });
+                    }).start();
                 })
                 .create()
                 .show();
@@ -360,8 +355,8 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         };
 
         request.setRetryPolicy(new DefaultRetryPolicy(
-                15000,  // Timeout duration in milliseconds
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                0,  // Timeout duration in milliseconds
+                -1,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         rq.add(request);
