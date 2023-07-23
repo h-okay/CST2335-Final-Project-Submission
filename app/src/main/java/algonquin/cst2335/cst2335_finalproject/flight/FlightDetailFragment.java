@@ -33,25 +33,14 @@ public class FlightDetailFragment extends Fragment {
 
         binding.saveButton.setOnClickListener(v -> saveFlightDetailsToDatabase());
 
-     //   binding.deleteButton.setOnClickListener(v -> deleteFlightFromDatabase());
-
         requireActivity().runOnUiThread(() -> {
 
-//            binding.departureText.setText(getString(R.string.departure, selected.departureAirport));
-//            binding.flightNumberText.setText(getString(R.string.flight_number, selected.flightNumber));
-//            binding.destinationData.setText(getString(R.string.destination, selected.destination));
-//            binding.terminalData.setText(getString(R.string.terminal, selected.terminal));
-//            binding.gate.setText(getString(R.string.gate, selected.gate));
-//            binding.delay.setText(getString(R.string.delay, selected.delay));
             binding.departureText.setText(selected.departureAirport);
             binding.flightNumberText.setText(selected.flightNumber);
             binding.destinationData.setText(selected.destination);
             binding.terminalData.setText(selected.terminal);
             binding.gate.setText(selected.gate);
             binding.delay.setText(selected.delay);
-
-
-
 
         });
 
@@ -79,9 +68,6 @@ public class FlightDetailFragment extends Fragment {
         });
 
         requireActivity().onBackPressed();
-        // Show a toast message indicating the flight details are saved
-      //   Toast.makeText(requireContext(), "Flight details saved to the database", Toast.LENGTH_SHORT).show();
-
 
 }
 

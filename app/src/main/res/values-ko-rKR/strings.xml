@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="flight_app_name">Aviation Stack Flight Tracker</string>
+    <string name="app_name">Aviation Stack Flight Tracker</string>
     <string name="enter_airport_code">공항코드를 입력하세요</string>
     <string name="destination">목적지:%s</string>
     <string name="terminal">터미널:%s</string>
