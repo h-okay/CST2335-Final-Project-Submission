@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="trivia_my_primary">#9C27B0</color>
+    <color name="trivia_my_secondary">#FFC107</color>
+    <color name="trivia_my_text">#3F51B5</color>
     <color name="flight_primary">#4768CC</color>
     <color name="flight_secondary">#5AA5E6</color>
     <color name="flight_statusbar">#3F51B5</color>

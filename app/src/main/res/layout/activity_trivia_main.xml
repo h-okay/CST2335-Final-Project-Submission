@@ -19,26 +19,54 @@
 
     </ScrollView>
 
-    <RadioGroup
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/answer1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/radioGroup"
-        android:layout_margin="16dp"
-        android:orientation="vertical"/>
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/answer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/answer3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/answer4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:textColor="@android:color/black" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nextButton"
         android:layout_gravity="center_horizontal"
-        android:text="Submit Answer" />
+        android:text="@string/trivia_answer_submit"
+        android:textColor="@color/trivia_my_primary"/>
 
     <Button
         android:id="@+id/highScoresButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="High Scores" />
+        android:text="@string/trivia_high_score"
+        android:textColor="@color/trivia_my_secondary"/>
 
     <FrameLayout
         android:id="@+id/fragmentContainer"
