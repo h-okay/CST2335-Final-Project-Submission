@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
         android:layout_marginTop="70dp"
-        android:text="Departure:"
+        android:text="@string/departureLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +33,7 @@
         android:id="@+id/flightNumberLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Flight number:"
+        android:text="@string/flight_number_label"
         app:layout_constraintStart_toStartOf="@id/departureLabel"
         app:layout_constraintTop_toBottomOf="@id/departureLabel"
         android:layout_marginTop="16dp"/>
@@ -52,7 +52,7 @@
         android:id="@+id/destinationLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Destination:"
+        android:text="@string/destinationLabel"
         app:layout_constraintStart_toStartOf="@id/flightNumberLabel"
         app:layout_constraintTop_toBottomOf="@id/flightNumberLabel"
         android:layout_marginTop="16dp"/>
@@ -71,7 +71,7 @@
         android:id="@+id/terminalLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Terminal:"
+        android:text="@string/terminalLabel"
         app:layout_constraintStart_toStartOf="@id/destinationLabel"
         app:layout_constraintTop_toBottomOf="@id/destinationLabel"
         android:layout_marginTop="16dp"/>
@@ -90,7 +90,7 @@
         android:id="@+id/gateLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gate:"
+        android:text="@string/gateLabel"
         app:layout_constraintStart_toStartOf="@id/terminalLabel"
         app:layout_constraintTop_toBottomOf="@id/terminalLabel"
         android:layout_marginTop="16dp"/>
@@ -109,7 +109,7 @@
         android:id="@+id/delayLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delay:"
+        android:text="@string/delayLabel"
         app:layout_constraintStart_toStartOf="@id/gateLabel"
         app:layout_constraintTop_toBottomOf="@id/gateLabel"
         android:layout_marginTop="16dp"/>
@@ -129,7 +129,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Save"
+        android:text="@string/save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/delayLabel" />

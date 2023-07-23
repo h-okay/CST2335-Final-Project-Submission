@@ -1,47 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- activity_main.xml -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:ignore="HardcodedText">
+    android:orientation="vertical"
+    tools:context=".flight.FlightMainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Final Project"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="134dp" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:text="CST 2335"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+
+
+    <!-- EditText for entering the airport code -->
+
+    <!-- Enter Button -->
+
+    <EditText
+        android:id="@+id/typeAirportCode"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:text="Final Project"
+        android:layout_marginTop="65dp"
+        android:autofillHints="airport code"
+        android:hint="@string/enter_airport_code"
+        android:inputType="text"
+        android:textColor="@color/black"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/enterButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_button"
+        android:text="@string/search"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/typeAirportCode" />
+
+    <!-- RecyclerView to display flight list -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@+id/savedFlightButton"
+        app:layout_constraintEnd_toEndOf="@+id/enterButton"
+        app:layout_constraintStart_toStartOf="@+id/enterButton"
+        app:layout_constraintTop_toBottomOf="@+id/enterButton" />
+
+    <!-- View Saved Flights Button -->
+    <Button
+        android:id="@+id/savedFlightButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/view_saved_flights"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
+    <FrameLayout
+        android:id="@+id/fragmentLocation"
+        android:layout_width="347dp"
+        android:layout_height="430dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.401" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,4 +36,23 @@
         <item>US Dollar</item>
         <item>Europe Euro</item>
     </string-array>
+
+    <string name="enter_airport_code">Enter Airport Code</string>
+    <string name="destination">Destination:%s</string>
+    <string name="terminal">Terminal:%s</string>
+    <string name="gate">Gate:%s</string>
+    <string name="delay">Delay:%s</string>
+    <string name="departure">Departure:%s</string>
+    <string name="flight_name">Flight Name:%s</string>
+    <string name="flight_number">Flight Number:%s</string>
+    <string name="search">Search</string>
+    <string name="view_saved_flights">View saved flights</string>
+    <string name="departureLabel">Departure:</string>
+    <string name="flight_number_label">Flight number:</string>
+    <string name="destinationLabel">Destination:</string>
+    <string name="terminalLabel">Terminal:</string>
+    <string name="gateLabel">Gate:</string>
+    <string name="delayLabel">Delay:</string>
+    <string name="save">Save</string>
+    <string name="help">Help</string>
 </resources>
