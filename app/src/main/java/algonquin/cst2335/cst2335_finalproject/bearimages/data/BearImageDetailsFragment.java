@@ -19,7 +19,6 @@ public class BearImageDetailsFragment extends Fragment {
 
     BearImage selected;
 
-
     public BearImageDetailsFragment(BearImage bi) {
         this.selected = bi;
     }
