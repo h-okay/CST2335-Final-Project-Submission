@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/id_help"
+        android:icon="@drawable/trivia_about"
+        android:title="Help"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/id_delete"
+        android:icon="@drawable/trivia_delete"
+        android:title="Delete this item"
+        app:showAsAction="always" />
+
+</menu>
