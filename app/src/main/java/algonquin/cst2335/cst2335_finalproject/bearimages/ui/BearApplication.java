@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -62,6 +64,7 @@ public class BearApplication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityBearImageListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setSupportActionBar(binding.toolbar);
 
         prefs = getSharedPreferences("BearAppData", Context.MODE_PRIVATE);
         int savedHeight = prefs.getInt("bearHeight", 0);
@@ -69,6 +72,7 @@ public class BearApplication extends AppCompatActivity {
 
         binding.HeightNewTextArea.setText(String.valueOf(savedHeight));
         binding.WidthNewTextArea.setText(String.valueOf(savedWidth));
+
 
         BearImageDatabase bearImageDatabase = Room.databaseBuilder(getApplicationContext(), BearImageDatabase.class, "bear-image-database").build();
         BearImageDao bearDao = bearImageDatabase.bearImageDao();
@@ -141,7 +145,7 @@ public class BearApplication extends AppCompatActivity {
                             BearImage bearImage = images.get(position);
                             byte[] imageData = bearImage.getImage();
                             Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
-                            String sizes = bearImage.getWidth() + "x" + bearImage.getHeight();
+                            String sizes = bearImage.getHeight() + "x" + bearImage.getWidth();
                             String date = bearImage.getCreatedDate();
 
                             myRowHolder.image.setImageBitmap(imageBitmap);
@@ -241,5 +245,22 @@ public class BearApplication extends AppCompatActivity {
             date = itemView.findViewById(R.id.bearImageDate);
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.bear_app_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.bearHelp) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(BearApplication.this);
+            builder.setTitle("How to use").setMessage("- Put in your desired Height(left) and Width(right) and click generate.\n\n- Tap on an image to see the details.\n\n- Hold on an image and accept the dialog to delete the image.").setPositiveButton("OK", (dialog, which) -> {
+            }).create().show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
