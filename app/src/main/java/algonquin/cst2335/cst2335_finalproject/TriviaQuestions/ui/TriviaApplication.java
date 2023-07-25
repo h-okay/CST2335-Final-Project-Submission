@@ -51,6 +51,8 @@ public class TriviaApplication extends AppCompatActivity {
 
     private String userName;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -57,16 +57,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/nextButton"
         android:layout_gravity="center_horizontal"
-        android:text="@string/trivia_answer_submit"
-        android:textColor="@color/trivia_my_primary"/>
+        android:text="@string/trivia_answer_submit" />
 
     <Button
         android:id="@+id/highScoresButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/trivia_high_score"
-        android:textColor="@color/trivia_my_secondary"/>
+        android:text="@string/trivia_high_score" />
 
     <FrameLayout
         android:id="@+id/fragmentContainer"
