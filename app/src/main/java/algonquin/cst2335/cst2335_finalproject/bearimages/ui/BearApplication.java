@@ -2,16 +2,12 @@ package algonquin.cst2335.cst2335_finalproject.bearimages.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import android.os.Bundle;
-
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,22 +22,18 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-import androidx.viewbinding.ViewBinding;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
-
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import algonquin.cst2335.cst2335_finalproject.MainActivity;
 import algonquin.cst2335.cst2335_finalproject.R;
 import algonquin.cst2335.cst2335_finalproject.bearimages.data.BearImage;
 import algonquin.cst2335.cst2335_finalproject.bearimages.data.BearImageDao;
@@ -78,8 +70,7 @@ public class BearApplication extends AppCompatActivity {
         binding.HeightNewTextArea.setText(String.valueOf(savedHeight));
         binding.WidthNewTextArea.setText(String.valueOf(savedWidth));
 
-        BearImageDatabase bearImageDatabase = Room.databaseBuilder(
-                getApplicationContext(), BearImageDatabase.class, "bear-image-database").build();
+        BearImageDatabase bearImageDatabase = Room.databaseBuilder(getApplicationContext(), BearImageDatabase.class, "bear-image-database").build();
         BearImageDao bearDao = bearImageDatabase.bearImageDao();
 
         bearModel = new ViewModelProvider(this).get(BearImageViewModel.class);
@@ -110,7 +101,7 @@ public class BearApplication extends AppCompatActivity {
 
                 String parameterizedUrl = String.format(url, height, width);
                 queue = Volley.newRequestQueue(this.getApplicationContext());
-                ImageRequest imageRequest = new ImageRequest(parameterizedUrl, new Response.Listener<Bitmap>() {
+                ImageRequest imageRequest = new ImageRequest(parameterizedUrl, new Response.Listener<>() {
 
                     private byte[] getBitmapAsByteArray(Bitmap bitmap) {
                         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -132,13 +123,9 @@ public class BearApplication extends AppCompatActivity {
                             });
                         });
                     }
-                }, 0, 0, null, null, error -> Toast.makeText(
-                                BearApplication.this,
-                                "There was an error, please try again.",
-                                Toast.LENGTH_SHORT)
-                        .show());
+                }, 0, 0, null, null, error -> Toast.makeText(BearApplication.this, "There was an error, please try again.", Toast.LENGTH_SHORT).show());
                 queue.add(imageRequest);
-                binding.recyclerView.setAdapter(adapter = new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+                binding.recyclerView.setAdapter(adapter = new RecyclerView.Adapter<>() {
                     @NonNull
                     @Override
                     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -217,8 +204,7 @@ public class BearApplication extends AppCompatActivity {
             });
 
             itemView.setOnLongClickListener(clk -> {
-                BearImageDatabase bearImageDatabase = Room.databaseBuilder(
-                        getApplicationContext(), BearImageDatabase.class, "bear-image-database").build();
+                BearImageDatabase bearImageDatabase = Room.databaseBuilder(getApplicationContext(), BearImageDatabase.class, "bear-image-database").build();
                 BearImageDao bearDao = bearImageDatabase.bearImageDao();
 
                 int position = getAbsoluteAdapterPosition();
@@ -226,37 +212,27 @@ public class BearApplication extends AppCompatActivity {
                 bearModel.selectedImage.postValue(selected);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(BearApplication.this);
-                builder.setMessage("Do you want to delete this image?")
-                        .setTitle("Delete")
-                        .setNegativeButton("No", (dialog, which) -> {
-                        })
-                        .setPositiveButton("Yes", (dialog, which) -> {
-                            BearImage mustDelete = images.get(position);
-                            images.remove(mustDelete);
-                            adapter.notifyItemRemoved(position);
+                builder.setMessage("Do you want to delete this image?").setTitle("Delete").setNegativeButton("No", (dialog, which) -> {
+                }).setPositiveButton("Yes", (dialog, which) -> {
+                    BearImage mustDelete = images.get(position);
+                    images.remove(mustDelete);
+                    adapter.notifyItemRemoved(position);
 
-                            Executor thread = Executors.newSingleThreadExecutor();
-                            thread.execute(() -> bearDao.deleteImage(mustDelete));
+                    Executor thread = Executors.newSingleThreadExecutor();
+                    thread.execute(() -> bearDao.deleteImage(mustDelete));
 
-                            Snackbar.make(
-                                            sizes,
-                                            "You deleted the image # " + position,
-                                            Snackbar.LENGTH_LONG
-                                    ).setAction("Undo", click -> {
-                                        images.add(position, mustDelete);
-                                        adapter.notifyItemInserted(position);
-                                        thread.execute(() -> bearDao.insertImage(mustDelete));
-                                    })
-                                    .addCallback(new Snackbar.Callback() {
-                                        @Override
-                                        public void onShown(Snackbar sb) {
-                                            super.onShown(sb);
-                                            getSupportFragmentManager().popBackStack();
-                                        }
-                                    }).show();
-                        })
-                        .create()
-                        .show();
+                    Snackbar.make(sizes, "You deleted the image # " + position, Snackbar.LENGTH_LONG).setAction("Undo", click -> {
+                        images.add(position, mustDelete);
+                        adapter.notifyItemInserted(position);
+                        thread.execute(() -> bearDao.insertImage(mustDelete));
+                    }).addCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onShown(Snackbar sb) {
+                            super.onShown(sb);
+                            getSupportFragmentManager().popBackStack();
+                        }
+                    }).show();
+                }).create().show();
                 return true;
             });
 

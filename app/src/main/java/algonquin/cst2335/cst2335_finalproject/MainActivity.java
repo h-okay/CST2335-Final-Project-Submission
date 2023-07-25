@@ -1,16 +1,16 @@
 package algonquin.cst2335.cst2335_finalproject;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import algonquin.cst2335.cst2335_finalproject.bearimages.ui.BearApplication;
 import algonquin.cst2335.cst2335_finalproject.databinding.ActivityMainBinding;
@@ -30,20 +30,17 @@ public class MainActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("BearAppData", Context.MODE_PRIVATE);
 
-        bearApplicationLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        int height = result.getData().getIntExtra("bearHeight", 0);
-                        int width = result.getData().getIntExtra("bearWidth", 0);
+        bearApplicationLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                int height = result.getData().getIntExtra("bearHeight", 0);
+                int width = result.getData().getIntExtra("bearWidth", 0);
 
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putInt("bearHeight", height);
-                        editor.putInt("bearWidth", width);
-                        editor.apply();
-                    }
-                }
-        );
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt("bearHeight", height);
+                editor.putInt("bearWidth", width);
+                editor.apply();
+            }
+        });
     }
 
     @Override

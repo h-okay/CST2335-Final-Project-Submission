@@ -39,6 +39,10 @@ public class BearImage {
         return image;
     }
 
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     public int getHeight() {
         return height;
     }
@@ -54,11 +58,6 @@ public class BearImage {
     public void setWidth(int weight) {
         this.width = weight;
     }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
 
     public String getCreatedDate() {
         return createdDate;
