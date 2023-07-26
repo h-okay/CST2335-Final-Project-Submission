@@ -5,8 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * @author Kang Dowon
  * Database helper class for managing the conversions table.
+ *
+ * @version 1.0
+ * @since 2023-07-26
+ * @author Kang Dowon
  */
 public class ConversionDB extends SQLiteOpenHelper {
 

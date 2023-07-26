@@ -1,6 +1,5 @@
 package algonquin.cst2335.cst2335_finalproject.CurrencyConverter;
 
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -42,6 +41,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import algonquin.cst2335.cst2335_finalproject.CurrencyConverter.data.ConversionViewModel;
 import algonquin.cst2335.cst2335_finalproject.R;
 
+/**
+ * The ConversionMain activity handles the currency conversion process, displaying conversion results
+ * in a RecyclerView, and managing user interactions with the app.
+ *
+ * @version 1.0
+ * @since 2023-07-26
+ * @author Kang Dowon
+ */
+
 public class ConversionMain extends AppCompatActivity {
 
     private EditText editTextAmount;
@@ -61,19 +69,28 @@ public class ConversionMain extends AppCompatActivity {
 
     private Button helpBtn;
 
+    /**
+     * Called when the activity is created. Initializes the UI components, sets up the spinners,
+     * and registers click listeners for the conversion button and help button.
+     *
+     * @param savedInstanceState A Bundle containing the saved state of the activity, if available.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversion_main);
 
+        // Initialize ViewModel for managing data across configuration changes
         conversionViewModel = new ViewModelProvider(this).get(ConversionViewModel.class);
 
+        // Initialize UI components
         editTextAmount = findViewById(R.id.edit_text_amount);
         buttonConvert = findViewById(R.id.button_convert);
         spinnerSourceCurrency = findViewById(R.id.spinner_source_currency);
         spinnerTargetCurrency = findViewById(R.id.spinner_target_currency);
         helpBtn = findViewById(R.id.button2);
 
+        // Set up RecyclerView for displaying conversions
         recyclerViewConversions = findViewById(R.id.recycler_view_conversions);
         recyclerViewConversions.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ConversionAdapter(conversions);
@@ -83,6 +100,7 @@ public class ConversionMain extends AppCompatActivity {
 
         dao = conversionViewModel.dao;
 
+        // Set up listeners for RecyclerView item long click and item click
         adapter.setOnLongClickListener(new ConversionAdapter.OnLongClickListener() {
             @Override
             public void onItemLongClicked(int position) {
@@ -90,7 +108,6 @@ public class ConversionMain extends AppCompatActivity {
             }
         });
 
-// With this line
         adapter.setOnItemClickListener(new ConversionAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -99,7 +116,7 @@ public class ConversionMain extends AppCompatActivity {
             }
         });
 
-        // Help button
+        // Set up listener for help button click
         helpBtn.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(ConversionMain.this);
             builder.setTitle("Help");
@@ -129,6 +146,9 @@ public class ConversionMain extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets up the spinners with currency codes and names.
+     */
     private void setupSpinners() {
         // code - short name of country, names -> country + currency
         currencyCodes = getResources().getStringArray(R.array.currency_codes);
@@ -147,6 +167,14 @@ public class ConversionMain extends AppCompatActivity {
         spinnerTargetCurrency.setAdapter(currencyAdapter);
     }
 
+    /**
+     * Makes an API request to perform currency conversion using the given amount, source currency,
+     * and target currency.
+     *
+     * @param amount         The amount to convert.
+     * @param sourceCurrency The source currency code.
+     * @param targetCurrency The target currency code.
+     */
     private void makeApiRequest(String amount, String sourceCurrency, String targetCurrency) {
         String apiUrl = "https://currency-converter5.p.rapidapi.com/currency/convert?format=json&from="
                 + sourceCurrency + "&to=" + targetCurrency + "&amount=" + amount;
@@ -195,6 +223,14 @@ public class ConversionMain extends AppCompatActivity {
         queue.add(request);
     }
 
+    /**
+     * Saves a currency conversion to SharedPreferences.
+     *
+     * @param sourceCurrency   The source currency code.
+     * @param targetCurrency   The target currency code.
+     * @param amount           The amount converted.
+     * @param convertedAmount  The converted amount.
+     */
     private void saveToSharedPreferences(String sourceCurrency, String targetCurrency, String amount, String convertedAmount) {
         SharedPreferences sharedPreferences = getSharedPreferences("CurrencyConversion", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -205,6 +241,9 @@ public class ConversionMain extends AppCompatActivity {
         editor.apply();
     }
 
+    /**
+     * Loads conversions from SharedPreferences and populates the RecyclerView with the data.
+     */
     private void loadConversionsFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("CurrencyConversion", MODE_PRIVATE);
         conversions.clear();
@@ -228,7 +267,11 @@ public class ConversionMain extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    // Method to delete an item from the RecyclerView
+    /**
+     * Deletes an item from the RecyclerView at the specified position.
+     *
+     * @param position The position of the item to be deleted.
+     */
     private void deleteItem(int position) {
 
         if (position >= 0 && position < conversions.size()) {
