@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.TriviaMain;
 import algonquin.cst2335.cst2335_finalproject.bearimages.ui.BearApplication;
 import algonquin.cst2335.cst2335_finalproject.databinding.ActivityMainBinding;
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private SharedPreferences prefs;
     private ActivityResultLauncher<Intent> bearApplicationLauncher;
+    private ActivityResultLauncher<Intent> TriviaApplicationLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
                 editor.apply();
             }
         });
+        TriviaApplicationLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+
+        });
     }
 
     @Override
@@ -56,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, BearApplication.class);
             bearApplicationLauncher.launch(intent);
             return true;
+        }
+        if (itemId == R.id.trivia) {
+            Intent intent = new Intent(MainActivity.this, TriviaMain.class);
+            TriviaApplicationLauncher.launch(intent);
+            return true;
+
         }
         return super.onOptionsItemSelected(item);
     }

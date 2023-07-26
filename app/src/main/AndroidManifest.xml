@@ -16,7 +16,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name="algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.TriviaMain"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,17 +24,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="algonquin.cst2335.cst2335_finalproject.TriviaQuestions.ui.TriviaApplication"
+            android:name=".TriviaQuestions.data.TriviaMain"
             android:exported="true" />
-        <!--        <activity-->
-        <!--            android:name=".bearimages.ui.BearApplication"-->
-        <!--            android:exported="true" />-->
-        <!--        <activity-->
-        <!--            android:name=".bearimages.ui.BearApplication"-->
-        <!--            android:exported="true" />-->
-        <!--        <activity-->
-        <!--            android:name=".bearimages.ui.BearApplication"-->
-        <!--            android:exported="true" />-->
+        <activity
+            android:name=".bearimages.ui.BearApplication"
+            android:exported="true" />
+        <activity
+            android:name=".TriviaQuestions.ui.TriviaApplication"
+            android:exported="true" />
+
     </application>
 
 </manifest>
