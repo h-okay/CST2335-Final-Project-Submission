@@ -13,7 +13,7 @@
         android:id="@+id/departureLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="70dp"
         android:text="@string/departureLabel"
         app:layout_constraintStart_toStartOf="parent"
