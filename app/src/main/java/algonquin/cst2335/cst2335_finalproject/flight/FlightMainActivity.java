@@ -252,10 +252,6 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         fragmentTransaction.commit();
     }
 
-
-
-
-
     private void initializeRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -362,6 +358,13 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         rq.add(request);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (db != null) {
+            db.close();
+        }
+    }
 
 }
 
