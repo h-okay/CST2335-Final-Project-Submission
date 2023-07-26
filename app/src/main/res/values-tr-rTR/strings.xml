@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CST2335-Final Projesi</string>
+    <string name="bear_new_image_button">Oluştur</string>
+    <string name="bear_new_image_height">Boy</string>
+    <string name="bear_new_image_width">En</string>
+    <string name="bear_image_text">İsim</string>
+    <string name="bear_image_date">Tarih</string>
+    <string name="bear_image_description">Ayı Görseli</string>
+    <string name="bear_details_date">Ekleme tarihi</string>
+    <string name="bear_details_sizes">Boyutlar</string>
+    <string name="bear_details_description">Boyutlar</string>
+</resources>

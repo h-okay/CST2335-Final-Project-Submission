@@ -11,7 +11,8 @@ Code-freeze: Aug 1, 2023
 
 ## Git Usage
 
-This project utilizes Git for version control, allowing for collaborative development and easy management of code changes. Here is a more detailed explanation of Git usage:
+This project utilizes Git for version control, allowing for collaborative development and easy
+management of code changes. Here is a more detailed explanation of Git usage:
 
 ### Cloning the Repository
 
@@ -31,7 +32,8 @@ This project utilizes Git for version control, allowing for collaborative develo
 
 ### Creating a New Branch
 
-Before starting work on a new feature or bug fix, it's recommended to create a new branch. This allows you to isolate your changes and makes it easier to merge them later.
+Before starting work on a new feature or bug fix, it's recommended to create a new branch. This
+allows you to isolate your changes and makes it easier to merge them later.
 
 1. Ensure you are on the `main` branch:
 
@@ -51,7 +53,8 @@ Before starting work on a new feature or bug fix, it's recommended to create a n
 
 ### Making Changes and Committing
 
-1. Open the project in your preferred development environment and make the necessary changes to your assigned Java package.
+1. Open the project in your preferred development environment and make the necessary changes to your
+   assigned Java package.
 
 2. Once you have made some changes, save your files and return to the terminal.
 
@@ -69,7 +72,8 @@ Before starting work on a new feature or bug fix, it's recommended to create a n
    git add <file1> <file2> ...
    ```
 
-   Replace `<file1> <file2> ...` with the names of the files you want to stage. Alternatively, you can use `git add .` to stage all changes.
+   Replace `<file1> <file2> ...` with the names of the files you want to stage. Alternatively, you
+   can use `git add .` to stage all changes.
 
 5. Commit your changes with a meaningful commit message:
 
@@ -83,7 +87,8 @@ Before starting work on a new feature or bug fix, it's recommended to create a n
 
 ### Pushing Changes and Creating Pull Requests
 
-1. When you are ready to share your changes with the team, push your branch to the remote repository:
+1. When you are ready to share your changes with the team, push your branch to the remote
+   repository:
 
    ```bash
    git push origin <branch-name>
@@ -91,13 +96,16 @@ Before starting work on a new feature or bug fix, it's recommended to create a n
 
    Replace `<branch-name>` with the name of your branch.
 
-2. Go to the repository's page on the Git hosting platform (e.g., GitHub, GitLab) and locate your pushed branch.
+2. Go to the repository's page on the Git hosting platform (e.g., GitHub, GitLab) and locate your
+   pushed branch.
 
-3. Create a pull request (or merge request) to initiate the process of merging your changes into the `main` branch. Provide a descriptive title and description for the pull request.
+3. Create a pull request (or merge request) to initiate the process of merging your changes into
+   the `main` branch. Provide a descriptive title and description for the pull request.
 
 4. Collaborate with your team members and address any feedback or comments on the pull request.
 
-5. Once the pull request is approved, it can be merged into the `main` branch by a team member with the necessary permissions.
+5. Once the pull request is approved, it can be merged into the `main` branch by a team member with
+   the necessary permissions.
 
 ### Updating Your Local Repository
 
@@ -141,13 +149,16 @@ Here are a few additional Git commands that may come in handy:
 - `git log`: Shows the commit history.
 - `git diff`: Shows the differences between files.
 
-For more detailed information and advanced usage, refer to the official Git documentation or other Git resources.
+For more detailed information and advanced usage, refer to the official Git documentation or other
+Git resources.
 
-Remember to adhere to the team's Git workflow and follow any specific guidelines provided by your project supervisor or instructor.
+Remember to adhere to the team's Git workflow and follow any specific guidelines provided by your
+project supervisor or instructor.
 
 ## Gradle and Dependencies
 
-Gradle is used as the build system for the project. To add dependencies to your specific Java package, follow the steps below:
+Gradle is used as the build system for the project. To add dependencies to your specific Java
+package, follow the steps below:
 
 1. Open the **build.gradle** file located in the respective package directory.
 
@@ -163,7 +174,8 @@ Gradle is used as the build system for the project. To add dependencies to your 
     }
     ```
 
-3. Replace group, name, and version with the actual values for the dependency you want to include. For example:
+3. Replace group, name, and version with the actual values for the dependency you want to include.
+   For example:
 
     ```gradle
     dependencies {

@@ -15,6 +15,7 @@
         android:theme="@style/Theme.CST2335FinalProject"
         tools:targetApi="31">
 
+        <!-- DO NOT CHANGE MAIN ENTRY POINT -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -23,18 +24,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- SUB APPLICATION ENTRY POINTS, UPDATE THE NAMES WITH YOUR APPLICATIONS PATH -->
         <activity
             android:name=".bearimages.ui.BearApplication"
             android:exported="true" />
-        <!--        <activity-->
-        <!--            android:name=".bearimages.ui.BearApplication"-->
-        <!--            android:exported="true" />-->
-        <!--        <activity-->
-        <!--            android:name=".bearimages.ui.BearApplication"-->
-        <!--            android:exported="true" />-->
-        <!--        <activity-->
-        <!--            android:name=".bearimages.ui.BearApplication"-->
-        <!--            android:exported="true" />-->
+        <!--
+                <activity
+                    android:name=""
+                    android:exported="true" />
+                <activity
+                    android:name=""
+                    android:exported="true" />
+                <activity
+                    android:name=""
+                    android:exported="true" />
+        -->
     </application>
 
 </manifest>
