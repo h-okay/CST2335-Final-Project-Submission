@@ -79,8 +79,8 @@
 
     <FrameLayout
         android:id="@+id/fragmentLocation"
-        android:layout_width="347dp"
-        android:layout_height="430dp"
+        android:layout_width="373dp"
+        android:layout_height="474dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
