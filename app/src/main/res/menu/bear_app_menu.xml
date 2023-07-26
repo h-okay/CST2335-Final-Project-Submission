@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/bearHelp"
         android:icon="@drawable/bear"
-        android:title="Help" />
+        android:title="Help"
+        tools:ignore="HardcodedText" />
 </menu>
