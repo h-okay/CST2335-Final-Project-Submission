@@ -36,6 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import algonquin.cst2335.cst2335_finalproject.CurrencyConverter.ConversionMain;
+import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.TriviaMain;
 import algonquin.cst2335.cst2335_finalproject.bearimages.ui.BearApplication;
 import algonquin.cst2335.cst2335_finalproject.databinding.ActivityMainBinding;
 import algonquin.cst2335.cst2335_finalproject.flight.FlightMainActivity;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> bearApplicationLauncher;
     private ActivityResultLauncher<Intent> currencyApplicationLauncher;
     private ActivityResultLauncher<Intent> flightApplicationLauncher;
+    private ActivityResultLauncher<Intent> triviaApplicationLauncher;
 
     /**
      * Called when the activity is starting.
@@ -98,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
         flightApplicationLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
 
         });
+
+        triviaApplicationLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+
+        });
     }
 
 
@@ -128,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (itemId == R.id.trivia) {
+            Intent intent = new Intent(MainActivity.this, TriviaMain.class);
+            triviaApplicationLauncher.launch(intent);
             return true;
         }
         if (itemId == R.id.bear) {

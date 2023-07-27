@@ -17,7 +17,7 @@
 
         <!-- DO NOT CHANGE MAIN ENTRY POINT -->
         <activity
-            android:name="algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.TriviaMain"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,18 +27,21 @@
 
         <!-- SUB APPLICATION ENTRY POINTS, UPDATE THE NAMES WITH YOUR APPLICATIONS PATH -->
         <activity
-            android:name="algonquin.cst2335.cst2335_finalproject.TriviaQuestions.ui.TriviaApplication"
-            android:exported="true" />
-        <activity
             android:name=".CurrencyConverter.ConversionMain"
             android:exported="true" />
         <activity
             android:name=".flight.FlightMainActivity"
             android:exported="true" />
-        <!--         <activity
-                     android:name=""
-                     android:exported="true" />
-         -->
+        <activity
+            android:name=".bearimages.ui.BearApplication"
+            android:exported="true" />
+        <activity
+            android:name=".TriviaQuestions.data.TriviaMain"
+            android:exported="true" />
+        <activity
+            android:name=".TriviaQuestions.ui.TriviaApplication"
+            android:exported="true" />
+
     </application>
 
 </manifest>
