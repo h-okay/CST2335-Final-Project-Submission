@@ -30,7 +30,7 @@
             android:name=".bearimages.ui.BearApplication"
             android:exported="true" />
         <activity
-            android:name=".CurrencyConverter.Splash"
+            android:name=".CurrencyConverter.ConversionMain"
             android:exported="true" />
         <!--     <activity
                  android:name=""
