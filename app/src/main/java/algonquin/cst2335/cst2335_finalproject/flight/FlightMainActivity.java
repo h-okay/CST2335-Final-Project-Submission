@@ -194,7 +194,7 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 
     private void showAlertDialog(Flight flight, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Flight Details")
+        builder.setTitle(getString(R.string.flight_detail))
                 .setMessage(getString(R.string.flight_number, flight.getFlightNumber())
                         + "\n" + getString(R.string.departure, flight.getDepartureAirport())
                         + "\n" + getString(R.string.delay, flight.getDelay())
