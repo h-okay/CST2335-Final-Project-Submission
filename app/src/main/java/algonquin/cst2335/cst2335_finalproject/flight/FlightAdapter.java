@@ -43,7 +43,15 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
     @Override
     public void onBindViewHolder(@NonNull FlightViewHolder holder, int position) {
         Flight flight = flightList.get(position);
-        holder.bind(flight);
+
+        String departureText = holder.itemView.getContext().getString(R.string.departure, flight.getDepartureAirport());
+        String flightNumberText = holder.itemView.getContext().getString(R.string.flight_number, flight.getFlightNumber());
+        String destinationText = holder.itemView.getContext().getString(R.string.destination, flight.getDestination());
+        String terminalText = holder.itemView.getContext().getString(R.string.terminal, flight.getTerminal());
+        String gateText = holder.itemView.getContext().getString(R.string.gate, flight.getGate());
+        String delayText = holder.itemView.getContext().getString(R.string.delay, flight.getDelay());
+
+        holder.bind(flight, departureText, flightNumberText, destinationText, terminalText, gateText, delayText);
     }
 
     @Override
@@ -85,22 +93,14 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.FlightView
 
         }
 
-        public void bind(Flight flight) {
+        public void bind(Flight flight, String departureText, String flightNumberText, String destinationText, String terminalText, String gateText, String delayText) {
 
-
-            departureAirportTextView.setText("Departure:" + flight.getDepartureAirport());
-            flightNumberTextView.setText("Flight Number:" + flight.getFlightNumber());
-            destinationTextView.setText("Destination:" + flight.getDestination());
-            terminalTextView.setText("Terminal:" + flight.getTerminal());
-            gateTextView.setText("Gate:" + flight.getGate());
-            delayTextView.setText("Delay:" + flight.getDelay());
-
-//            departureAirportTextView.setText(getString(R.string.departure, flight.getDepartureAirport()));
-//            flightNumberTextView.setText(getString(R.string.flight_number_label, flight.getFlightNumber()));
-//            destinationTextView.setText(getString(R.string.destination_label, flight.getDestination()));
-//            terminalTextView.setText(getString(R.string.terminal_label, flight.getTerminal()));
-//            gateTextView.setText(getString(R.string.gate_label, flight.getGate()));
-//            delayTextView.setText(getString(R.string.delay_label, flight.getDelay()));
+            departureAirportTextView.setText(departureText);
+            flightNumberTextView.setText(flightNumberText);
+            destinationTextView.setText(destinationText);
+            terminalTextView.setText(terminalText);
+            gateTextView.setText(gateText);
+            delayTextView.setText(delayText);
 
         }
     }
