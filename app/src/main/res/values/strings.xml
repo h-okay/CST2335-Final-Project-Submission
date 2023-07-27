@@ -56,6 +56,14 @@
     <string name="save">Save</string>
     <string name="help">Help</string>
     <string name="flight_detail">Flight Details</string>
+    <string name="flight_help">
+                    "1. Enter the airport code in the text field and click 'Search'.\n"
+                    "2. The app will fetch flight lists for the entered airport code.\n"
+                    "3. Click one of the list to view its details with a save button.\n"
+                    "4. If you click on a saved flight, you will have the option to delete it.\n"
+                    "5. To view the list of saved flights, click 'View Saved Flights'.\n"
+                    "Note: Getting List from Flight API could take longer than expected."</string>
+
 
     <string name="trivia_welcome_text">Welcome to the Trivia App!</string>
     <string name="trivia_username">Enter your Username</string>
