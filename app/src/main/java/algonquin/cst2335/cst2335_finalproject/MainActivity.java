@@ -35,6 +35,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import algonquin.cst2335.cst2335_finalproject.CurrencyConverter.ConversionMain;
 import algonquin.cst2335.cst2335_finalproject.bearimages.ui.BearApplication;
 import algonquin.cst2335.cst2335_finalproject.databinding.ActivityMainBinding;
 
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
      * The ActivityResultLauncher to handle the result of launching the BearApplication activity.
      */
     private ActivityResultLauncher<Intent> bearApplicationLauncher;
+    private ActivityResultLauncher<Intent> currencyApplicationLauncher;
 
     /**
      * Called when the activity is starting.
@@ -86,7 +88,12 @@ public class MainActivity extends AppCompatActivity {
                 editor.apply();
             }
         });
+
+        currencyApplicationLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+
+        });
     }
+
 
     /**
      * Initialize the contents of the Activity's standard options menu.
@@ -121,8 +128,16 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (itemId == R.id.currency) {
+            Intent intent = new Intent(MainActivity.this, ConversionMain.class);
+            currencyApplicationLauncher.launch(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 }
+
+
+
+
+
+

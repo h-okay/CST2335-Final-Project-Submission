@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">CST2335-FinalProject</string>
+    <string name="bear_new_image_button">Generate</string>
+    <string name="bear_new_image_height">Height</string>
+    <string name="bear_new_image_width">Width</string>
+    <string name="bear_image_text">Name of the image</string>
+    <string name="bear_image_date">Date of the image</string>
+    <string name="bear_image_description">Bear Image Entry</string>
+    <string name="bear_details_date">Date added</string>
+    <string name="bear_details_sizes">Size</string>
+    <string name="bear_details_description">Size</string>
+
+
+    <string name="buttonName1">환전</string>
+    <string name="buttonName2">도움말</string>
+
+    <string name="helpMessage">"인터페이스 사용 방법 안내:
+
+    1. "금액" 필드에 금액을 입력하세요.
+    2. "출발" 드롭다운에서 원하는 원본 통화를 선택하세요.
+    3. "도착" 드롭다운에서 원하는 대상 통화를 선택하세요.
+    4. 환전을 수행하려면 "환전" 버튼을 클릭하세요.
+    5. 변환된 금액이 아래 목록에 표시됩니다.
+    6. 목록의 항목을 길게 눌러 삭제하세요.
+
+    참고: 화폐 환전 비율은 제3자 API에서 가져오며 항상 최신 정보가 아닐 수 있습니다."</string>
+
+    <string-array name="currency_codes">
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>USD</item>
+        <item>EUR</item>
+    </string-array>
+
+    <string-array name="currency_names">
+        <item>호주 달러</item>
+        <item>캐나다 달러</item>
+        <item>미국 달러</item>
+        <item>유로</item>
+    </string-array>
+</resources>
