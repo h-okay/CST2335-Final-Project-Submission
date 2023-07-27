@@ -15,18 +15,20 @@
             android:id="@+id/questionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="24sp" />
 
     </ScrollView>
 
 
     <TextView
         android:id="@+id/answer1"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/answer2"
@@ -34,7 +36,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:background="?android:attr/selectableItemBackground"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/answer3"
@@ -42,7 +45,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:background="?android:attr/selectableItemBackground"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/answer4"
@@ -50,7 +54,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:background="?android:attr/selectableItemBackground"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
 
     <Button
         android:layout_width="wrap_content"

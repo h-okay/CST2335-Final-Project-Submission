@@ -10,11 +10,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import algonquin.cst2335.cst2335_finalproject.R;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.ui.TriviaApplication;
+import algonquin.cst2335.cst2335_finalproject.bearimages.ui.BearApplication;
 
 public class TriviaMain extends AppCompatActivity {
     private EditText usernameEditText;
@@ -60,8 +62,11 @@ public class TriviaMain extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.id_help)
-            Toast.makeText(this, "Click on Start to begin the quiz or click on High scores to view the top scores!", Toast.LENGTH_LONG).show();
+        if (item.getItemId() == R.id.id_help) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(TriviaMain.this);
+            builder.setTitle("How to use").setMessage("- Press Start Trivia to begin the Trivia.\n\n- Tap on Leaderboards to view the top 10 scores. \n\n- Read the questionnaires and try to guess the answer. \n\n- Have fun!").setPositiveButton("OK", (dialog, which) -> {
+            }).create().show();
+        }
         else if (item.getItemId() == R.id.id_delete)
             Toast.makeText(this, "You clicked on delete", Toast.LENGTH_LONG).show();
 
