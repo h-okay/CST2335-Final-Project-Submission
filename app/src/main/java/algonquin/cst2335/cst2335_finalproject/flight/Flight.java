@@ -10,24 +10,24 @@ import java.util.Objects;
 @Entity
 public class Flight {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name="id")
+    @ColumnInfo(name = "id")
     public long id;
 
-    @ColumnInfo(name="departureAirport")
+    @ColumnInfo(name = "departureAirport")
     protected String departureAirport;
-    @ColumnInfo(name="flightNumber")
+    @ColumnInfo(name = "flightNumber")
     protected String flightNumber;
-    @ColumnInfo(name="delay")
+    @ColumnInfo(name = "delay")
     protected String delay;
-    @ColumnInfo(name="gate")
+    @ColumnInfo(name = "gate")
     protected String gate;
-    @ColumnInfo(name="terminal")
+    @ColumnInfo(name = "terminal")
     protected String terminal;
-    @ColumnInfo(name="destination")
+    @ColumnInfo(name = "destination")
     protected String destination;
 
 
-    public Flight(String departureAirport, String flightNumber, String delay, String terminal,String gate, String destination) {
+    public Flight(String departureAirport, String flightNumber, String delay, String terminal, String gate, String destination) {
         this.departureAirport = departureAirport;
         this.flightNumber = flightNumber;
         this.delay = delay;
@@ -45,7 +45,9 @@ public class Flight {
         return flightNumber;
     }
 
-    public String getDelay() {return delay; }
+    public String getDelay() {
+        return delay;
+    }
 
     public String getGate() {
         return gate;

@@ -57,7 +57,7 @@ public class FlightDetailFragment extends Fragment {
         String gate = binding.gate.getText().toString();
         String destination = binding.destinationData.getText().toString();
 
-        Flight flight = new Flight(departureAirport, flightNumber,  delay,  terminal, gate, destination);
+        Flight flight = new Flight(departureAirport, flightNumber, delay, terminal, gate, destination);
         Executor thread = Executors.newSingleThreadExecutor();
         thread.execute(new Runnable() {
             @Override
@@ -69,7 +69,7 @@ public class FlightDetailFragment extends Fragment {
 
         requireActivity().onBackPressed();
 
-}
+    }
 
 
     private void deleteFlightFromDatabase() {
