@@ -38,6 +38,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import algonquin.cst2335.cst2335_finalproject.CurrencyConverter.ConversionMain;
 import algonquin.cst2335.cst2335_finalproject.bearimages.ui.BearApplication;
 import algonquin.cst2335.cst2335_finalproject.databinding.ActivityMainBinding;
+import algonquin.cst2335.cst2335_finalproject.flight.FlightMainActivity;
 
 /**
  * The MainActivity class represents the main entry point of the CST2335 Final Project application.
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private ActivityResultLauncher<Intent> bearApplicationLauncher;
     private ActivityResultLauncher<Intent> currencyApplicationLauncher;
+    private ActivityResultLauncher<Intent> flightApplicationLauncher;
 
     /**
      * Called when the activity is starting.
@@ -92,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
         currencyApplicationLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
 
         });
+
+        flightApplicationLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+
+        });
     }
 
 
@@ -117,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.aviation) {
+            Intent intent = new Intent(MainActivity.this, FlightMainActivity.class);
+            flightApplicationLauncher.launch(intent);
             return true;
         }
         if (itemId == R.id.trivia) {

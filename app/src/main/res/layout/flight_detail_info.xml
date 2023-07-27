@@ -1,0 +1,139 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:layout_constraintVertical_bias="0.5"
+    app:layout_constraintHorizontal_bias="0.5">
+
+    <!-- Departure label and TextView -->
+    <TextView
+        android:id="@+id/departureLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="70dp"
+        android:text="@string/departureLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/departureText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Departure"
+        app:layout_constraintStart_toEndOf="@id/departureLabel"
+        app:layout_constraintTop_toTopOf="@id/departureLabel"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Flight number label and TextView -->
+    <TextView
+        android:id="@+id/flightNumberLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/flight_number_label"
+        app:layout_constraintStart_toStartOf="@id/departureLabel"
+        app:layout_constraintTop_toBottomOf="@id/departureLabel"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/flightNumberText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Flight Number"
+        app:layout_constraintStart_toEndOf="@id/flightNumberLabel"
+        app:layout_constraintTop_toTopOf="@id/flightNumberLabel"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Destination label and TextView -->
+    <TextView
+        android:id="@+id/destinationLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/destinationLabel"
+        app:layout_constraintStart_toStartOf="@id/flightNumberLabel"
+        app:layout_constraintTop_toBottomOf="@id/flightNumberLabel"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/destinationData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Destination"
+        app:layout_constraintStart_toEndOf="@id/destinationLabel"
+        app:layout_constraintTop_toTopOf="@id/destinationLabel"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Terminal label and TextView -->
+    <TextView
+        android:id="@+id/terminalLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/terminalLabel"
+        app:layout_constraintStart_toStartOf="@id/destinationLabel"
+        app:layout_constraintTop_toBottomOf="@id/destinationLabel"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/terminalData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Terminal"
+        app:layout_constraintStart_toEndOf="@id/terminalLabel"
+        app:layout_constraintTop_toTopOf="@id/terminalLabel"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Gate label and TextView -->
+    <TextView
+        android:id="@+id/gateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gateLabel"
+        app:layout_constraintStart_toStartOf="@id/terminalLabel"
+        app:layout_constraintTop_toBottomOf="@id/terminalLabel"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/gate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Gate"
+        app:layout_constraintStart_toEndOf="@id/gateLabel"
+        app:layout_constraintTop_toTopOf="@id/gateLabel"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Delay label and TextView -->
+    <TextView
+        android:id="@+id/delayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delayLabel"
+        app:layout_constraintStart_toStartOf="@id/gateLabel"
+        app:layout_constraintTop_toBottomOf="@id/gateLabel"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/delay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Delay"
+        app:layout_constraintStart_toEndOf="@id/delayLabel"
+        app:layout_constraintTop_toTopOf="@id/delayLabel"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Save Button -->
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/delayLabel" />
+
+    <!-- Delete Button -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,13 +32,13 @@
         <activity
             android:name=".CurrencyConverter.ConversionMain"
             android:exported="true" />
-        <!--     <activity
-                 android:name=""
-                 android:exported="true" />
-             <activity
-                 android:name=""
-                 android:exported="true" />
-     -->
+        <activity
+            android:name=".flight.FlightMainActivity"
+            android:exported="true" />
+        <!--         <activity
+                     android:name=""
+                     android:exported="true" />
+         -->
     </application>
 
 </manifest>

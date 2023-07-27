@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp"
+    android:layout_margin="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/flight_img"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="visible">
+
+        <!-- Flight details:  -->
+
+
+        <TextView
+            android:id="@+id/departureAirport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name of the airport"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/flightNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Flight Number"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/departureAirport"
+            app:layout_constraintTop_toBottomOf="@+id/departureAirport" />
+
+        <TextView
+            android:id="@+id/destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="destination info"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/flightNumber"
+            app:layout_constraintTop_toBottomOf="@+id/flightNumber" />
+
+        <TextView
+            android:id="@+id/terminal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/terminal"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/destination"
+            app:layout_constraintTop_toBottomOf="@+id/destination" />
+
+        <TextView
+            android:id="@+id/gate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gate"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/terminal"
+            app:layout_constraintTop_toBottomOf="@+id/terminal" />
+
+        <TextView
+            android:id="@+id/delay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delay"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/gate"
+            app:layout_constraintTop_toBottomOf="@+id/gate" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
