@@ -19,4 +19,5 @@
     <string name="delayLabel">지연 시간:</string>
     <string name="save">저장</string>
     <string name="help">도움말</string>
+    <string name="flight_detail">항공편 정보</string>
 </resources>

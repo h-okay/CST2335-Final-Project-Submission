@@ -55,6 +55,7 @@
     <string name="delayLabel">Delay:</string>
     <string name="save">Save</string>
     <string name="help">Help</string>
+    <string name="flight_detail">Flight Details</string>
 
     <string name="trivia_welcome_text">Welcome to the Trivia App!</string>
     <string name="trivia_username">Enter your Username</string>
