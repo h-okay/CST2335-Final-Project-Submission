@@ -194,8 +194,15 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 
     private void showAlertDialog(Flight flight, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Flight Details").setMessage(getString(R.string.flight_number, flight.getFlightNumber()) + "\n" + "Departure Airport:" + flight.getDepartureAirport() + "\n" + "Delay time:" + flight.getDelay() + "\n" + "Gate:" + flight.getGate() + "\n" + "Terminal:" + flight.getTerminal() + "\n" + "Destination:" + flight.getDestination()).setNegativeButton("Cancel", (dialog, which) -> {
-        }).setPositiveButton("Delete", (dialog, which) -> {
+        builder.setTitle("Flight Details")
+                .setMessage(getString(R.string.flight_number, flight.getFlightNumber())
+                        + "\n" + getString(R.string.departure, flight.getDepartureAirport())
+                        + "\n" + getString(R.string.delay, flight.getDelay())
+                        + "\n" + getString(R.string.gate, flight.getGate())
+                        + "\n" + getString(R.string.terminal, flight.getTerminal())
+                        + "\n" + getString(R.string.destination, flight.getDestination()))
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                }).setPositiveButton("Delete", (dialog, which) -> {
             new Thread(() -> {
                 // Delete the selected flight from the database
                 myDAO.deleteFlight(flight);
