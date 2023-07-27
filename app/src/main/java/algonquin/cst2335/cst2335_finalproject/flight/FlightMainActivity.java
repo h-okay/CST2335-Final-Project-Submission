@@ -167,7 +167,8 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
             case R.id.about:
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Instructions").setMessage("1. Enter the airport code in the text field and click 'Search'.\n" + "2. The app will fetch flight lists for the entered airport code.\n" + "3. click one of the list to view its details with a save button.\n" + "4. If you click on a saved flight, you will have the option to delete it.\n" + "5. To view the list of saved flights, click 'View Saved Flights'.").setPositiveButton("OK", (dialog, which) -> {
+                builder.setTitle("Instructions").setMessage(R.string.flight_help)
+                        .setPositiveButton("OK", (dialog, which) -> {
                 }).create().show();
 
                 break;
