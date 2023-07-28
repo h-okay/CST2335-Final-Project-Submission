@@ -43,30 +43,69 @@ import java.util.Map;
 import algonquin.cst2335.cst2335_finalproject.R;
 import algonquin.cst2335.cst2335_finalproject.databinding.FlightMainBinding;
 
-
+/**
+ * Main activity for the Flight Tracker app.
+ * This activity allows users to search for flight details using an airport code, view the search results in a RecyclerView,
+ * and view detailed information of a selected flight. It also provides options to view saved flights and delete them.
+ */
 public class FlightMainActivity extends AppCompatActivity implements FlightAdapter.OnItemClickListener {
-
+    /**
+     * Binding object for accessing UI elements in the layout.
+     */
     FlightMainBinding binding;
+    /**
+     * ViewModel for managing flight-related data in the Flight List screen.
+     */
     FLightListViewModel flightModel;
+    /**
+     * List of Flight objects representing the search results.
+     */
     private ArrayList<Flight> flightList;
+    /**
+     * RecyclerView to display the list of flights.
+     */
     private RecyclerView recyclerView;
+    /**
+     * Adapter for populating the RecyclerView with the flight data.
+     */
     private FlightAdapter flightAdapter;
+    /**
+     * Button to trigger the search based on the entered airport code.
+     */
     private Button enterButton;
+    /**
+     * Button to view the list of saved flights from the database.
+     */
     private Button viewListButton;
-
+    /**
+     * EditText for entering the airport code for flight search.
+     */
     private EditText typeAirportCode;
-
+    /**
+     * Room Database instance for saving and retrieving flight data.
+     */
     FlightDatabase db;
+    /**
+     * Data Access Object (DAO) for performing database operations.
+     */
     FlightDAO myDAO;
 
+    /**
+     * Called when the options menu is created. Inflates the menu layout for the activity.
+     * @param menu The Menu object to inflate the menu layout.
+     * @return True to display the menu, false otherwise.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-
         getMenuInflater().inflate(R.menu.flight_menu, menu);
         return true;
     }
 
+    /**
+     * Called when the activity is creating. Sets up the UI, ViewModel, RecyclerView, and click listeners.
+     * @param savedInstanceState The saved instance state of the activity (if available).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +130,6 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
             });
             backgroundThread.start();
         }
-
 
         typeAirportCode = findViewById(R.id.typeAirportCode);
 
@@ -159,7 +197,12 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
 
     }
 
-
+    /**
+     * Called when an item in the options menu is selected.
+     * Handles the selection of the "About" menu item to display instructions in an AlertDialog.
+     * @param item The selected MenuItem object.
+     * @return True to consume the event here, false otherwise.
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -177,6 +220,11 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         return true;
     }
 
+    /**
+     * Called when a flight item in the RecyclerView is clicked.
+     * Handles the click event for both saved and unsaved flight items.
+     * @param flight The Flight object representing the clicked flight item.
+     */
     @Override
     public void onItemClick(Flight flight) {
         int position = flightList.indexOf(flight);
@@ -193,6 +241,11 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         }).start();
     }
 
+    /**
+     * Displays an AlertDialog with flight details and allows the user to delete the flight from the database.
+     * @param flight   The Flight object representing the flight to display details for.
+     * @param position The position of the flight item in the RecyclerView.
+     */
     private void showAlertDialog(Flight flight, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.flight_detail))
@@ -228,7 +281,10 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         }).create().show();
     }
 
-
+    /**
+     * Shows the FlightDetailFragment for the selected flight.
+     * @param flight The Flight object representing the selected flight.
+     */
     private void showFlightDetailFragment(Flight flight) {
         FlightDetailFragment flightFragment = new FlightDetailFragment(flight, myDAO);
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -238,6 +294,9 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         fragmentTransaction.commit();
     }
 
+    /**
+     * Initializes the RecyclerView and FlightAdapter to display the list of flights.
+     */
     private void initializeRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -246,13 +305,21 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         recyclerView.setAdapter(flightAdapter);
     }
 
+    /**
+     * Updates the flight results with a new list of flights.
+     * @param newFlightList The List of Flight objects representing the new search results.
+     */
     private void updateFlightResults(List<Flight> newFlightList) {
         flightList.clear();
         flightList.addAll(newFlightList);
         flightAdapter.notifyDataSetChanged();
     }
 
-    // sharedPreferences
+    /**
+     * Saves the value of the EditText with the provided key in SharedPreferences.
+     * @param airportCode The key to identify the EditText value in SharedPreferences.
+     * @param value       The value to be saved in SharedPreferences.
+     */
     private void saveEditTextValue(String airportCode, String value) {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -261,6 +328,12 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         editor.apply();
     }
 
+    /**
+     * Retrieves the saved value of the EditText identified by the given key in SharedPreferences.
+     * @param airportCode   The key to retrieve the saved EditText value from SharedPreferences.
+     * @param defaultValue  The default value to be returned if no value is saved for the key.
+     * @return The saved value of the EditText, or the defaultValue if no value is saved.
+     */
     private String getSavedEditTextValue(String airportCode, String defaultValue) {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         // Retrieve the saved EditText value using the key
@@ -268,8 +341,10 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
     }
 
 
-    // Method to retrieve flight results based on search query
-
+    /**
+     * Retrieves flight results based on the provided airport code using Volley for API communication.
+     * @param airportCode The airport code to use for flight search.
+     */
     private void getFlightResults(String airportCode) {
         RequestQueue rq = Volley.newRequestQueue(getApplicationContext());
         String url = "http://api.aviationstack.com/v1/flights?access_key=64c8ab1b70d567836fa9b2c80be480e2&dep_iata=" + airportCode + "&limit=100";
@@ -338,6 +413,9 @@ public class FlightMainActivity extends AppCompatActivity implements FlightAdapt
         rq.add(request);
     }
 
+    /**
+     * Called when the activity is destroyed. Closes the Room Database to release resources.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

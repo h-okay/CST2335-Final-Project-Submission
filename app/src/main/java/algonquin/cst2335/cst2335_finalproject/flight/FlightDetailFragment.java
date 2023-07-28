@@ -12,19 +12,43 @@ import java.util.concurrent.Executors;
 
 import algonquin.cst2335.cst2335_finalproject.databinding.FlightDetailInfoBinding;
 
+/**
+ * A Fragment class representing the Flight Detail screen, where users can view and edit the details of a selected flight.
+ * This Fragment displays the flight details and allows users to save the edited details to the database.
+ */
 public class FlightDetailFragment extends Fragment {
 
+    /**
+     * The binding object that holds references to the UI elements in the layout.
+     */
     private FlightDetailInfoBinding binding;
 
+    /**
+     * The Flight object representing the selected flight to display and edit.
+     */
     Flight selected;
+    /**
+     * The Data Access Object (DAO) used for interacting with the Flight table in the database.
+     */
     private FlightDAO flightDAO;
 
+    /**
+     * Constructs a new instance of FlightDetailFragment with the provided Flight and FlightDAO.
+     * @param flight    The Flight object representing the selected flight to display and edit.
+     * @param flightDAO The FlightDAO instance used for interacting with the Flight table in the database.
+     */
     public FlightDetailFragment(Flight flight, FlightDAO flightDAO) {
         selected = flight;
         this.flightDAO = flightDAO;
     }
 
-
+    /**
+     * Called when the Fragment's UI is created. Inflates the layout and initializes UI elements.
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container          The parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState The saved instance state of the fragment (if available).
+     * @return The inflated View for the fragment's UI.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -48,6 +72,12 @@ public class FlightDetailFragment extends Fragment {
 
     }
 
+    /**
+     * Saves the edited flight details to the database.
+     * Retrieves the edited details from the UI, creates a new Flight object, and inserts it into the database.
+     * This operation is performed on a background thread using an Executor to avoid blocking the main thread.
+     * After saving the details, the method calls onBackPressed() to navigate back to the main screen.
+     */
     private void saveFlightDetailsToDatabase() {
 
         String departureAirport = binding.departureText.getText().toString();
@@ -68,10 +98,13 @@ public class FlightDetailFragment extends Fragment {
         });
 
         requireActivity().onBackPressed();
-
     }
 
-
+    /**
+     * Deletes the selected flight from the database.
+     * This operation is performed on a background thread using an Executor to avoid blocking the main thread.
+     * After deleting the flight, the method calls onBackPressed() to navigate back to the main screen.
+     */
     private void deleteFlightFromDatabase() {
         // Implement the method to delete the flight from the database using the flightDAO
         // Note: Make sure to perform this operation on a background thread
