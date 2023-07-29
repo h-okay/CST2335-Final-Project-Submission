@@ -29,6 +29,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -104,8 +105,33 @@ public class MainActivity extends AppCompatActivity {
         triviaApplicationLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
 
         });
-    }
 
+        ImageButton aviationButton = binding.aviationButton;
+        ImageButton bearButton = binding.bearButton;
+        ImageButton triviaButton = binding.triviaButton;
+        ImageButton currencyButton = binding.currencyButton;
+
+        aviationButton.setOnClickListener(click -> {
+            Intent intent = new Intent(MainActivity.this, FlightMainActivity.class);
+            flightApplicationLauncher.launch(intent);
+        });
+
+        bearButton.setOnClickListener(click -> {
+            Intent intent = new Intent(MainActivity.this, BearApplication.class);
+            bearApplicationLauncher.launch(intent);
+        });
+
+        triviaButton.setOnClickListener(click -> {
+            Intent intent = new Intent(MainActivity.this, TriviaMain.class);
+            triviaApplicationLauncher.launch(intent);
+        });
+
+        currencyButton.setOnClickListener(click -> {
+            Intent intent = new Intent(MainActivity.this, ConversionMain.class);
+            currencyApplicationLauncher.launch(intent);
+        });
+
+    }
 
     /**
      * Initialize the contents of the Activity's standard options menu.
