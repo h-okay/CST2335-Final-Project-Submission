@@ -140,14 +140,6 @@ public class BearImage {
         return createdDate;
     }
 
-    /**
-     * Sets the creation date of the bear image.
-     *
-     * @param created_date The creation date of the bear image in the format yyyy-MM-dd to set.
-     */
-    public void setCreated_date(String created_date) {
-        this.createdDate = created_date;
-    }
 
     /**
      * Returns the string representation of the BearImage object.
