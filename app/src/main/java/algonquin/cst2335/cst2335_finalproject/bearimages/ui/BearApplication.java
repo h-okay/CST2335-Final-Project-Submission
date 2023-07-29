@@ -22,6 +22,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +50,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
 
 import algonquin.cst2335.cst2335_finalproject.R;
 import algonquin.cst2335.cst2335_finalproject.bearimages.data.BearImage;
@@ -201,7 +204,15 @@ public class BearApplication extends AppCompatActivity {
      * @return The ImageRequest object to fetch the bear image from the remote server.
      */
     private ImageRequest generateImageRequest(int height, int width) {
-        return new ImageRequest(String.format(BearApplication.url, height, width), getResponseListener(height, width), 0, 0, null, null, error -> generateToast("There was an error, please try again.").show());
+        return new ImageRequest(
+                String.format(BearApplication.url, height, width),
+                getResponseListener(height, width),
+                0,
+                0,
+                null,
+                null,
+                error -> generateToast("There was an error, please try again.").show()
+        );
     }
 
     /**
@@ -268,7 +279,7 @@ public class BearApplication extends AppCompatActivity {
             int height = Integer.parseInt(heightText);
             int width = Integer.parseInt(widthText);
 
-            if (height <= 500 && width <= 500) {
+            if (height <= 500 && width <= 500 && height > 0 && width > 0) {
                 valid = true;
             }
         }
@@ -360,13 +371,57 @@ public class BearApplication extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
+        String translatedText = adaptLanguage();
+        String local = Locale.getDefault().getCountry();
+        Log.d("BearApplication", local);
+        String titleText = "How to use";
+        if (local.equals("TR")) {
+            titleText = "Nasıl kullanılır";
+        }
         if (itemId == R.id.bearHelp) {
             AlertDialog.Builder builder = new AlertDialog.Builder(BearApplication.this);
-            builder.setTitle("How to use").setMessage("- Put in your desired Height(left) and Width(right) and click generate.\n\n- Tap on an image to see the details.\n\n- Hold on an image and accept the dialog to delete the image.").setPositiveButton("OK", (dialog, which) -> {
+            builder.setTitle(titleText).setMessage(translatedText).setPositiveButton("OK", (dialog, which) -> {
             }).create().show();
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Adapt the info panel language to current set locale language.
+     *
+     * @return Text to be displayed.
+     */
+    private String adaptLanguage() {
+        String currentLanguage = Locale.getDefault().getCountry();
+        String[] translatedText = getAvailableText(currentLanguage);
+        return String.join("", translatedText);
+
+    }
+
+    /**
+     * Get the translation for info panel if available, English otherwise.
+     *
+     * @param language Language to get the translation for
+     * @return Array of translated info panel text elements.
+     */
+    private String[] getAvailableText(String language) {
+        HashMap<String, String[]> texts = new HashMap<>();
+
+        String firstLineEN = "- Put in your desired Height(left) and Width(right) and click generate.\n\n";
+        String secondLineEN = "- Tap on an image to see the details.\n\n";
+        String thirdLineEN = "- Hold on an image and accept the dialog to delete the image.";
+        String[] enText = new String[]{firstLineEN, secondLineEN, thirdLineEN};
+        texts.put("EN", enText);
+
+        String firstLineTR = "- İstenilen boy(solda) ve genişlik(sağda) değerlerini girip Oluştur butonuna basın.\n\n";
+        String secondLineTR = "- Bir görselin detaylarını görmek için görsele tıklayın.\n\n";
+        String thirdLineTR = "- Bir görseli silmek için görsele basılı tutup diyalogu kabul edin.";
+        String[] trText = new String[]{firstLineTR, secondLineTR, thirdLineTR};
+        texts.put("TR", trText);
+
+        return texts.getOrDefault(language, texts.get("EN"));
+    }
+
 
     /**
      * Represents a RecyclerView ViewHolder for displaying bear image details in a row of the RecyclerView.
@@ -424,7 +479,15 @@ public class BearApplication extends AppCompatActivity {
          * @return The generated Snackbar with an "Undo" action.
          */
         private Snackbar generateSnackBar(BearImage mustDelete, int position) {
-            return Snackbar.make(sizes, "You deleted the image # " + position, Snackbar.LENGTH_LONG).setAction("Undo", click -> {
+            String local = Locale.getDefault().getCountry();
+            String localText = "You deleted the image # ";
+            String actionText = "Undo";
+            if (local.equals("TR")) {
+                localText = "Görsel silindi # ";
+                actionText = "Iptal";
+            }
+
+            return Snackbar.make(sizes, localText + position, Snackbar.LENGTH_LONG).setAction(actionText, click -> {
                 images.add(position, mustDelete);
                 adapter.notifyItemInserted(position);
                 runOnDifferentThread(() -> bearDao.insertImage(mustDelete));
@@ -444,9 +507,22 @@ public class BearApplication extends AppCompatActivity {
          * @return True if the deletion is confirmed and executed; false otherwise.
          */
         private boolean removeOnHold() {
+            String local = Locale.getDefault().getCountry();
+            String titleText = "Delete";
+            String localText = "Do you want to delete this image?";
+            String positiveText = "Yes";
+            String negativeText = "No";
+
+            if (local.equals("TR")) {
+                titleText = "Silme";
+                localText = "Bu görseli silmek istediğinize emin misiniz?";
+                positiveText = "Evet";
+                negativeText = "Hayır";
+            }
+
             int position = setSelectedImage();
-            builder.setMessage("Do you want to delete this image?").setTitle("Delete").setNegativeButton("No", (dialog, which) -> {
-            }).setPositiveButton("Yes", (dialog, which) -> {
+            builder.setMessage(localText).setTitle(titleText).setNegativeButton(negativeText, (dialog, which) -> {
+            }).setPositiveButton(positiveText, (dialog, which) -> {
                 BearImage mustDelete = bearModel.selectedImage.getValue();
                 images.remove(mustDelete);
                 adapter.notifyItemRemoved(position);
