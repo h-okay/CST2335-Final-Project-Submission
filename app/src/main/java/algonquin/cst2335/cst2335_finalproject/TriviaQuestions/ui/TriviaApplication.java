@@ -17,12 +17,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
@@ -41,6 +46,7 @@ import algonquin.cst2335.cst2335_finalproject.R;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.AppDatabase;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.HighScoresFragment;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.HighScoresViewModel;
+import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.TriviaMain;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.TriviaQuestion;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.UserScore;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.UserScoreDAO;
@@ -101,6 +107,11 @@ public class TriviaApplication extends AppCompatActivity {
     private TextView selectedAnswer;
 
     /**
+     * Toolbar for the application
+     */
+    protected Toolbar theToolbar;
+
+    /**
      * Username of the player
      */
     private String userName;
@@ -114,6 +125,9 @@ public class TriviaApplication extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trivia_main);
+
+        theToolbar = findViewById(R.id.myToolbar);
+        setSupportActionBar(theToolbar);
 
         highScoresViewModel = new ViewModelProvider(this).get(HighScoresViewModel.class);
 
@@ -278,6 +292,41 @@ public class TriviaApplication extends AppCompatActivity {
         UserScore newUserScore = new UserScore(userName, score);
         highScoresViewModel.insertUserScore(newUserScore);
         Toast.makeText(TriviaApplication.this, "Score saved!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.id_help) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(TriviaApplication.this);
+            builder.setTitle("How to use").setMessage("- Press Start Trivia to begin the Trivia." +
+                            "\n\n- Tap on Leaderboards to view the top 10 scores." +
+                            " \n\n- Read the questionnaires and try to guess the answer. \n\n- Have fun!")
+                    .setPositiveButton("OK", (dialog, which) -> {
+                    }).create().show();
+        }
+        else if (item.getItemId() == R.id.id_highscore) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new HighScoresFragment())
+                    .addToBackStack(null)
+                    .commit();
+        }
+
+        return true;
+    }
+
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     *
+     * @param menu The options menu in which you place your items.
+     * @return boolean You must return true for the menu to be displayed; if you return false it will not be shown.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.trivia_menu, menu);
+
+        return true;
     }
 
 }
