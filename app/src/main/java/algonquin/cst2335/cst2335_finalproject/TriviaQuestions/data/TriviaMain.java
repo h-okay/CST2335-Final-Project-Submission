@@ -63,7 +63,12 @@ public class TriviaMain extends AppCompatActivity {
 
         Button startTriviaButton = findViewById(R.id.startTriviaButton);
         startTriviaButton.setOnClickListener(v -> {
-            String username = usernameEditText.getText().toString();
+            String username = usernameEditText.getText().toString().trim();
+
+            if (username.isEmpty()) {
+                Toast.makeText(TriviaMain.this, "Please enter a username", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             // Save the username when the button is clicked
             sharedPreferences.edit().putString(USERNAME_KEY, username).apply();
@@ -73,13 +78,8 @@ public class TriviaMain extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Button highScoresButton = findViewById(R.id.highScoresButton);
-        highScoresButton.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainer, new HighScoresFragment())
-                .addToBackStack(null)
-                .commit());
-
     }
+
 
     /**
      * This method is called whenever an item in your options menu is selected.
@@ -97,10 +97,14 @@ public class TriviaMain extends AppCompatActivity {
                     .setPositiveButton("OK", (dialog, which) -> {
                     }).create().show();
         }
-        else if (item.getItemId() == R.id.id_delete)
-            Toast.makeText(this, "You clicked on delete", Toast.LENGTH_LONG).show();
+     else if (item.getItemId() == R.id.id_highscore) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, new HighScoresFragment())
+                .addToBackStack(null)
+                .commit();
+    }
 
-        return true;
+    return true;
     }
 
     /**

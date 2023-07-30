@@ -8,9 +8,9 @@
         android:title="Help"
         app:showAsAction="always" />
     <item
-        android:id="@+id/id_delete"
-        android:icon="@drawable/trivia_delete"
-        android:title="Delete this item"
+        android:id="@+id/id_highscore"
+        android:icon="@drawable/trivia_highscore"
+        android:title="Leaderboards"
         app:showAsAction="always" />
 
 </menu>
