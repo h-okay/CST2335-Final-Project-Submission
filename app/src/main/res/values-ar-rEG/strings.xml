@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">المشروع النهائي CST2335</string>
+    <string name="trivia_welcome_text">مرحبًا بك في تطبيق Trivia!</string>
+    <string name="trivia_username">أدخل اسم المستخدم الخاص بك</string>
+    <string name="trivia_start">بدء Trivia</string>
+    <string name="trivia_high_score">المتصدرين</string>
+    <string name="trivia_answer_submit">سلم الاجابة</string>
+    <string name="trivia_help">المساعدة</string>
+    <string name="trivia_usage">كيف تستعمل</string>
+    <string name="trivia_info">- اضغط على بدء Trivia لبدء Trivia.
+                            \n\n- انقر على" قوائم المتصدرين "لعرض أعلى 10 نتائج.
+                            \n\n- اقرأ الاستبيانات وحاول تخمين الإجابة. \n\n- استمتع بوقتك!</string>
+    <string name="trivia_select_answer">الرجاء تحديد إجابة!</string>
+    <string name="trivia_okay">تمام</string>
+    <string name="trivia_score_saved">تم حفظ النتيجة!</string>
+</resources>

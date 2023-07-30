@@ -17,12 +17,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
@@ -41,6 +46,7 @@ import algonquin.cst2335.cst2335_finalproject.R;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.AppDatabase;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.HighScoresFragment;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.HighScoresViewModel;
+import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.TriviaMain;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.TriviaQuestion;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.UserScore;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.UserScoreDAO;
@@ -101,6 +107,11 @@ public class TriviaApplication extends AppCompatActivity {
     private TextView selectedAnswer;
 
     /**
+     * Toolbar for the application
+     */
+    protected Toolbar theToolbar;
+
+    /**
      * Username of the player
      */
     private String userName;
@@ -115,12 +126,14 @@ public class TriviaApplication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trivia_main);
 
+        theToolbar = findViewById(R.id.myToolbar);
+        setSupportActionBar(theToolbar);
+
         highScoresViewModel = new ViewModelProvider(this).get(HighScoresViewModel.class);
 
         userName = getIntent().getStringExtra("USERNAME");
 
         nextButton = findViewById(R.id.nextButton);
-        Button highScoresButton = findViewById(R.id.highScoresButton);
         questionTextView = findViewById(R.id.questionTextView);
 
         answer1 = findViewById(R.id.answer1);
@@ -187,15 +200,10 @@ public class TriviaApplication extends AppCompatActivity {
                 }, 2000); // delay of 2 seconds
 
             } else {
-                Toast.makeText(TriviaApplication.this, "Please select an answer!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TriviaApplication.this, R.string.trivia_select_answer, Toast.LENGTH_SHORT).show();
             }
         });
 
-
-        highScoresButton.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainer, new HighScoresFragment())
-                .addToBackStack(null)
-                .commit());
 
         fetchQuizQuestions();
     }
@@ -271,13 +279,42 @@ public class TriviaApplication extends AppCompatActivity {
      * Saves the player's score when the quiz ends.
      */
     private void onQuizEnd() {
-        if (userName.isEmpty()) {
-            Toast.makeText(TriviaApplication.this, "Please enter your username!", Toast.LENGTH_SHORT).show();
-            return;
-        }
         UserScore newUserScore = new UserScore(userName, score);
         highScoresViewModel.insertUserScore(newUserScore);
-        Toast.makeText(TriviaApplication.this, "Score saved!", Toast.LENGTH_LONG).show();
+        Toast.makeText(TriviaApplication.this, R.string.trivia_score_saved, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.id_help) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(TriviaApplication.this);
+            builder.setTitle(R.string.trivia_usage).setMessage(R.string.trivia_info)
+                    .setPositiveButton(R.string.trivia_okay, (dialog, which) -> {
+                    }).create().show();
+        }
+        else if (item.getItemId() == R.id.id_highscore) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new HighScoresFragment())
+                    .addToBackStack(null)
+                    .commit();
+        }
+
+        return true;
+    }
+
+    /**
+     * Initialize the contents of the Activity's standard options menu.
+     *
+     * @param menu The options menu in which you place your items.
+     * @return boolean You must return true for the menu to be displayed; if you return false it will not be shown.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.trivia_menu, menu);
+
+        return true;
     }
 
 }

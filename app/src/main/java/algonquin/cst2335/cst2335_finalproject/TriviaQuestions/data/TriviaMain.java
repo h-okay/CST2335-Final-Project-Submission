@@ -12,6 +12,7 @@
 package algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +35,10 @@ public class TriviaMain extends AppCompatActivity {
     private EditText usernameEditText;
     protected Toolbar theToolbar;
 
+    private SharedPreferences sharedPreferences;
+
+    private static final String USERNAME_KEY= "USERNAME";
+
     /**
      * Called when the activity is starting.
      *
@@ -47,26 +52,34 @@ public class TriviaMain extends AppCompatActivity {
         setContentView(R.layout.trivia_user_details);
 
         theToolbar = findViewById(R.id.myToolbar);
-        setSupportActionBar(theToolbar); // adds your toolbar, onCreateOptionsMenu
+        setSupportActionBar(theToolbar);
 
         usernameEditText = findViewById(R.id.usernameEditText);
-        Button startTriviaButton = findViewById(R.id.startTriviaButton);
+        sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
 
+        // Retrieve the saved username
+        String savedUsername = sharedPreferences.getString(USERNAME_KEY, "");
+        usernameEditText.setText(savedUsername);
+
+        Button startTriviaButton = findViewById(R.id.startTriviaButton);
         startTriviaButton.setOnClickListener(v -> {
-            String username = usernameEditText.getText().toString();
+            String username = usernameEditText.getText().toString().trim();
+
+            if (username.isEmpty()) {
+                Toast.makeText(TriviaMain.this, R.string.trivia_select_answer, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Save the username when the button is clicked
+            sharedPreferences.edit().putString(USERNAME_KEY, username).apply();
 
             Intent intent = new Intent(TriviaMain.this, TriviaApplication.class);
             intent.putExtra("USERNAME", username);
             startActivity(intent);
         });
-        Button highScoresButton = findViewById(R.id.highScoresButton);
-
-        highScoresButton.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainer, new HighScoresFragment())
-                .addToBackStack(null)
-                .commit());
 
     }
+
 
     /**
      * This method is called whenever an item in your options menu is selected.
@@ -78,16 +91,18 @@ public class TriviaMain extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.id_help) {
             AlertDialog.Builder builder = new AlertDialog.Builder(TriviaMain.this);
-            builder.setTitle("How to use").setMessage("- Press Start Trivia to begin the Trivia." +
-                            "\n\n- Tap on Leaderboards to view the top 10 scores." +
-                            " \n\n- Read the questionnaires and try to guess the answer. \n\n- Have fun!")
-                    .setPositiveButton("OK", (dialog, which) -> {
+            builder.setTitle(R.string.trivia_usage).setMessage(R.string.trivia_info)
+                    .setPositiveButton(R.string.trivia_okay, (dialog, which) -> {
                     }).create().show();
         }
-        else if (item.getItemId() == R.id.id_delete)
-            Toast.makeText(this, "You clicked on delete", Toast.LENGTH_LONG).show();
+     else if (item.getItemId() == R.id.id_highscore) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, new HighScoresFragment())
+                .addToBackStack(null)
+                .commit();
+    }
 
-        return true;
+    return true;
     }
 
     /**
