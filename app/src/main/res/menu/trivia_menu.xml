@@ -5,12 +5,12 @@
     <item
         android:id="@+id/id_help"
         android:icon="@drawable/trivia_about"
-        android:title="Help"
+        android:title="@string/trivia_help"
         app:showAsAction="always" />
     <item
         android:id="@+id/id_highscore"
         android:icon="@drawable/trivia_highscore"
-        android:title="Leaderboards"
+        android:title="@string/trivia_high_score"
         app:showAsAction="always" />
 
 </menu>

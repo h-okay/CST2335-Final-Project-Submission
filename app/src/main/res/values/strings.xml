@@ -68,6 +68,15 @@
     <string name="trivia_welcome_text">Welcome to the Trivia App!</string>
     <string name="trivia_username">Enter your Username</string>
     <string name="trivia_start">Start Trivia</string>
-    <string name="trivia_high_score">High Scores</string>
+    <string name="trivia_high_score">Leaderboards</string>
     <string name="trivia_answer_submit">Submit Answer</string>
+    <string name="trivia_help">Help</string>
+    <string name="trivia_usage">How to use</string>
+    <string name="trivia_info">- Press Start Trivia to begin the Trivia.
+                            \n\n- Tap on Leaderboards to view the top 10 scores.
+                             \n\n- Read the questionnaires and try to guess the answer. \n\n- Have fun!</string>
+    <string name="trivia_select_answer">Please select an answer!</string>
+    <string name="trivia_okay">OK</string>
+    <string name="trivia_score_saved">Score saved!</string>
+
 </resources>

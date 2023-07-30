@@ -66,7 +66,7 @@ public class TriviaMain extends AppCompatActivity {
             String username = usernameEditText.getText().toString().trim();
 
             if (username.isEmpty()) {
-                Toast.makeText(TriviaMain.this, "Please enter a username", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TriviaMain.this, R.string.trivia_select_answer, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -91,10 +91,8 @@ public class TriviaMain extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.id_help) {
             AlertDialog.Builder builder = new AlertDialog.Builder(TriviaMain.this);
-            builder.setTitle("How to use").setMessage("- Press Start Trivia to begin the Trivia." +
-                            "\n\n- Tap on Leaderboards to view the top 10 scores." +
-                            " \n\n- Read the questionnaires and try to guess the answer. \n\n- Have fun!")
-                    .setPositiveButton("OK", (dialog, which) -> {
+            builder.setTitle(R.string.trivia_usage).setMessage(R.string.trivia_info)
+                    .setPositiveButton(R.string.trivia_okay, (dialog, which) -> {
                     }).create().show();
         }
      else if (item.getItemId() == R.id.id_highscore) {
