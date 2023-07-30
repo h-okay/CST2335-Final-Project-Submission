@@ -117,6 +117,11 @@ public class TriviaApplication extends AppCompatActivity {
     private String userName;
 
     /**
+     * Number of Questions the player wants to have
+     */
+    private int numberOfQuestions;
+
+    /**
      * Called when the activity is starting. This is where most initialization happens.
      *
      * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle).
@@ -128,6 +133,7 @@ public class TriviaApplication extends AppCompatActivity {
 
         theToolbar = findViewById(R.id.myToolbar);
         setSupportActionBar(theToolbar);
+        numberOfQuestions = getIntent().getIntExtra("NUMBER_OF_QUESTIONS", 10); // default to 10 if not provided
 
         highScoresViewModel = new ViewModelProvider(this).get(HighScoresViewModel.class);
 
@@ -204,15 +210,15 @@ public class TriviaApplication extends AppCompatActivity {
             }
         });
 
-
         fetchQuizQuestions();
     }
+
 
     /**
      * Fetches quiz questions from a remote API and parses the response into a list of TriviaQuestion objects.
      */
     private void fetchQuizQuestions() {
-        String url = "https://opentdb.com/api.php?amount=10&category=22&type=multiple";
+        String url = "https://opentdb.com/api.php?amount=" + numberOfQuestions + "&category=22&type=multiple";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, response -> {
                     try {
