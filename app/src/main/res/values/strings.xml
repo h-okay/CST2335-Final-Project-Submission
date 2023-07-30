@@ -78,5 +78,6 @@
     <string name="trivia_select_answer">Please select an answer!</string>
     <string name="trivia_okay">OK</string>
     <string name="trivia_score_saved">Score saved!</string>
+    <string name="trivia_question_numbers">Number of questions</string>
 
 </resources>

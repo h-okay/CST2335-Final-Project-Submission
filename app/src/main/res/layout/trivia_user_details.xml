@@ -38,7 +38,7 @@
         android:id="@+id/numberOfQuestionsEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Number of Questions"
+        android:hint="@string/trivia_question_numbers"
         android:layout_below="@+id/usernameEditText"
         android:inputType="number" />
 
