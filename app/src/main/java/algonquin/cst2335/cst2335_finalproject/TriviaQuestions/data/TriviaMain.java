@@ -12,6 +12,7 @@
 package algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +35,10 @@ public class TriviaMain extends AppCompatActivity {
     private EditText usernameEditText;
     protected Toolbar theToolbar;
 
+    private SharedPreferences sharedPreferences;
+
+    private static final String USERNAME_KEY= "USERNAME";
+
     /**
      * Called when the activity is starting.
      *
@@ -47,20 +52,28 @@ public class TriviaMain extends AppCompatActivity {
         setContentView(R.layout.trivia_user_details);
 
         theToolbar = findViewById(R.id.myToolbar);
-        setSupportActionBar(theToolbar); // adds your toolbar, onCreateOptionsMenu
+        setSupportActionBar(theToolbar);
 
         usernameEditText = findViewById(R.id.usernameEditText);
-        Button startTriviaButton = findViewById(R.id.startTriviaButton);
+        sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
 
+        // Retrieve the saved username
+        String savedUsername = sharedPreferences.getString(USERNAME_KEY, "");
+        usernameEditText.setText(savedUsername);
+
+        Button startTriviaButton = findViewById(R.id.startTriviaButton);
         startTriviaButton.setOnClickListener(v -> {
             String username = usernameEditText.getText().toString();
+
+            // Save the username when the button is clicked
+            sharedPreferences.edit().putString(USERNAME_KEY, username).apply();
 
             Intent intent = new Intent(TriviaMain.this, TriviaApplication.class);
             intent.putExtra("USERNAME", username);
             startActivity(intent);
         });
-        Button highScoresButton = findViewById(R.id.highScoresButton);
 
+        Button highScoresButton = findViewById(R.id.highScoresButton);
         highScoresButton.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, new HighScoresFragment())
                 .addToBackStack(null)
