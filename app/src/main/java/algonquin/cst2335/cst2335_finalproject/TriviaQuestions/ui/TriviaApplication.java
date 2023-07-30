@@ -1,3 +1,16 @@
+/**
+ * TriviaApplication.java
+ * <p>
+ * The TriviaApplication class extends AppCompatActivity and manages the game logic and UI interactions for the trivia application.
+ * It handles fetching the quiz questions from a remote API, displaying the questions and possible answers, keeping track of the player's score,
+ * and saving the score when the quiz ends.
+ * <p>
+ * The class communicates with the Room database through a ViewModel, HighScoresViewModel.
+ *
+ * @author Ahmed Almutawakel
+ * @version 1.0
+ * @since JDK 20
+ */
 package algonquin.cst2335.cst2335_finalproject.TriviaQuestions.ui;
 
 import android.graphics.Color;
@@ -11,10 +24,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.room.Room;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -34,25 +45,71 @@ import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.TriviaQuestio
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.UserScore;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.UserScoreDAO;
 
+/**
+ * The TriviaApplication class extends AppCompatActivity and manages the game logic and UI interactions for the trivia application.
+ */
 public class TriviaApplication extends AppCompatActivity {
 
+    /**
+     * The SQLite database
+     */
     private AppDatabase db;
+
+    /**
+     * Data Access Object for UserScore table
+     */
     private UserScoreDAO userScoreDao;
+
+    /**
+     * ViewModel for high scores
+     */
     private HighScoresViewModel highScoresViewModel;
 
-    private List<TriviaQuestion> quizQuestions = new ArrayList<>();
+    /**
+     * List of trivia questions fetched from the API
+     */
+    private final List<TriviaQuestion> quizQuestions = new ArrayList<>();
+
+    /**
+     * Index of the current question being displayed
+     */
     private int currentQuestionIndex = 0;
+
+    /**
+     * Current score of the player
+     */
     private int score = 0;
+
+    /**
+     * Button to proceed to the next question
+     */
     private Button nextButton;
-    private Button highScoresButton;
+
+    /**
+     * TextView to display the question
+     */
     private TextView questionTextView;
+
+    /**
+     * TextViews to display the possible answers
+     */
     private TextView answer1, answer2, answer3, answer4;
+
+    /**
+     * TextView for the currently selected answer
+     */
     private TextView selectedAnswer;
 
+    /**
+     * Username of the player
+     */
     private String userName;
 
-
-
+    /**
+     * Called when the activity is starting. This is where most initialization happens.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +120,7 @@ public class TriviaApplication extends AppCompatActivity {
         userName = getIntent().getStringExtra("USERNAME");
 
         nextButton = findViewById(R.id.nextButton);
-        highScoresButton = findViewById(R.id.highScoresButton);
+        Button highScoresButton = findViewById(R.id.highScoresButton);
         questionTextView = findViewById(R.id.questionTextView);
 
         answer1 = findViewById(R.id.answer1);
@@ -71,18 +128,15 @@ public class TriviaApplication extends AppCompatActivity {
         answer3 = findViewById(R.id.answer3);
         answer4 = findViewById(R.id.answer4);
 
-        View.OnClickListener answerClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // If an answer was previously selected, reset its color
-                if (selectedAnswer != null) {
-                    selectedAnswer.setTextColor(Color.BLACK);
-                }
-
-                // Mark the new selection and store it
-                ((TextView) v).setTextColor(Color.BLUE);
-                selectedAnswer = (TextView) v;
+        View.OnClickListener answerClickListener = v -> {
+            // If an answer was previously selected, reset its color
+            if (selectedAnswer != null) {
+                selectedAnswer.setTextColor(Color.BLACK);
             }
+
+            // Mark the new selection and store it
+            ((TextView) v).setTextColor(Color.BLUE);
+            selectedAnswer = (TextView) v;
         };
 
         answer1.setOnClickListener(answerClickListener);
@@ -92,118 +146,110 @@ public class TriviaApplication extends AppCompatActivity {
 
         nextButton.setEnabled(false); // disable at start
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (selectedAnswer != null) {
-                    TriviaQuestion currentQuestion = quizQuestions.get(currentQuestionIndex);
-                    String correctAnswer = currentQuestion.getCorrectAnswer();
-                    // Reset color for all TextViews
-                    answer1.setTextColor(Color.BLACK);
-                    answer2.setTextColor(Color.BLACK);
-                    answer3.setTextColor(Color.BLACK);
-                    answer4.setTextColor(Color.BLACK);
+        nextButton.setOnClickListener(v -> {
+            if (selectedAnswer != null) {
+                TriviaQuestion currentQuestion = quizQuestions.get(currentQuestionIndex);
+                String correctAnswer = currentQuestion.getCorrectAnswer();
+                // Reset color for all TextViews
+                answer1.setTextColor(Color.BLACK);
+                answer2.setTextColor(Color.BLACK);
+                answer3.setTextColor(Color.BLACK);
+                answer4.setTextColor(Color.BLACK);
 
-                    // If the selected answer is correct
-                    if (selectedAnswer.getText().toString().equals(correctAnswer)) {
-                        score++;
-                        selectedAnswer.setTextColor(Color.GREEN); // Change color of selected answer to green
-                    } else {
-                        // If the selected answer is incorrect
-                        selectedAnswer.setTextColor(Color.RED); // Change color of selected answer to red
-
-                        // Change color of correct answer to green
-                        if (answer1.getText().toString().equals(correctAnswer)) {
-                            answer1.setTextColor(Color.GREEN);
-                        } else if (answer2.getText().toString().equals(correctAnswer)) {
-                            answer2.setTextColor(Color.GREEN);
-                        } else if (answer3.getText().toString().equals(correctAnswer)) {
-                            answer3.setTextColor(Color.GREEN);
-                        } else if (answer4.getText().toString().equals(correctAnswer)) {
-                            answer4.setTextColor(Color.GREEN);
-                        }
-                    }
-
-                    // Delay moving to the next question
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            currentQuestionIndex++;
-                            if (currentQuestionIndex < quizQuestions.size()) {
-                                displayQuestion(quizQuestions.get(currentQuestionIndex));
-                            } else {
-                                onQuizEnd();
-                            }
-                        }
-                    }, 2000); // delay of 2 seconds
-
+                // If the selected answer is correct
+                if (selectedAnswer.getText().toString().equals(correctAnswer)) {
+                    score++;
+                    selectedAnswer.setTextColor(Color.GREEN); // Change color of selected answer to green
                 } else {
-                    Toast.makeText(TriviaApplication.this, "Please select an answer!", Toast.LENGTH_SHORT).show();
+                    // If the selected answer is incorrect
+                    selectedAnswer.setTextColor(Color.RED); // Change color of selected answer to red
+
+                    // Change color of correct answer to green
+                    if (answer1.getText().toString().equals(correctAnswer)) {
+                        answer1.setTextColor(Color.GREEN);
+                    } else if (answer2.getText().toString().equals(correctAnswer)) {
+                        answer2.setTextColor(Color.GREEN);
+                    } else if (answer3.getText().toString().equals(correctAnswer)) {
+                        answer3.setTextColor(Color.GREEN);
+                    } else if (answer4.getText().toString().equals(correctAnswer)) {
+                        answer4.setTextColor(Color.GREEN);
+                    }
                 }
+
+                // Delay moving to the next question
+                new Handler().postDelayed(() -> {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < quizQuestions.size()) {
+                        displayQuestion(quizQuestions.get(currentQuestionIndex));
+                    } else {
+                        onQuizEnd();
+                    }
+                }, 2000); // delay of 2 seconds
+
+            } else {
+                Toast.makeText(TriviaApplication.this, "Please select an answer!", Toast.LENGTH_SHORT).show();
             }
         });
 
 
-        highScoresButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainer, new HighScoresFragment())
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+        highScoresButton.setOnClickListener(v -> getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, new HighScoresFragment())
+                .addToBackStack(null)
+                .commit());
 
         fetchQuizQuestions();
     }
 
+    /**
+     * Fetches quiz questions from a remote API and parses the response into a list of TriviaQuestion objects.
+     */
     private void fetchQuizQuestions() {
         String url = "https://opentdb.com/api.php?amount=10&category=22&type=multiple";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, url, null, response -> {
+                    try {
+                        JSONArray resultsArray = response.getJSONArray("results");
+                        for (int i = 0; i < resultsArray.length(); i++) {
+                            JSONObject questionObject = resultsArray.getJSONObject(i);
+                            String question = Html.fromHtml(questionObject.getString("question")).toString();
+                            String correctAnswer = Html.fromHtml(questionObject.getString("correct_answer")).toString();
+                            JSONArray incorrectAnswersArray = questionObject.getJSONArray("incorrect_answers");
+                            List<String> answers = new ArrayList<>();
+                            List<TextView> answerViews = new ArrayList<>();
+                            answerViews.add(answer1);
+                            answerViews.add(answer2);
+                            answerViews.add(answer3);
+                            answerViews.add(answer4);
+                            Collections.shuffle(answerViews);
 
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray resultsArray = response.getJSONArray("results");
-                            for (int i = 0; i < resultsArray.length(); i++) {
-                                JSONObject questionObject = resultsArray.getJSONObject(i);
-                                String question = Html.fromHtml(questionObject.getString("question")).toString();
-                                String correctAnswer = Html.fromHtml(questionObject.getString("correct_answer")).toString();
-                                JSONArray incorrectAnswersArray = questionObject.getJSONArray("incorrect_answers");
-                                List<String> answers = new ArrayList<>();
-                                List<TextView> answerViews = new ArrayList<>();
-                                answerViews.add(answer1);
-                                answerViews.add(answer2);
-                                answerViews.add(answer3);
-                                answerViews.add(answer4);
-                                Collections.shuffle(answerViews);
-
-                                for (int j = 0; j < incorrectAnswersArray.length(); j++) {
-                                    TextView answerView = answerViews.get(j);
-                                    String answerText = Html.fromHtml(incorrectAnswersArray.getString(j)).toString();
-                                    answerView.setText(answerText);
-                                    answers.add(answerText);
-                                }
-
-                                TextView correctAnswerView = answerViews.get(incorrectAnswersArray.length());
-                                correctAnswerView.setText(correctAnswer);
-                                answers.add(correctAnswer);
-
-                                quizQuestions.add(new TriviaQuestion(question, answers, correctAnswer));
+                            for (int j = 0; j < incorrectAnswersArray.length(); j++) {
+                                TextView answerView = answerViews.get(j);
+                                String answerText = Html.fromHtml(incorrectAnswersArray.getString(j)).toString();
+                                answerView.setText(answerText);
+                                answers.add(answerText);
                             }
-                            displayQuestion(quizQuestions.get(0));
-                            nextButton.setEnabled(true); // enable once questions are loaded
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
 
+                            TextView correctAnswerView = answerViews.get(incorrectAnswersArray.length());
+                            correctAnswerView.setText(correctAnswer);
+                            answers.add(correctAnswer);
+
+                            quizQuestions.add(new TriviaQuestion(question, answers, correctAnswer));
+                        }
+                        displayQuestion(quizQuestions.get(0));
+                        nextButton.setEnabled(true); // enable once questions are loaded
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }, error -> Toast.makeText(TriviaApplication.this, "Error fetching quiz questions", Toast.LENGTH_LONG).show());
 
         Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
 
+    /**
+     * Displays the given trivia question and its possible answers.
+     *
+     * @param quizQuestion The TriviaQuestion to display.
+     */
     private void displayQuestion(TriviaQuestion quizQuestion) {
         questionTextView.setText(quizQuestion.getQuestion());
 
@@ -221,6 +267,9 @@ public class TriviaApplication extends AppCompatActivity {
     }
 
 
+    /**
+     * Saves the player's score when the quiz ends.
+     */
     private void onQuizEnd() {
         if (userName.isEmpty()) {
             Toast.makeText(TriviaApplication.this, "Please enter your username!", Toast.LENGTH_SHORT).show();
