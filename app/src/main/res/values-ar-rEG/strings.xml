@@ -14,4 +14,5 @@
     <string name="trivia_select_answer">الرجاء تحديد إجابة!</string>
     <string name="trivia_okay">تمام</string>
     <string name="trivia_score_saved">تم حفظ النتيجة!</string>
+    <string name="trivia_question_numbers">عدد الأسئلة</string>
 </resources>

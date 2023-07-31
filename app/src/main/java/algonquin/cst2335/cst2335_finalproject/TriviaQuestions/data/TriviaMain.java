@@ -37,7 +37,11 @@ public class TriviaMain extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
+    private EditText numberOfQuestionsEditText;
+
     private static final String USERNAME_KEY= "USERNAME";
+
+    private static final String NUMBER_OF_QUESTIONS_KEY = "NUMBER_OF_QUESTIONS";
 
     /**
      * Called when the activity is starting.
@@ -55,11 +59,16 @@ public class TriviaMain extends AppCompatActivity {
         setSupportActionBar(theToolbar);
 
         usernameEditText = findViewById(R.id.usernameEditText);
+        numberOfQuestionsEditText = findViewById(R.id.numberOfQuestionsEditText);
         sharedPreferences = getSharedPreferences("default", MODE_PRIVATE);
 
         // Retrieve the saved username
         String savedUsername = sharedPreferences.getString(USERNAME_KEY, "");
         usernameEditText.setText(savedUsername);
+
+        // Retrieve the saved number of questions
+        String savedNumberOfQuestions = sharedPreferences.getString(NUMBER_OF_QUESTIONS_KEY, "");
+        numberOfQuestionsEditText.setText(savedNumberOfQuestions);
 
         Button startTriviaButton = findViewById(R.id.startTriviaButton);
         startTriviaButton.setOnClickListener(v -> {
@@ -73,9 +82,21 @@ public class TriviaMain extends AppCompatActivity {
             // Save the username when the button is clicked
             sharedPreferences.edit().putString(USERNAME_KEY, username).apply();
 
-            Intent intent = new Intent(TriviaMain.this, TriviaApplication.class);
+            // Save the number of questions when the button is clicked
+            sharedPreferences.edit().putString(NUMBER_OF_QUESTIONS_KEY, numberOfQuestionsEditText.getText().toString()).apply();
+
+            int numberOfQuestions = Integer.parseInt(numberOfQuestionsEditText.getText().toString());
+
+            if (numberOfQuestions < 1 || numberOfQuestions > 50) {
+                Toast.makeText(this, "Please enter a number between 1 and 50", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Intent intent = new Intent(this, TriviaApplication.class);
             intent.putExtra("USERNAME", username);
+            intent.putExtra("NUMBER_OF_QUESTIONS", numberOfQuestions);
             startActivity(intent);
+
         });
 
     }
