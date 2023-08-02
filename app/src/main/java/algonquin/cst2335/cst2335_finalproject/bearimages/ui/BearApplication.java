@@ -35,6 +35,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -142,6 +143,8 @@ public class BearApplication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityBearImageListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Bear Image Generator");
         setSupportActionBar(binding.toolbar);
 
         // Setting up instances
@@ -181,19 +184,23 @@ public class BearApplication extends AppCompatActivity {
         int height;
         int width;
 
-        if (checkIfInputValid()) {
-            height = Integer.parseInt(binding.HeightNewTextArea.getText().toString());
-            width = Integer.parseInt(binding.WidthNewTextArea.getText().toString());
-
-            // Save input to Shared Preferences
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt("bearHeight", height);
-            editor.putInt("bearWidth", width);
-            editor.apply();
-
-            request = generateImageRequest(height, width);
-            queue.add(request);
+        if (!checkIfInputValid()) {
+            generateToast("Height and Width must be between 1-500.").show();
+            return;
         }
+
+        height = Integer.parseInt(binding.HeightNewTextArea.getText().toString());
+        width = Integer.parseInt(binding.WidthNewTextArea.getText().toString());
+
+        // Save input to Shared Preferences
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("bearHeight", height);
+        editor.putInt("bearWidth", width);
+        editor.apply();
+
+        request = generateImageRequest(height, width);
+        queue.add(request);
+
     }
 
     /**
@@ -270,21 +277,13 @@ public class BearApplication extends AppCompatActivity {
      * @return True if the input is valid; false otherwise.
      */
     private boolean checkIfInputValid() {
-        boolean valid = false;
-
         String heightText = binding.HeightNewTextArea.getText().toString().trim();
         String widthText = binding.WidthNewTextArea.getText().toString().trim();
+        if (heightText.isEmpty() || widthText.isEmpty()) return false;
 
-        if (!heightText.isEmpty() && !widthText.isEmpty()) {
-            int height = Integer.parseInt(heightText);
-            int width = Integer.parseInt(widthText);
-
-            if (height <= 500 && width <= 500 && height > 0 && width > 0) {
-                valid = true;
-            }
-        }
-
-        return valid;
+        int height = Integer.parseInt(heightText);
+        int width = Integer.parseInt(widthText);
+        return (height <= 500 && height > 0) && (width <= 500 && width > 0);
     }
 
     /**

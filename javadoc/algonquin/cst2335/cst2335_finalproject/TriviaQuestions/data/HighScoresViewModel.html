@@ -95,6 +95,8 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">HighScoresViewModel</span>
 <span class="extends-implements">extends androidx.lifecycle.AndroidViewModel</span></div>
+<div class="block">The HighScoresViewModel class is an AndroidViewModel that acts as an interface between the
+ HighScoresFragment and the data layer of the app, represented by the UserScoreDAO and AppDatabase.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -107,7 +109,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(android.app.Application)" class="member-name-link">HighScoresViewModel</a><wbr>(android.app.Application&nbsp;application)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Creates a new instance of the HighScoresViewModel.</div>
+</div>
 </div>
 </section>
 </li>
@@ -124,13 +128,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deleteUserScore(algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.UserScore)" class="member-name-link">deleteUserScore</a><wbr>(<a href="UserScore.html" title="class in algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data">UserScore</a>&nbsp;userScore)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Deletes a UserScore object from the local database.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>androidx.lifecycle.LiveData&lt;<a href="https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="UserScore.html" title="class in algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data">UserScore</a>&gt;&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getHighScores()" class="member-name-link">getHighScores</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns a LiveData object containing a list of UserScore objects.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#insertUserScore(algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.UserScore)" class="member-name-link">insertUserScore</a><wbr>(<a href="UserScore.html" title="class in algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data">UserScore</a>&nbsp;userScore)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Inserts a UserScore object into the local database.</div>
+</div>
 </div>
 </div>
 </div>
@@ -158,6 +168,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;(android.app.Application)">
 <h3>HighScoresViewModel</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">HighScoresViewModel</span><wbr><span class="parameters">(android.app.Application&nbsp;application)</span></div>
+<div class="block">Creates a new instance of the HighScoresViewModel.
+ It initializes the local database instance, the data access object, and the LiveData object.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>application</code> - The application context. AndroidViewModel holds a strong reference to the application.</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -172,18 +188,36 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getHighScores()">
 <h3>getHighScores</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">androidx.lifecycle.LiveData&lt;<a href="https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="UserScore.html" title="class in algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data">UserScore</a>&gt;&gt;</span>&nbsp;<span class="element-name">getHighScores</span>()</div>
+<div class="block">Returns a LiveData object containing a list of UserScore objects.
+ The returned LiveData object is observed by the HighScoresFragment to update the UI.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>a LiveData object containing a list of UserScore objects.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="insertUserScore(algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.UserScore)">
 <h3>insertUserScore</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">insertUserScore</span><wbr><span class="parameters">(<a href="UserScore.html" title="class in algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data">UserScore</a>&nbsp;userScore)</span></div>
+<div class="block">Inserts a UserScore object into the local database.
+ The operation is performed on a new thread.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>userScore</code> - The UserScore object to be inserted into the database.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="deleteUserScore(algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.UserScore)">
 <h3>deleteUserScore</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">deleteUserScore</span><wbr><span class="parameters">(<a href="UserScore.html" title="class in algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data">UserScore</a>&nbsp;userScore)</span></div>
+<div class="block">Deletes a UserScore object from the local database.
+ The operation is performed on a new thread.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>userScore</code> - The UserScore object to be deleted from the database.</dd>
+</dl>
 </section>
 </li>
 </ul>

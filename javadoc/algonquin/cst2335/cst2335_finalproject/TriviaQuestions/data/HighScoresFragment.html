@@ -97,6 +97,9 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">HighScoresFragment</span>
 <span class="extends-implements">extends androidx.fragment.app.Fragment</span></div>
+<div class="block">The HighScoresFragment class is a Fragment that displays a list of high scores
+ from the local database in a ListView. This class also provides an option
+ to delete high scores from the ListView and the database.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -137,11 +140,16 @@ loadScripts(document, 'script');</script>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)" class="member-name-link">onCreateView</a><wbr>(android.view.LayoutInflater&nbsp;inflater,
  android.view.ViewGroup&nbsp;container,
  android.os.Bundle&nbsp;savedInstanceState)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Called to have the fragment create its user interface view.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#onViewCreated(android.view.View,android.os.Bundle)" class="member-name-link">onViewCreated</a><wbr>(android.view.View&nbsp;view,
  android.os.Bundle&nbsp;savedInstanceState)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Called immediately after onCreateView has returned, but before any saved state
+ has been restored in to the view.</div>
+</div>
 </div>
 </div>
 </div>
@@ -185,20 +193,37 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">android.view.View</span>&nbsp;<span class="element-name">onCreateView</span><wbr><span class="parameters">(android.view.LayoutInflater&nbsp;inflater,
  android.view.ViewGroup&nbsp;container,
  android.os.Bundle&nbsp;savedInstanceState)</span></div>
+<div class="block">Called to have the fragment create its user interface view.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code>onCreateView</code>&nbsp;in class&nbsp;<code>androidx.fragment.app.Fragment</code></dd>
+<dt>Parameters:</dt>
+<dd><code>inflater</code> - The LayoutInflater object that can be used to inflate
+                           any views in the fragment.</dd>
+<dd><code>container</code> - If non-null, this is the parent view that the fragment's
+                           UI should be attached to.</dd>
+<dd><code>savedInstanceState</code> - If non-null, this fragment is being re-constructed
+                           from a previous saved state.</dd>
+<dt>Returns:</dt>
+<dd>Return the View for the fragment's UI, or null.</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="onViewCreated(android.view.View,android.os.Bundle)">
 <h3>onViewCreated</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">onViewCreated</span><wbr><span class="parameters">(android.view.View&nbsp;view,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">onViewCreated</span><wbr><span class="parameters">(@NonNull
+ android.view.View&nbsp;view,
  android.os.Bundle&nbsp;savedInstanceState)</span></div>
+<div class="block">Called immediately after onCreateView has returned, but before any saved state
+ has been restored in to the view. This gives subclasses a chance to initialize
+ themselves once they know their view hierarchy has been completely created.</div>
 <dl class="notes">
 <dt>Overrides:</dt>
 <dd><code>onViewCreated</code>&nbsp;in class&nbsp;<code>androidx.fragment.app.Fragment</code></dd>
+<dt>Parameters:</dt>
+<dd><code>view</code> - The View returned by onCreateView.</dd>
+<dd><code>savedInstanceState</code> - If non-null, this fragment is being re-constructed.</dd>
 </dl>
 </section>
 </li>

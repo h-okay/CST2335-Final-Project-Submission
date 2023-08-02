@@ -56,6 +56,7 @@ public class TriviaMain extends AppCompatActivity {
         setContentView(R.layout.trivia_user_details);
 
         theToolbar = findViewById(R.id.myToolbar);
+        theToolbar.setTitle("Trivia");
         setSupportActionBar(theToolbar);
 
         usernameEditText = findViewById(R.id.usernameEditText);

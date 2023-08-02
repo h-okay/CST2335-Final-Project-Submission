@@ -93,6 +93,21 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">AppDatabase</span>
 <span class="extends-implements">extends androidx.room.RoomDatabase</span></div>
+<div class="block">This class serves as the main access point for the underlying SQLite database.
+ It uses the Room library to provide a clean abstraction over SQLite and handle object mapping.
+
+ This class is annotated as a Room database and includes entities and its version.
+ It also extends the RoomDatabase class to be a part of Room persistence library.</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd>
+<ul class="tag-list">
+<li><code>RoomDatabase</code></li>
+<li><code>Dao</code></li>
+<li><a href="UserScore.html" title="class in algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data"><code>UserScore</code></a></li>
+</ul>
+</dd>
+</dl>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -140,10 +155,15 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="AppDatabase.html" title="class in algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data">AppDatabase</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getInstance(android.app.Application)" class="member-name-link">getInstance</a><wbr>(android.app.Application&nbsp;application)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">A singleton design pattern is used to ensure that only one instance of the database
+ is created across the entire application's lifecycle.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>abstract <a href="UserScoreDAO.html" title="interface in algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data">UserScoreDAO</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#userScoreDao()" class="member-name-link">userScoreDao</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Each DAO is accessed via an abstract getter method in the RoomDatabase.</div>
+</div>
 </div>
 </div>
 </div>
@@ -182,12 +202,28 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="userScoreDao()">
 <h3>userScoreDao</h3>
 <div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type"><a href="UserScoreDAO.html" title="interface in algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data">UserScoreDAO</a></span>&nbsp;<span class="element-name">userScoreDao</span>()</div>
+<div class="block">Each DAO is accessed via an abstract getter method in the RoomDatabase.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the DAO for the UserScore entities.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getInstance(android.app.Application)">
 <h3>getInstance</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="AppDatabase.html" title="class in algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data">AppDatabase</a></span>&nbsp;<span class="element-name">getInstance</span><wbr><span class="parameters">(android.app.Application&nbsp;application)</span></div>
+<div class="block">A singleton design pattern is used to ensure that only one instance of the database
+ is created across the entire application's lifecycle.
+
+ This method returns the singleton instance of the database. If the database doesn't
+ exist yet, it builds a new one.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>application</code> - The Application instance associated with this process.</dd>
+<dt>Returns:</dt>
+<dd>the singleton instance of AppDatabase</dd>
+</dl>
 </section>
 </li>
 </ul>

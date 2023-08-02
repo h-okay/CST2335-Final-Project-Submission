@@ -35,6 +35,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import algonquin.cst2335.cst2335_finalproject.CurrencyConverter.ConversionMain;
 import algonquin.cst2335.cst2335_finalproject.TriviaQuestions.data.TriviaMain;
@@ -78,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("CST 2335");
         setSupportActionBar(binding.toolbar);
 
         prefs = getSharedPreferences("BearAppData", Context.MODE_PRIVATE);
