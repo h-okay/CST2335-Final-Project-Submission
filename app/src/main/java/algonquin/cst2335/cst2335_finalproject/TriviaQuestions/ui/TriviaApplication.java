@@ -132,6 +132,7 @@ public class TriviaApplication extends AppCompatActivity {
         setContentView(R.layout.activity_trivia_main);
 
         theToolbar = findViewById(R.id.myToolbar);
+        theToolbar.setTitle("Trivia");
         setSupportActionBar(theToolbar);
         numberOfQuestions = getIntent().getIntExtra("NUMBER_OF_QUESTIONS", 10); // default to 10 if not provided
 
