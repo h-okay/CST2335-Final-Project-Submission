@@ -121,6 +121,8 @@ public class TriviaApplication extends AppCompatActivity {
      */
     private int numberOfQuestions;
 
+    private int categoryId;
+
     /**
      * Called when the activity is starting. This is where most initialization happens.
      *
@@ -135,6 +137,7 @@ public class TriviaApplication extends AppCompatActivity {
         theToolbar.setTitle("Trivia");
         setSupportActionBar(theToolbar);
         numberOfQuestions = getIntent().getIntExtra("NUMBER_OF_QUESTIONS", 10); // default to 10 if not provided
+        categoryId = getIntent().getIntExtra("CATEGORY_ID", 0);
 
         highScoresViewModel = new ViewModelProvider(this).get(HighScoresViewModel.class);
 
@@ -219,7 +222,7 @@ public class TriviaApplication extends AppCompatActivity {
      * Fetches quiz questions from a remote API and parses the response into a list of TriviaQuestion objects.
      */
     private void fetchQuizQuestions() {
-        String url = "https://opentdb.com/api.php?amount=" + numberOfQuestions + "&category=22&type=multiple";
+        String url = "https://opentdb.com/api.php?amount=" + numberOfQuestions + "&category=" + categoryId + "&type=multiple";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, response -> {
                     try {

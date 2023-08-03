@@ -33,6 +33,7 @@
         android:hint="@string/trivia_username"
         android:inputType="textPersonName" />
 
+
     <EditText
         android:id="@+id/numberOfQuestionsEditText"
         android:layout_width="match_parent"
@@ -41,54 +42,57 @@
         android:layout_below="@+id/usernameEditText"
         android:inputType="number" />
 
-    <LinearLayout
+    <RadioGroup
+        android:id="@+id/categoryRadioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/numberOfQuestionsEditText"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/geographyButton"
-            android:layout_width="0dp"
-            android:layout_weight="1.2"
+        <RadioButton
+            android:id="@+id/radioButtonGeography"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Geography" />
+            android:text="Geography"/>
 
-        <Button
-            android:id="@+id/historyButton"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <RadioButton
+            android:id="@+id/radioButtonHistory"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="History" />
+            android:text="History"/>
 
-        <Button
-            android:id="@+id/sportsButton"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <RadioButton
+            android:id="@+id/radioButtonSport"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sports" />
+            android:text="Sport"/>
 
-        <Button
-            android:id="@+id/artButton"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <RadioButton
+            android:id="@+id/radioButtonArt"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Art" />
-    </LinearLayout>
+            android:text="Art"/>
+    </RadioGroup>
+
 
     <Button
         android:id="@+id/startTriviaButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/geographyButton"
+        android:layout_below="@+id/categoryRadioGroup"
         android:background="@color/trivia_my_primary"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:text="@string/trivia_start" />
+
 
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/startTriviaButton"/>
+
+
+
 </RelativeLayout>
