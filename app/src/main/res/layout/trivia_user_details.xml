@@ -42,11 +42,45 @@
         android:layout_below="@+id/usernameEditText"
         android:inputType="number" />
 
+    <RadioGroup
+        android:id="@+id/categoryRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/numberOfQuestionsEditText"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonGeography"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trivia_category_geography"/>
+
+        <RadioButton
+            android:id="@+id/radioButtonHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trivia_category_history"/>
+
+        <RadioButton
+            android:id="@+id/radioButtonSport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trivia_category_sport"/>
+
+        <RadioButton
+            android:id="@+id/radioButtonArt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trivia_category_art"/>
+    </RadioGroup>
+
+
     <Button
         android:id="@+id/startTriviaButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/numberOfQuestionsEditText"
+        android:layout_below="@+id/categoryRadioGroup"
         android:background="@color/trivia_my_primary"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"

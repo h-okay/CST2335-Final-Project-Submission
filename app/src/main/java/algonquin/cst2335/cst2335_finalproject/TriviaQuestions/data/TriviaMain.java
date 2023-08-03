@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -93,12 +94,32 @@ public class TriviaMain extends AppCompatActivity {
                 return;
             }
 
+            // Initialize the RadioGroup
+            RadioGroup categoryRadioGroup = findViewById(R.id.categoryRadioGroup);
+
+            // Set a default category
+            int categoryId = 22; // Let's assume 22 corresponds to Geography
+
+            // Check which radio button is selected
+            int selectedId = categoryRadioGroup.getCheckedRadioButtonId();
+
+            // Set the category id based on the selected radio button
+            if (selectedId == R.id.radioButtonHistory) {
+                categoryId = 23;
+            } else if (selectedId == R.id.radioButtonSport) {
+                categoryId = 21;
+            } else if (selectedId == R.id.radioButtonArt) {
+                categoryId = 25;
+            }
+
             Intent intent = new Intent(this, TriviaApplication.class);
             intent.putExtra("USERNAME", username);
+            intent.putExtra("CATEGORY_ID", categoryId);  // Add the category ID
             intent.putExtra("NUMBER_OF_QUESTIONS", numberOfQuestions);
             startActivity(intent);
 
         });
+
 
     }
 

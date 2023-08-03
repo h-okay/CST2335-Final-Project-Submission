@@ -15,4 +15,8 @@
     <string name="trivia_okay">تمام</string>
     <string name="trivia_score_saved">تم حفظ النتيجة!</string>
     <string name="trivia_question_numbers">عدد الأسئلة</string>
+    <string name="trivia_category_geography">جغرافية</string>
+    <string name="trivia_category_history">تاريخ</string>
+    <string name="trivia_category_sport">رياضة</string>
+    <string name="trivia_category_art">فن</string>
 </resources>
